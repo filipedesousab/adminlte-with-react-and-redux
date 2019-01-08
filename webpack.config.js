@@ -6,7 +6,7 @@ module.exports = {
   entry: path.join(__dirname, 'src','index.jsx'), // Arquivo inicial de entrada, a partir daqui toda a aplicação é carregada
   output: {
     path: path.join(__dirname, 'public'), // Pasta de saída do arquivo do webpack
-    filename: path.join(__dirname, 'bundle.js'), // Nome do arquivo criado pelo webpack
+    filename: 'bundle.js', // Nome do arquivo criado pelo webpack
   },
   devServer: {
     disableHostCheck: true,
@@ -19,7 +19,7 @@ module.exports = {
     alias: {
       modules: path.join(__dirname, 'node_modules'),
       common: path.join(__dirname, 'src', 'common'),
-      jquery: path.join(__dirname, 'modules', 'admin-lte', 'bower_components', 'jquery', 'dist', 'jquery.min.js'), // Lugar onde onde o jQuery está intelado no admin-lte
+      jquery: path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.min.js'), // Lugar onde onde o jQuery está intelado no admin-lte
       bootstrap: path.join(__dirname, 'modules', 'admin-lte', 'bootstrap', 'js', 'bootstrap.js'), // Lugar onde onde o bootstrap está intelado no admin-lte
     },
   },
