@@ -1,7 +1,7 @@
 import React from 'react';
 import './common/dependencies';
 
-// import Routes from './routes';
+import Routes from './routes';
 import { Navbar, Sidebar, Content } from './common/ui-layout';
 
 export default () => (
@@ -9,7 +9,7 @@ export default () => (
     <Navbar />
     <Sidebar />
     <div className="content-wrapper">
-      {/*<Routes />*/}
+      <Routes />
     </div>
     {/*<Footer />*/}
   </div>
