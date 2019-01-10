@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Breadcrumb from './containers/Breadcrumb';
+import Alerts from './containers/Alerts';
 
 class Content extends Component {
   componentWillMount() {
@@ -20,6 +21,7 @@ class Content extends Component {
   render() {
     return (
       <div>
+        <Alerts />
         <div className="content-header">
           <h1>{this.props.contentTitle}
             {this.props.contentSubtitle ? <small>{this.props.subtitle}</small> : false}
