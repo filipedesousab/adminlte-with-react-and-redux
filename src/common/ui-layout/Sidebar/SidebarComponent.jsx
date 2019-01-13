@@ -1,11 +1,14 @@
 import React from 'react';
 
-import Menu from './Containers/Menu';
+import Menu from './containers/Menu';
 
-export default () => (
+/** [Sidebar, UIL002] Menu esquerdo da aplicação */
+const SidebarComponent = () => (
   <aside className="main-sidebar">
     <section className="sidebar">
       <Menu />
     </section>
   </aside>
 );
+
+export default SidebarComponent;

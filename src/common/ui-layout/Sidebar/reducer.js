@@ -3,7 +3,7 @@ const INITIAL_STATE = {
     {
       href: '#',
       label: 'Home',
-      icon: 'dashboard',
+      icon: 'fa fa-home',
     },
   ],
 };

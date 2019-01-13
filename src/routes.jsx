@@ -3,9 +3,12 @@ import { Router, Route, Redirect, hashHistory } from 'react-router';
 
 import Home from './Home';
 
-export default props => (
+/** @type {function} Constroe as rodas das páginas da aplicação */
+const Routes = () => (
   <Router history={hashHistory}>
     <Route path="/" component={Home} />
     <Redirect from="*" to="/" />
   </Router>
 );
+
+export default Routes;

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Content, Box } from '../common/ui-layout';
 
-const Home = () => (
+/** @type {function} Página inicial da aplicação */
+const HomeComponent = () => (
   <Content title="Home" subtitle="Subtitulo" breadcrumb={[{ label: 'Home', href: '#' }]}>
     <Box title="Teste" color="danger">
     Página inicial
@@ -10,4 +11,4 @@ const Home = () => (
   </Content>
 );
 
-export default Home;
+export default HomeComponent;

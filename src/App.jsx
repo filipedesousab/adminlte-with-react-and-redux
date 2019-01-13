@@ -2,15 +2,19 @@ import React from 'react';
 import './common/dependencies';
 
 import Routes from './routes';
-import { Navbar, Sidebar, Content } from './common/ui-layout';
+import { Navbar, Sidebar } from './common/ui-layout';
 
-export default () => (
+/** @type {function} Inicia os componentes visuais da aplicação */
+const App = () => (
   <div className="wrapper">
     <Navbar />
     <Sidebar />
     <div className="content-wrapper">
+      {/* Instancia as páginas da aplicação a partir de rotas */}
       <Routes />
     </div>
     {/*<Footer />*/}
   </div>
 );
+
+export default App;

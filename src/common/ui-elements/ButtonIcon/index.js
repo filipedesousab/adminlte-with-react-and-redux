@@ -1,1 +1,1 @@
-export { default as default } from './ButtonIconComponent';
+export { default } from './ButtonIconComponent';

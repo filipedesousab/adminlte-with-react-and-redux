@@ -1,1 +1,1 @@
-export { default as default } from './BoxContainer';
+export { default } from './BoxComponent';

@@ -1,6 +1,13 @@
 import React from 'react';
 
-export default (props) => {
+/**
+ * [Box, UIL006] Componente para separar conteúdos na página.
+ * @param {object} props.title    Título do box [Label, UIE002]
+ * @param {string} props.color    Cor do box primary, info, success, warning, danger ou muted
+ * @param {object} props.children Corpo do box
+ * @param {string} props.footer   Rodapé do box
+ */
+const BoxComponent = (props) => {
   let color = 'box-primary';
 
   if (props.color) {
@@ -27,5 +34,7 @@ export default (props) => {
         </div>
       : false}
     </div>
-  )
+  );
 };
+
+export default BoxComponent;

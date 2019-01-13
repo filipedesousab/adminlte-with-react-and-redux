@@ -1,15 +1,20 @@
 import React from 'react';
-import genHash from 'random-hash';
+// import genHash from 'random-hash';
+// Aguardando o componente Alert ser construído
+// import Alert from '../../../ui-elements/Alert';
 
-const Alerts = props => (
+/**
+ * Grupo de Alerts que aparecem acima do título da página.
+ * @param {array} props.alerts Array com dados dos Alert [{ title: '', body: '', color: '' }]
+ */
+const AlertsComponent = props => (
   <div className="alerts" style={{ padding: '15px 15px 0px 15px' }}>
-    {props.alerts.map(alert => {
-      /*<Alert title={alert.title} color={alert.color || 'info'} key={genHash()}>
+    {/* props.alerts.map((alert) => {
+      return (<Alert title={alert.title} color={alert.color || 'info'} key={genHash()}>
         {alert.body}
-      </Alert>*/
-      return false;
-    })}
+      </Alert>)
+    }) */}
   </div>
 );
 
-export default Alerts;
+export default AlertsComponent;

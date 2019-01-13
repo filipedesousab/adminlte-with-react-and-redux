@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Navbar = () => (
+/** [Navbar, UIL001] Navbar da aplicação */
+const NavbarComponent = () => (
   <header className="main-header">
     <a href="/#/" className="logo">
       <span
@@ -15,9 +16,9 @@ const Navbar = () => (
       </span>
     </a>
     <nav className="navbar navbar-static-top">
-      <a href="#" className="sidebar-toggle" data-toggle="push-menu"></a>
+      <a href="#" className="sidebar-toggle" data-toggle="push-menu" />
     </nav>
   </header>
 );
 
-export default Navbar;
+export default NavbarComponent;

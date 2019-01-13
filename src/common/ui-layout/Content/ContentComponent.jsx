@@ -3,7 +3,17 @@ import React, { Component } from 'react';
 import Breadcrumb from './containers/Breadcrumb';
 import Alerts from './containers/Alerts';
 
-class Content extends Component {
+/**
+ * [Content, UIL003] Recebe o conteúdo da página
+ * @param {object} props.title      Título da página [Label, UIE002]
+ * @param {object} props.subtitle   Subtitulo da página [Label, UIE002]
+ * @param  {array} props.breadcrumb Breadcrumb da página [{ label: ‘’, path: ‘’ }]
+ * @param {object} props.children   Conteúdo da página
+ * @param {object} props.footer     Rodapé da página
+ */
+class ContentComponent extends Component {
+
+  /** Executado pelo react antes de montar o componente */
   componentWillMount() {
     if (this.props.title) {
       this.props.changeTitle(this.props.title);
@@ -39,4 +49,4 @@ class Content extends Component {
   }
 }
 
-export default Content;
+export default ContentComponent;

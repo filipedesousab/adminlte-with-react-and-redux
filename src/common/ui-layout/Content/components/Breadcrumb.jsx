@@ -1,9 +1,15 @@
 import React from 'react';
 import genHash from 'random-hash';
 
-export default props => (
+import Icon from '../../../ui-elements/Icon';
+
+/**
+ * Breadcrumb aparece no lado direito da página, ajuda o usuário se localizar no sistema.
+ * @param {array} props.breadcrumb Array do breadcrumb da página [{ label: ‘’, path: ‘’ }]
+ */
+const BreadcrumbComponent = props => (
   <ol className="breadcrumb">
-    <li><i className="fa fa-dashboard"></i></li>
+    <li><Icon name="fa fa-dashboard" /></li>
     {props.breadcrumb.map(item => (
       <li key={genHash()}>
         <a href={item.href ? item.href : '#'}>{item.label}</a>
@@ -11,3 +17,5 @@ export default props => (
     ))}
   </ol>
 );
+
+export default BreadcrumbComponent;
