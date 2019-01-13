@@ -2,13 +2,14 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 const ButtonComponent = (props) => {
-  const color = props.color || false;
-  const size = props.size || false;
-  const href = props.href || false;
-  const type = props.type || false;
+  const color = props.color || null;
+  const size = props.size || null;
+  const href = props.href || null;
+  const type = props.type || null;
   const disabled = props.disabled || false;
-  const className = props.className || false;
-  const onClick = typeof props.onClick === 'function' ? props.onClick : false;
+  const block = props.block || false;
+  const className = props.className || null;
+  const onClick = typeof props.onClick === 'function' ? props.onClick : null;
 
   return (
     <Button
@@ -17,6 +18,7 @@ const ButtonComponent = (props) => {
       href={href}
       type={type}
       disabled={disabled}
+      block={block}
       className={className}
       onClick={onClick}
     >
