@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "moment": "2.22.0",
+    "prop-types": "15.6.2",
     "random-hash": "^4.0.1",
     "react": "16.2.0",
     "react-bootstrap": "0.32.1",
