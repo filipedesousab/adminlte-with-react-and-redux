@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from '../Icon';
+
 /**
  * [Label, UIE002] Label geral da aplicação.
  * @param  {string} props.color     Cor em rgb ou exadecimal
@@ -11,32 +13,31 @@ import PropTypes from 'prop-types';
  * @param  {string} props.className Class html opcional no componente
  */
 const LabelComponent = (props) => {
-  const { color, className } = props;
-
   if (props.noSpan) {
     return props.children;
   } else if (props.form) {
     return (
-      <label className={`control-label ${className}`} htmlFor={props.htmlFor} style={{ color }}>
-        {props.children}
+      <label className={`control-label ${props.className}`} htmlFor={props.htmlFor} style={{ color: props.color }}>
+        <Icon name={props.icon} /> {props.children}
       </label>
     );
   }
 
   return (
-    <span className={className} style={{ color }}>
-      {props.children}
+    <span className={props.className} style={{ color: props.color }}>
+      <Icon name={props.icon} /> {props.children}
     </span>
   );
 };
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 LabelComponent.defaultProps = {
-  color: '',
+  color: null,
   noSpan: false,
   form: false,
   htmlFor: null,
-  className: '',
+  className: null,
+  icon: null,
   children: null,
 };
 
@@ -47,6 +48,7 @@ LabelComponent.propTypes = {
   form: PropTypes.bool,
   htmlFor: PropTypes.string,
   className: PropTypes.string,
+  icon: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
