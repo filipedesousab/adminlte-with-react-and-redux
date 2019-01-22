@@ -50,14 +50,8 @@ BoxComponent.defaultProps = {
 BoxComponent.propTypes = {
   color: PropTypes.string,
   title: PropTypes.element,
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-  footer: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  children: PropTypes.node,
+  footer: PropTypes.node,
 };
 
 export default BoxComponent;

@@ -67,14 +67,8 @@ ContentComponent.propTypes = {
   subtitle: PropTypes.element,
   contentSubtitle: PropTypes.element,
   breadcrumb: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-  footer: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  children: PropTypes.node,
+  footer: PropTypes.node,
   changeTitle: PropTypes.func.isRequired,
   changeSubtitle: PropTypes.func.isRequired,
   changeBreadcrumb: PropTypes.func.isRequired,
