@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Breadcrumb from './containers/Breadcrumb';
 import Alerts from './containers/Alerts';
@@ -12,7 +13,6 @@ import Alerts from './containers/Alerts';
  * @param {object} props.footer     Rodapé da página
  */
 class ContentComponent extends Component {
-
   /** Executado pelo react antes de montar o componente */
   componentWillMount() {
     if (this.props.title) {
@@ -48,5 +48,37 @@ class ContentComponent extends Component {
     );
   }
 }
+
+/** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
+ContentComponent.defaultProps = {
+  title: null,
+  contentTitle: null,
+  subtitle: null,
+  contentSubtitle: null,
+  breadcrumb: [],
+  children: null,
+  footer: null,
+};
+
+/** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
+ContentComponent.propTypes = {
+  title: PropTypes.element,
+  contentTitle: PropTypes.element,
+  subtitle: PropTypes.element,
+  contentSubtitle: PropTypes.element,
+  breadcrumb: PropTypes.arrayOf(PropTypes.object),
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  footer: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  changeTitle: PropTypes.func.isRequired,
+  changeSubtitle: PropTypes.func.isRequired,
+  changeBreadcrumb: PropTypes.func.isRequired,
+};
+
 
 export default ContentComponent;

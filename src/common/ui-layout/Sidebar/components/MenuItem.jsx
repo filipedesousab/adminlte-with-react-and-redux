@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Icon from '../../../ui-elements/Icon';
 import Label from '../../../ui-elements/Label';
@@ -16,5 +17,19 @@ const MenuItem = props => (
     </a>
   </li>
 );
+
+/** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
+MenuItem.defaultProps = {
+  href: '#',
+  icon: '',
+};
+
+/** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
+MenuItem.propTypes = {
+  href: PropTypes.string,
+  icon: PropTypes.string,
+  label: PropTypes.string.isRequired,
+};
+
 
 export default MenuItem;

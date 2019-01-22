@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import genHash from 'random-hash';
 
 import MenuItem from './MenuItem';
@@ -29,5 +30,16 @@ const MenuComponent = props => (
     })}
   </ul>
 );
+
+/** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
+MenuComponent.defaultProps = {
+  items: [],
+};
+
+/** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
+MenuComponent.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object),
+};
+
 
 export default MenuComponent;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import genHash from 'random-hash';
 // Aguardando o componente Alert ser construído
 // import Alert from '../../../ui-elements/Alert';
@@ -16,5 +17,15 @@ const AlertsComponent = props => (
     }) */}
   </div>
 );
+
+/** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
+AlertsComponent.defaultProps = {
+  alerts: [],
+};
+
+/** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
+AlertsComponent.propTypes = {
+  alerts: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default AlertsComponent;

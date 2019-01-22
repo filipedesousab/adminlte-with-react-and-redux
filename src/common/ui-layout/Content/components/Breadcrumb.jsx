@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import genHash from 'random-hash';
 
 import Icon from '../../../ui-elements/Icon';
@@ -17,5 +18,15 @@ const BreadcrumbComponent = props => (
     ))}
   </ol>
 );
+
+/** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
+BreadcrumbComponent.defaultProps = {
+  breadcrumb: [],
+};
+
+/** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
+BreadcrumbComponent.propTypes = {
+  breadcrumb: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default BreadcrumbComponent;

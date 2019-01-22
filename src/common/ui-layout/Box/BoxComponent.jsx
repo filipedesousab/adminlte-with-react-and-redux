@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * [Box, UIL006] Componente para separar conteúdos na página.
  * @param {object} props.title    Título do box [Label, UIE002]
  * @param {string} props.color    Cor do box primary, info, success, warning, danger ou muted
  * @param {object} props.children Corpo do box
- * @param {string} props.footer   Rodapé do box
+ * @param {object} props.footer   Rodapé do box
  */
 const BoxComponent = (props) => {
   let color = 'box-primary';
@@ -35,6 +36,28 @@ const BoxComponent = (props) => {
       : false}
     </div>
   );
+};
+
+/** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
+BoxComponent.defaultProps = {
+  color: null,
+  title: null,
+  children: null,
+  footer: null,
+};
+
+/** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
+BoxComponent.propTypes = {
+  color: PropTypes.string,
+  title: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  footer: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
 };
 
 export default BoxComponent;

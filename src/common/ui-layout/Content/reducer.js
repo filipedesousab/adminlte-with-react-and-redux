@@ -6,8 +6,8 @@ import {
 } from './types';
 
 const INITIAL_STATE = {
-  title: '',
-  subtitle: '',
+  title: null,
+  subtitle: null,
   breadcrumb: [],
   alerts: [],
 };
