@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import genHash from 'random-hash';
 
 import Icon from '../Icon';
 
@@ -14,7 +15,8 @@ import Icon from '../Icon';
  */
 const LabelComponent = (props) => {
   if (props.noSpan) {
-    return props.children;
+    const elementos = [<Icon name={props.icon} key={genHash()} />, ' ', props.children];
+    return elementos.map(item => item);
   } else if (props.form) {
     return (
       <label className={`control-label ${props.className}`} htmlFor={props.htmlFor} style={{ color: props.color }}>
@@ -36,7 +38,7 @@ LabelComponent.defaultProps = {
   noSpan: false,
   form: false,
   htmlFor: null,
-  className: null,
+  className: '',
   icon: null,
   children: null,
 };
@@ -49,10 +51,7 @@ LabelComponent.propTypes = {
   htmlFor: PropTypes.string,
   className: PropTypes.string,
   icon: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  children: PropTypes.node,
 };
 
 export default LabelComponent;
