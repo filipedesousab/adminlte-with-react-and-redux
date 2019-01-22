@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
-import Label from '../Label';
-import Icon from '../Icon';
+import Label from '../../Label';
+import Icon from '../../Icon';
 
 /**
  * [ButtonIcon, UIE005] Botão com ícone ao lado esquerdo.
