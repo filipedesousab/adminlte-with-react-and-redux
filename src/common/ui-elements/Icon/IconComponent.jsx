@@ -9,23 +9,28 @@ import PropTypes from 'prop-types';
  */
 const IconComponent = (props) => {
   const { color, name } = props;
-  const tipo = name.split(' ')[0];
 
-  let className = name;
-  className += props.className ? ` ${props.className}` : '';
+  if (name) {
+    const tipo = name.split(' ')[0];
 
+    let className = name;
+    className += props.className ? ` ${props.className}` : '';
 
-  if (tipo === 'glyphicon') {
-    return <span className={className} style={{ color }} />;
+    if (tipo === 'glyphicon') {
+      return <span className={className} style={{ color }} />;
+    }
+
+    return <i className={className} style={{ color }} />;
   }
-  return <i className={className} style={{ color }} />;
+
+  return false;
 };
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 IconComponent.defaultProps = {
-  color: '',
-  name: '',
-  className: '',
+  color: null,
+  name: null,
+  className: null,
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
