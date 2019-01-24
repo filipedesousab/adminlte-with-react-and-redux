@@ -24,16 +24,18 @@ const ButtonDropdownComponent = (props) => {
    * Caso localize irá aplicar no id, limpando espaços da borda em branco,
    * Deixando o texto em caixa baixa e substituindo os espaços por "-"
    */
-  if (typeof props.label.props.children === 'string') {
-    const text = props.label.props.children;
-    id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
-  } else if (Array.isArray(props.label.props.children)) {
-    props.label.props.children.forEach((value) => {
-      if (typeof value === 'string') {
-        const text = value;
-        id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
-      }
-    });
+  if (props.label) {
+    if (typeof props.label.props.children === 'string') {
+      const text = props.label.props.children;
+      id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
+    } else if (Array.isArray(props.label.props.children)) {
+      props.label.props.children.forEach((value) => {
+        if (typeof value === 'string') {
+          const text = value;
+          id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
+        }
+      });
+    }
   }
 
   return (
@@ -76,8 +78,8 @@ const ButtonDropdownComponent = (props) => {
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 ButtonDropdownComponent.defaultProps = {
-  label: null,
-  color: null,
+  label: '',
+  color: 'default',
   size: null,
   dropup: false,
   pullRight: false,
