@@ -40,8 +40,10 @@ const ButtonIconComponent = (props) => {
   }
 
   let icon = <i />;
-  if (typeof props.icon === 'object' && props.icon.type.name === Icon.name) {
-    icon = props.icon;
+  if (props.icon) {
+    if (typeof props.icon === 'object' && props.icon.type.name === Icon.name) {
+      icon = props.icon;
+    }
   }
 
   return (
@@ -63,7 +65,7 @@ const ButtonIconComponent = (props) => {
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 ButtonIconComponent.defaultProps = {
-  color: null,
+  color: 'default',
   size: null,
   href: null,
   type: null,
