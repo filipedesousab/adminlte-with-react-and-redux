@@ -7,3 +7,4 @@ export { default as ButtonDropdown } from './button/ButtonDropdown';
 export { default as ButtonSplit } from './button/ButtonSplit';
 export { default as ButtonApp } from './button/ButtonApp';
 export { default as ButtonGroup } from './button/ButtonGroup';
+export { default as Input } from './form/Input';
