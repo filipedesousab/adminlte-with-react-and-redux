@@ -9,3 +9,4 @@ export { default as ButtonApp } from './button/ButtonApp';
 export { default as ButtonGroup } from './button/ButtonGroup';
 export { default as Input } from './form/Input';
 export { default as TextArea } from './form/TextArea';
+export { default as Select } from './form/Select';
