@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import genHash from 'random-hash';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-import { Button, Label } from '../../';
+import { ButtonGroup, Button, Label } from '../../';
 
 /**
  * [InputFile, UIE016] Entrada de arquivos
@@ -19,10 +19,15 @@ class InputFileComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { fileName: 'Selecionar' };
+    this.state = { icon: 'file', fileName: 'Selecionar', clean: false };
 
-    /** Executada quando é selecionado um arquivo */
+    /** Executado quando é selecionado um arquivo */
     this.handleChange = this.handleChange.bind(this);
+    /** Executado quando deseja limpar o campo */
+    this.clean = this.clean.bind(this);
+
+    /** Elemento do DOM */
+    this.inputFileField = null;
   }
 
   handleChange(e) {
@@ -39,12 +44,27 @@ class InputFileComponent extends React.Component {
     this.props.onChange(e, fileName);
 
     /** Atualiza o estado */
-    this.setState({ ...this.state, fileName });
+    this.setState({
+      ...this.state,
+      icon: 'check',
+      fileName,
+      clean: true,
+    });
+  }
+
+  clean() {
+    this.setState({
+      ...this.state,
+      icon: 'file',
+      fileName: 'Selecionar',
+      clean: false,
+    });
+
+    this.inputFileField.value = null;
   }
 
   render() {
     const id = this.props.id || genHash();
-
     return (
       <FormGroup
         controlId={id}
@@ -52,14 +72,26 @@ class InputFileComponent extends React.Component {
       >
         <ControlLabel>{this.props.label}</ControlLabel>
         <br />
-        <Button onClick={() => document.getElementById(id).click()} disabled={this.props.disabled}>
-          <Label icon="fa fa-file">{this.state.fileName}</Label>
-        </Button>
+        <ButtonGroup>
+          <Button
+            onClick={() => this.inputFileField.click()}
+            disabled={this.props.disabled}
+          >
+            <Label icon={`fa fa-${this.state.icon}`}>{this.state.fileName}</Label>
+          </Button>
+          {
+            this.state.clean &&
+            <Button onClick={this.clean} color="danger">
+              <Label icon="fa fa-times" />
+            </Button>
+          }
+        </ButtonGroup>
         <FormControl
           type="file"
           disabled={this.props.disabled}
           onChange={this.handleChange}
           className={this.props.className}
+          inputRef={(e) => { this.inputFileField = e; }}
           style={{ display: 'none' }}
         />
         {/** Se houver helpBlock, inclui */}
