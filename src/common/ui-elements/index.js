@@ -14,3 +14,4 @@ export { default as SelectMultiple } from './form/SelectMultiple';
 export { default as Checkbox } from './form/Checkbox';
 export { default as Radio } from './form/Radio';
 export { default as InputFile } from './form/InputFile';
+export { default as Modal } from './modal/Modal';
