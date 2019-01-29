@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import genHash from 'random-hash';
-// Aguardando o componente Alert ser construído
-// import Alert from '../../../ui-elements/Alert';
+import genHash from 'random-hash';
+import { Alert } from '../../../ui-elements';
 
 /**
  * Grupo de Alerts que aparecem acima do título da página.
@@ -10,11 +9,11 @@ import PropTypes from 'prop-types';
  */
 const AlertsComponent = props => (
   <div className="alerts" style={{ padding: '15px 15px 0px 15px' }}>
-    {/* props.alerts.map((alert) => {
-      return (<Alert title={alert.title} color={alert.color || 'info'} key={genHash()}>
+    {props.alerts.map(alert => (
+      <Alert title={alert.title} color={alert.color} key={genHash()}>
         {alert.body}
-      </Alert>)
-    }) */}
+      </Alert>
+    ))}
   </div>
 );
 
