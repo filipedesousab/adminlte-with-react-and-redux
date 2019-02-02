@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import genHash from 'random-hash';
 import { Alert } from '../../../ui-elements';
 
 /**
@@ -10,7 +9,13 @@ import { Alert } from '../../../ui-elements';
 const AlertsComponent = props => (
   <div className="alerts" style={{ padding: '15px 15px 0px 15px' }}>
     {props.alerts.map(alert => (
-      <Alert title={alert.title} color={alert.color} key={genHash()}>
+      <Alert
+        title={alert.title}
+        color={alert.color}
+        eventName={alert.eventName}
+        key={alert.eventName}
+        alert
+      >
         {alert.body}
       </Alert>
     ))}

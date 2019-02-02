@@ -2,14 +2,12 @@ import {
   CHANGE_CONTENT_TITLE,
   CHANGE_CONTENT_SUBTITLE,
   CHANGE_CONTENT_BREADCRUMB,
-  CHANGE_CONTENT_ALERTS,
 } from './types';
 
 const INITIAL_STATE = {
   title: null,
   subtitle: null,
   breadcrumb: [],
-  alerts: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,8 +18,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, subtitle: action.payload };
     case CHANGE_CONTENT_BREADCRUMB:
       return { ...state, breadcrumb: action.payload };
-    case CHANGE_CONTENT_ALERTS:
-      return { ...state, alerts: action.payload };
     default:
       return state;
   }

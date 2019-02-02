@@ -1,1 +1,1 @@
-export { default } from './AlertComponent';
+export { default } from './AlertContainer';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Breadcrumb from './containers/Breadcrumb';
-import Alerts from './containers/Alerts';
+import { Alerts } from '../';
 
 /**
  * [Content, UIL003] Recebe o conteúdo da página
