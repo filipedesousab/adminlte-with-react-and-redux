@@ -13,8 +13,8 @@ const AlertsPopupComponent = props => (
       <Alert
         title={alertPopup.title}
         color={alertPopup.color}
-        eventName={alertPopup.eventName}
-        key={alertPopup.eventName}
+        alertName={alertPopup.alertName}
+        key={alertPopup.alertName}
         alertPopup
       >
         {alertPopup.body}

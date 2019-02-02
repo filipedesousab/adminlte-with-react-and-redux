@@ -12,8 +12,8 @@ const AlertsComponent = props => (
       <Alert
         title={alert.title}
         color={alert.color}
-        eventName={alert.eventName}
-        key={alert.eventName}
+        alertName={alert.alertName}
+        key={alert.alertName}
         alert
       >
         {alert.body}

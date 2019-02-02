@@ -7,9 +7,13 @@ import {
   DEL_ALERT_POPUP,
 } from './types';
 
+/**
+ * Adicionar um Alert no estado
+ * @param  {[type]} { title, body, color } Dados do alert
+ * @return {object}                        Action
+ */
 export const addAlert = ({ title, body, color }) => {
-  const eventName = genHash();
-  console.log(`Adicionando Alert: ${eventName}`);
+  const alertName = genHash();
 
   return ({
     type: ADD_ALERT,
@@ -17,23 +21,28 @@ export const addAlert = ({ title, body, color }) => {
       title,
       body,
       color,
-      eventName,
+      alertName,
     },
   });
 };
 
-export const delAlert = (eventName) => {
-  console.log(`Removendo Alert: ${eventName}`);
+/**
+ * Remover um AlertPopup do estado
+ * @param  {[type]} alertName Hash que identifica o Alert
+ * @return {object}           Action
+ */
+export const delAlert = alertName => ({
+  type: DEL_ALERT,
+  payload: alertName,
+});
 
-  return ({
-    type: DEL_ALERT,
-    payload: eventName,
-  });
-};
-
+/**
+ * Adicionar um AlertPopup no estado
+ * @param  {[type]} { title, body, color } Dados do AlertPopup
+ * @return {object}                        Action
+ */
 export const addAlertPopup = ({ title, body, color }) => (dispatch) => {
-  const eventName = genHash();
-  console.log(`Adicionando AlertPopup: ${eventName}`);
+  const alertName = genHash();
 
   dispatch({
     type: ADD_ALERT_POPUP,
@@ -41,25 +50,25 @@ export const addAlertPopup = ({ title, body, color }) => (dispatch) => {
       title,
       body,
       color,
-      eventName,
+      alertName,
     },
   });
 
+  /** Remover o AlertPopup do estado após 5 segundos */
   setTimeout(() => {
-    console.log(`Removendo Automático AlertPopup: ${eventName}`);
-
     dispatch({
       type: DEL_ALERT_POPUP,
-      payload: eventName,
+      payload: alertName,
     });
   }, 5000);
 };
 
-export const delAlertPopup = (eventName) => {
-  console.log(`Removendo AlertPopup: ${eventName}`);
-
-  return ({
-    type: DEL_ALERT_POPUP,
-    payload: eventName,
-  });
-};
+/**
+ * Remover um AlertPopup do estado
+ * @param  {[type]} alertName Hash que identifica o AlertPopup
+ * @return {object}           Action
+ */
+export const delAlertPopup = alertName => ({
+  type: DEL_ALERT_POPUP,
+  payload: alertName,
+});

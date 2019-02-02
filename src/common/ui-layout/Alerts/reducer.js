@@ -15,13 +15,13 @@ export default (state = INITIAL_STATE, action) => {
     case ADD_ALERT:
       return { ...state, alerts: [...state.alerts, action.payload] };
     case DEL_ALERT: {
-      const alerts = state.alerts.filter(e => e.eventName !== action.payload);
+      const alerts = state.alerts.filter(e => e.alertName !== action.payload);
       return { ...state, alerts };
     }
     case ADD_ALERT_POPUP:
       return { ...state, alertsPopup: [...state.alertsPopup, action.payload] };
     case DEL_ALERT_POPUP: {
-      const alertsPopup = state.alertsPopup.filter(e => e.eventName !== action.payload);
+      const alertsPopup = state.alertsPopup.filter(e => e.alertName !== action.payload);
       return { ...state, alertsPopup };
     }
     default:

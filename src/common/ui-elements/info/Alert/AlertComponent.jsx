@@ -9,7 +9,7 @@ import { Label } from '../../';
  * @param   {string} props.title         Título do Alert
  * @param   {object} props.children      Corpo do componente
  * @param   {string} props.color         Cor do Alert [info, success, warning, danger]
- * @param   {string} props.eventName     Nome do Alert
+ * @param   {string} props.alertName     Nome do Alert
  * @param  {boolean} props.alert         Recebe true se for o Alert instanciado em [Alerts, UIL004]
  * @param  {boolean} props.alertPopup    Recebe true se for o Alert instanciado em [AlertsPopup, UIL007]
  * @param {function} props.delAlert      Remove o alert do store
@@ -27,10 +27,10 @@ class AlertComponent extends React.Component {
   handleDismiss() {
     if (this.props.alertPopup) {
       // Necessário pois o armazenamento do store do Alerts é separado do AlertsPopup
-      this.props.delAlertPopup(this.props.eventName);
+      this.props.delAlertPopup(this.props.alertName);
     } else if (this.props.alert) {
       // Necessário pois o armazenamento do store do Alerts é separado do AlertsPopup
-      this.props.delAlert(this.props.eventName);
+      this.props.delAlert(this.props.alertName);
     } else {
       // Caso o componente seja instanciado em qualquer local sem que seja o Alerts ou AlertsPopup
       this.setState({ show: false });
@@ -73,7 +73,7 @@ AlertComponent.defaultProps = {
   color: 'info',
   title: null,
   children: null,
-  eventName: '',
+  alertName: '',
   alert: false,
   alertPopup: false,
   delAlert: null,
@@ -85,7 +85,7 @@ AlertComponent.propTypes = {
   color: PropTypes.oneOf(['info', 'success', 'warning', 'danger']),
   title: PropTypes.string,
   children: PropTypes.node,
-  eventName: PropTypes.string,
+  alertName: PropTypes.string,
   alert: PropTypes.bool,
   alertPopup: PropTypes.bool,
   delAlert: PropTypes.func,
