@@ -19,3 +19,4 @@ export { default as WindowModal } from './modal/WindowModal';
 export { default as Alert } from './info/Alert';
 export { default as Callout } from './info/Callout';
 export { default as Table } from './general/Table';
+export { default as Popover } from './general/Popover';
