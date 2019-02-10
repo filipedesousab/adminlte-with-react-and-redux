@@ -10,24 +10,44 @@ import Icon from '../Icon';
  * @param {boolean} props.noSpan    Quando o label não puder conter a tag <span>
  * @param {boolean} props.form      Quando for label de formulário (em teste para substituir LabelForm)
  * @param  {string} props.htmlFor   Id do campo ligado ao label
+ * @param  {string} props.icon      Nome do ícone a ser inserido ao lado esquerdo do texto
  * @param  {object} props.children  Corpo do componente
  * @param  {string} props.className Class html opcional no componente
+ * @param  {object} props.style     Estilo CSS a ser aplicado no componente
  */
 const LabelComponent = (props) => {
-  if (props.noSpan) {
-    const elementos = [<Icon name={props.icon} key={genHash()} />, ' ', props.children];
+  const {
+    color,
+    noSpan,
+    form,
+    htmlFor,
+    icon,
+    children,
+    className,
+    style,
+  } = props;
+
+  if (noSpan) {
+    const elementos = [<Icon name={icon} key={genHash()} />, ' ', children];
     return elementos.map(item => item);
-  } else if (props.form) {
+  } else if (form) {
     return (
-      <label className={`control-label ${props.className}`} htmlFor={props.htmlFor} style={{ color: props.color }}>
-        <Icon name={props.icon} /> {props.children}
+      <label
+        className={`control-label ${className}`}
+        htmlFor={htmlFor}
+        style={{ ...style, color }}
+      >
+        <Icon name={icon} /> {children}
       </label>
     );
   }
 
   return (
-    <span className={props.className} style={{ color: props.color }}>
-      <Icon name={props.icon} /> {props.children}
+    <span
+      className={className}
+      style={{ ...style, color }}
+    >
+      <Icon name={icon} /> {children}
     </span>
   );
 };
@@ -38,9 +58,10 @@ LabelComponent.defaultProps = {
   noSpan: false,
   form: false,
   htmlFor: null,
-  className: '',
   icon: null,
   children: null,
+  className: '',
+  style: {},
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
@@ -49,9 +70,10 @@ LabelComponent.propTypes = {
   noSpan: PropTypes.bool,
   form: PropTypes.bool,
   htmlFor: PropTypes.string,
-  className: PropTypes.string,
   icon: PropTypes.string,
   children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default LabelComponent;
