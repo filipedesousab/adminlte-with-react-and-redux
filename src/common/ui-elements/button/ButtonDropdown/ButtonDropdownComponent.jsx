@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import genHash from 'random-hash';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
@@ -13,68 +14,92 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
  * @param  {string} props.className Corpo do componente
  * @param   {array} props.options   Array de objetos com dados para o menu
  */
-const ButtonDropdownComponent = (props) => {
-  /**
-   * Id é exigido pelo DropdownButton do react-bootstrap.
-   * É utilizado para navegação assistiva para acessibilidade (WAI-ARIA).
-   */
-  let id = 'button-dropdown';
-  /**
-   * A condição tentarar identificar a descrição no componente Label recebido.
-   * Caso localize irá aplicar no id, limpando espaços da borda em branco,
-   * Deixando o texto em caixa baixa e substituindo os espaços por "-"
-   */
-  if (props.label) {
-    if (typeof props.label.props.children === 'string') {
-      const text = props.label.props.children;
-      id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
-    } else if (Array.isArray(props.label.props.children)) {
-      props.label.props.children.forEach((value) => {
-        if (typeof value === 'string') {
-          const text = value;
-          id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
-        }
-      });
-    }
-  }
+class ButtonDropdownComponent extends React.PureComponent {
+  render() {
+    const {
+      label,
+      color,
+      size,
+      dropup,
+      pullRight,
+      className,
+      options,
+    } = this.props;
 
-  return (
-    <DropdownButton
-      bsStyle={props.color}
-      title={props.label}
-      bsSize={props.size}
-      dropup={props.dropup}
-      pullRight={props.pullRight}
-      className={props.className}
-      id={id}
-    >
-      {props.options.map((item) => {
-        if (item.divider) {
-          /** Linha horizonal que separa as opções */
-          return <MenuItem divider key={genHash()} />;
-        } else if (item.header) {
-          /** Texto sem link, pode ser utilizado para identificar seções de opções */
-          return <MenuItem header key={genHash()}>{item.label}</MenuItem>;
-        }
-        return (
-          /**
-           * Ítem do menu com possibilidade de link e função de click.
-           * O disable deixa o item desabilitado.
-           * O label é a descrição do item.
-           */
-          <MenuItem
-            disabled={item.disabled}
-            href={item.href}
-            key={genHash()}
-            onClick={item.onClick}
-          >
-            {item.label}
-          </MenuItem>
-        );
-      })}
-    </DropdownButton>
-  );
-};
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'label',
+      'color',
+      'size',
+      'dropup',
+      'pullRight',
+      'className',
+      'options',
+    ]);
+
+    /**
+     * Id é exigido pelo DropdownButton do react-bootstrap.
+     * É utilizado para navegação assistiva para acessibilidade (WAI-ARIA).
+     */
+    let id = 'button-dropdown';
+    /**
+     * A condição tentarar identificar a descrição no componente Label recebido.
+     * Caso localize irá aplicar no id, limpando espaços da borda em branco,
+     * Deixando o texto em caixa baixa e substituindo os espaços por "-"
+     */
+    if (label) {
+      if (typeof label.props.children === 'string') {
+        const text = label.props.children;
+        id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
+      } else if (Array.isArray(label.props.children)) {
+        label.props.children.forEach((value) => {
+          if (typeof value === 'string') {
+            const text = value;
+            id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
+          }
+        });
+      }
+    }
+
+    return (
+      <DropdownButton
+        {...newProps}
+        bsStyle={color}
+        title={label}
+        bsSize={size}
+        dropup={dropup}
+        pullRight={pullRight}
+        className={className}
+        id={id}
+      >
+        {options.map((item) => {
+          if (item.divider) {
+            /** Linha horizonal que separa as opções */
+            return <MenuItem divider key={genHash()} />;
+          } else if (item.header) {
+            /** Texto sem link, pode ser utilizado para identificar seções de opções */
+            return <MenuItem header key={genHash()}>{item.label}</MenuItem>;
+          }
+          return (
+            /**
+             * Ítem do menu com possibilidade de link e função de click.
+             * O disable deixa o item desabilitado.
+             * O label é a descrição do item.
+             */
+            <MenuItem
+              disabled={item.disabled}
+              href={item.href}
+              key={genHash()}
+              onClick={item.onClick}
+            >
+              {item.label}
+            </MenuItem>
+          );
+        })}
+      </DropdownButton>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 ButtonDropdownComponent.defaultProps = {
@@ -83,7 +108,7 @@ ButtonDropdownComponent.defaultProps = {
   size: null,
   dropup: false,
   pullRight: false,
-  className: null,
+  className: '',
   options: [],
 };
 

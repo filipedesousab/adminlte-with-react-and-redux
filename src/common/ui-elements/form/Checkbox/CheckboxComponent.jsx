@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Checkbox } from 'react-bootstrap';
 
 /**
@@ -13,18 +14,47 @@ import { Checkbox } from 'react-bootstrap';
  * @param {function} props.onChange       Função a ser executada na ação de click do usuário
  * @param   {string} props.className      Class html opcional no componente
  */
-const CheckboxComponent = props => (
-  <Checkbox
-    value={props.value}
-    checked={props.checked}
-    defaultChecked={props.defaultChecked}
-    disabled={props.disabled || props.readOnly}
-    onChange={props.onChange}
-    className={props.className}
-  >
-    {props.label}
-  </Checkbox>
-);
+class CheckboxComponent extends React.PureComponent {
+  render() {
+    const {
+      value,
+      label,
+      checked,
+      defaultChecked,
+      disabled,
+      readOnly,
+      onChange,
+      className,
+    } = this.props;
+
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'value',
+      'label',
+      'checked',
+      'defaultChecked',
+      'disabled',
+      'readOnly',
+      'onChange',
+      'className',
+    ]);
+
+    return (
+      <div {...newProps}>
+        <Checkbox
+          value={value}
+          checked={checked}
+          defaultChecked={defaultChecked}
+          disabled={disabled || readOnly}
+          onChange={onChange}
+          className={className}
+        >
+          {label}
+        </Checkbox>
+      </div>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 CheckboxComponent.defaultProps = {
@@ -35,7 +65,7 @@ CheckboxComponent.defaultProps = {
   disabled: false,
   readOnly: false,
   onChange: null,
-  className: null,
+  className: '',
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */

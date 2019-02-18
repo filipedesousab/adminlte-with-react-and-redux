@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 /**
  * [Icon, UIE001] Componente de ícones utilizado na aplicação.
@@ -8,30 +9,45 @@ import PropTypes from 'prop-types';
  * @param {string} props.className Class html opcional no componente
  * @param {object} props.style     Estilo CSS a ser aplicado no componente
  */
-const IconComponent = (props) => {
-  const { color, name, style } = props;
+class IconComponent extends React.PureComponent {
+  render() {
+    const {
+      color,
+      name,
+      className,
+      style,
+    } = this.props;
 
-  if (name) {
-    const tipo = name.split(' ')[0];
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'color',
+      'name',
+      'className',
+      'style',
+    ]);
 
-    let className = name;
-    className += props.className ? ` ${props.className}` : '';
+    if (name) {
+      const tipo = name.split(' ')[0];
 
-    if (tipo === 'glyphicon') {
-      return <span className={className} style={{ color, ...style }} />;
+      let newClassName = name;
+      newClassName += className ? ` ${className}` : '';
+
+      if (tipo === 'glyphicon') {
+        return <span {...newProps} className={newClassName} style={{ color, ...style }} />;
+      }
+
+      return <i {...newProps} className={newClassName} style={{ color, ...style }} />;
     }
 
-    return <i className={className} style={{ color, ...style }} />;
+    return false;
   }
-
-  return false;
-};
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 IconComponent.defaultProps = {
   color: null,
   name: null,
-  className: null,
+  className: '',
   style: {},
 };
 

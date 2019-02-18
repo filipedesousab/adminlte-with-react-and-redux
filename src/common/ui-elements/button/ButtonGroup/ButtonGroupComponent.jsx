@@ -1,42 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { ButtonGroup } from 'react-bootstrap';
 
 /**
  * [ButtonGroup, UIE009] Botão padrão da aplicação.
- * @param   {array} props.buttons    Botões a serem agrupados. Array de [Button, UIE004]]
- * @param {boolean} props.vertical   Alinhamento vertical dos botões
- * @param  {string} props.className  Class html opcional no componente
+ * @param   {array} props.children  Botões a serem agrupados. Array de [Button, UIE004]]
+ * @param {boolean} props.vertical  Alinhamento vertical dos botões
+ * @param  {string} props.className Class html opcional no componente
  */
-const ButtonApp = (props) => {
-  const {
-    vertical,
-    className,
-    children,
-  } = props;
+class ButtonGroupComponent extends React.PureComponent {
+  render() {
+    const {
+      vertical,
+      className,
+      children,
+    } = this.props;
 
-  return (
-    <ButtonGroup
-      vertical={vertical}
-      className={className}
-    >
-      {children}
-    </ButtonGroup>
-  );
-};
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'vertical',
+      'className',
+      'children',
+    ]);
+
+    return (
+      <ButtonGroup
+        {...newProps}
+        vertical={vertical}
+        className={className}
+      >
+        {children}
+      </ButtonGroup>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
-ButtonApp.defaultProps = {
+ButtonGroupComponent.defaultProps = {
   vertical: null,
   children: null,
   className: '',
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
-ButtonApp.propTypes = {
+ButtonGroupComponent.propTypes = {
   children: PropTypes.node,
   vertical: PropTypes.bool,
   className: PropTypes.string,
 };
 
-export default ButtonApp;
+export default ButtonGroupComponent;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Radio } from 'react-bootstrap';
 
 /**
@@ -14,19 +15,51 @@ import { Radio } from 'react-bootstrap';
  * @param {function} props.onChange       Função a ser executada na ação de escrever do usuário
  * @param   {string} props.className      Class html opcional no componente
  */
-const RadioComponent = props => (
-  <Radio
-    value={props.value}
-    name={props.name}
-    checked={props.checked}
-    defaultChecked={props.defaultChecked}
-    disabled={props.disabled || props.readOnly}
-    onChange={props.onChange}
-    className={props.className}
-  >
-    {props.label}
-  </Radio>
-);
+class RadioComponent extends React.PureComponent {
+  render() {
+    const {
+      value,
+      name,
+      label,
+      checked,
+      defaultChecked,
+      disabled,
+      readOnly,
+      onChange,
+      className,
+    } = this.props;
+
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'value',
+      'name',
+      'label',
+      'checked',
+      'defaultChecked',
+      'disabled',
+      'readOnly',
+      'onChange',
+      'className',
+    ]);
+
+    return (
+      <div {...newProps}>
+        <Radio
+          value={value}
+          name={name}
+          checked={checked}
+          defaultChecked={defaultChecked}
+          disabled={disabled || readOnly}
+          onChange={onChange}
+          className={className}
+          style={{ marginTop: '0px' }}
+        >
+          {label}
+        </Radio>
+      </div>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 RadioComponent.defaultProps = {
@@ -38,7 +71,7 @@ RadioComponent.defaultProps = {
   disabled: false,
   readOnly: false,
   onChange: null,
-  className: null,
+  className: '',
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */

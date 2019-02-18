@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import genHash from 'random-hash';
 import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'react-bootstrap';
 
@@ -18,40 +19,76 @@ import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'rea
  * @param {function} props.onChange    Função a ser executada na ação de escrever do usuário
  * @param   {object} props.helpBlock   Descrição abaixo do campo
  */
-const TextAreaComponent = props => (
-  <FormGroup
-    controlId={props.id || genHash()}
-    validationState={props.state}
-    bsSize={props.size}
-    className={props.className}
-  >
-    <ControlLabel>{props.label}</ControlLabel>
-    <InputGroup>
-      {props.addonLeft
-        ? <InputGroup.Addon>{props.addonLeft}</InputGroup.Addon>
-        : false}
-      <FormControl
-        value={props.value}
-        placeholder={props.placeholder}
-        disabled={props.disabled}
-        onChange={props.onChange}
-        componentClass="textarea"
-      />
-      {/* Feddback se Addon se sobrepõem. Feedback só apresenta quando não houver Addon */}
-      {props.addonRight
-        ? <InputGroup.Addon>{props.addonRight}</InputGroup.Addon>
-        : <FormControl.Feedback />}
-    </InputGroup>
-    <HelpBlock>{props.helpBlock}</HelpBlock>
-  </FormGroup>
-);
+class TextAreaComponent extends React.PureComponent {
+  render() {
+    const {
+      id,
+      state,
+      size,
+      className,
+      label,
+      addonLeft,
+      addonRight,
+      value,
+      placeholder,
+      disabled,
+      onChange,
+      helpBlock,
+    } = this.props;
+
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'id',
+      'state',
+      'size',
+      'className',
+      'label',
+      'addonLeft',
+      'addonRight',
+      'value',
+      'placeholder',
+      'disabled',
+      'onChange',
+      'helpBlock',
+    ]);
+
+    return (
+      <FormGroup
+        {...newProps}
+        controlId={id || genHash()}
+        validationState={state}
+        bsSize={size}
+        className={className}
+      >
+        <ControlLabel>{label}</ControlLabel>
+        <InputGroup>
+          {addonLeft
+            ? <InputGroup.Addon>{addonLeft}</InputGroup.Addon>
+            : false}
+          <FormControl
+            value={value}
+            placeholder={placeholder}
+            disabled={disabled}
+            onChange={onChange}
+            componentClass="textarea"
+          />
+          {/* Feddback se Addon se sobrepõem. Feedback só apresenta quando não houver Addon */}
+          {addonRight
+            ? <InputGroup.Addon>{addonRight}</InputGroup.Addon>
+            : <FormControl.Feedback />}
+        </InputGroup>
+        <HelpBlock>{helpBlock}</HelpBlock>
+      </FormGroup>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 TextAreaComponent.defaultProps = {
   id: null,
   state: null,
   size: null,
-  className: null,
+  className: '',
   label: null,
   addonLeft: null,
   addonRight: null,

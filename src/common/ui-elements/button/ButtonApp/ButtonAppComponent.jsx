@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 
 /**
@@ -13,41 +14,58 @@ import { Button } from 'react-bootstrap';
  * @param   {string} props.className  Class html opcional no componente
  * @param {function} props.onClick    Ação de click do botão
  */
-const ButtonApp = (props) => {
-  const {
-    href,
-    badge,
-    badgeColor,
-    disabled,
-    block,
-    onClick,
-  } = props;
+class ButtonAppComponent extends React.PureComponent {
+  render() {
+    const {
+      label,
+      badge,
+      badgeColor,
+      href,
+      disabled,
+      block,
+      className,
+      onClick,
+    } = this.props;
 
-  const className = `btn-app ${props.className}`;
-  /**
-   * Clonar elemento [Label, UIE002] recebido pelo props.label passando noSpan como true.
-   * O componente ButtonApp precisa da descrição e ícone sem a tag span.
-   */
-  const description = React.cloneElement(props.label, { noSpan: true });
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'label',
+      'badge',
+      'badgeColor',
+      'href',
+      'disabled',
+      'block',
+      'className',
+      'onClick',
+    ]);
 
-  return (
-    <Button
-      bsStyle="default"
-      href={href}
-      disabled={disabled}
-      block={block}
-      className={className}
-      onClick={onClick}
-      componentClass="a"
-    >
-      {badge ? <span className={`badge bg-${badgeColor}`}>{badge}</span> : false}
-      {description}
-    </Button>
-  );
-};
+    const newClassName = `btn-app ${className}`;
+    /**
+     * Clonar elemento [Label, UIE002] recebido pelo this.props.label passando noSpan como true.
+     * O componente ButtonApp precisa da descrição e ícone sem a tag span.
+     */
+    const description = React.cloneElement(label, { noSpan: true });
+
+    return (
+      <Button
+        {...newProps}
+        bsStyle="default"
+        href={href}
+        disabled={disabled}
+        block={block}
+        className={newClassName}
+        onClick={onClick}
+        componentClass="a"
+      >
+        {badge ? <span className={`badge bg-${badgeColor}`}>{badge}</span> : false}
+        {description}
+      </Button>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
-ButtonApp.defaultProps = {
+ButtonAppComponent.defaultProps = {
   label: null,
   badge: null,
   badgeColor: 'aqua',
@@ -59,7 +77,7 @@ ButtonApp.defaultProps = {
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
-ButtonApp.propTypes = {
+ButtonAppComponent.propTypes = {
   label: PropTypes.element,
   badge: PropTypes.oneOfType([
     PropTypes.string,
@@ -73,4 +91,4 @@ ButtonApp.propTypes = {
   onClick: PropTypes.func,
 };
 
-export default ButtonApp;
+export default ButtonAppComponent;

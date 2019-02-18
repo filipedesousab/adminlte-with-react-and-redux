@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import genHash from 'random-hash';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
@@ -41,7 +42,9 @@ class InputFileComponent extends React.Component {
       .pop();
 
     /** executa o onChange passado para o componente */
-    this.props.onChange(e, fileName);
+    if (this.props.onChange) {
+      this.props.onChange(e, fileName);
+    }
 
     /** Atualiza o estado */
     this.setState({
@@ -64,18 +67,39 @@ class InputFileComponent extends React.Component {
   }
 
   render() {
+    const {
+      label,
+      state,
+      helpBlock,
+      disabled,
+      className,
+    } = this.props;
+
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'id',
+      'label',
+      'state',
+      'helpBlock',
+      'disabled',
+      'onChange',
+      'className',
+    ]);
+
     const id = this.props.id || genHash();
+
     return (
       <FormGroup
+        {...newProps}
         controlId={id}
-        validationState={this.props.state}
+        validationState={state}
       >
-        <ControlLabel>{this.props.label}</ControlLabel>
+        <ControlLabel>{label}</ControlLabel>
         <br />
         <ButtonGroup>
           <Button
             onClick={() => this.inputFileField.click()}
-            disabled={this.props.disabled}
+            disabled={disabled}
           >
             <Label icon={`fa fa-${this.state.icon}`}>{this.state.fileName}</Label>
           </Button>
@@ -88,14 +112,14 @@ class InputFileComponent extends React.Component {
         </ButtonGroup>
         <FormControl
           type="file"
-          disabled={this.props.disabled}
+          disabled={disabled}
           onChange={this.handleChange}
-          className={this.props.className}
+          className={className}
           inputRef={(e) => { this.inputFileField = e; }}
           style={{ display: 'none' }}
         />
         {/** Se houver helpBlock, inclui */}
-        {this.props.helpBlock && <HelpBlock>{this.props.helpBlock}</HelpBlock>}
+        {helpBlock && <HelpBlock>{helpBlock}</HelpBlock>}
       </FormGroup>
     );
   }
@@ -109,7 +133,7 @@ InputFileComponent.defaultProps = {
   helpBlock: null,
   disabled: false,
   onChange: null,
-  className: null,
+  className: '',
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */

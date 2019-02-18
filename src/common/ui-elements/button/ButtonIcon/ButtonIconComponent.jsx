@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 
 import Label from '../../Label';
@@ -14,54 +15,75 @@ import Icon from '../../Icon';
  * @param  {boolean} props.disabled  Botão desabilitado
  * @param  {boolean} props.block     Botão com width 100%
  * @param   {string} props.className Class html opcional no componente
- * @param   {object} props.children  Corpo do componente
  * @param {function} props.onClick   Ação de click do botão
+ * @param   {object} props.icon      Ícone do botão
+ * @param   {object} props.children  Corpo do componente
  */
-const ButtonIconComponent = (props) => {
-  const {
-    color,
-    size,
-    href,
-    type,
-    disabled,
-    block,
-    onClick,
-  } = props;
+class ButtonIconComponent extends React.PureComponent {
+  render() {
+    const {
+      color,
+      size,
+      href,
+      type,
+      disabled,
+      block,
+      className,
+      onClick,
+      icon,
+      children,
+    } = this.props;
 
-  let className = `btn-social ${props.className || ''} `;
-  let description = props.children;
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'color',
+      'size',
+      'href',
+      'type',
+      'disabled',
+      'block',
+      'className',
+      'onClick',
+      'icon',
+      'children',
+    ]);
 
-  if (props.children) {
-    if (!Array.isArray(props.children) && props.children.type.name === Label.name) {
-      description = React.cloneElement(props.children, { noSpan: true });
+    let newClassName = `btn-social ${className}`;
+    let description = children;
+
+    if (children) {
+      if (!Array.isArray(children) && children.type.name === Label.name) {
+        description = React.cloneElement(children, { noSpan: true });
+      }
+    } else {
+      newClassName = newClassName.replace(/btn-social/g, 'btn-social-icon');
     }
-  } else {
-    className = className.replace(/btn-social/g, 'btn-social-icon');
-  }
 
-  let icon = <i />;
-  if (props.icon) {
-    if (typeof props.icon === 'object' && props.icon.type.name === Icon.name) {
-      icon = props.icon;
+    let newIcon = <i />;
+    if (icon) {
+      if (typeof icon === 'object' && icon.type.name === Icon.name) {
+        newIcon = icon;
+      }
     }
-  }
 
-  return (
-    <Button
-      bsStyle={color}
-      bsSize={size}
-      href={href}
-      type={type}
-      disabled={disabled}
-      block={block}
-      className={className}
-      onClick={onClick}
-    >
-      {icon}
-      {description}
-    </Button>
-  );
-};
+    return (
+      <Button
+        {...newProps}
+        bsStyle={color}
+        bsSize={size}
+        href={href}
+        type={type}
+        disabled={disabled}
+        block={block}
+        className={newClassName}
+        onClick={onClick}
+      >
+        {newIcon}
+        {description}
+      </Button>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 ButtonIconComponent.defaultProps = {
@@ -71,7 +93,7 @@ ButtonIconComponent.defaultProps = {
   type: null,
   disabled: false,
   block: false,
-  className: null,
+  className: '',
   onClick: null,
   icon: null,
   children: null,

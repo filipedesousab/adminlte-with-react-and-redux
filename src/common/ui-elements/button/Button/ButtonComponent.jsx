@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 
 /**
@@ -14,33 +15,50 @@ import { Button } from 'react-bootstrap';
  * @param   {object} props.children  Corpo do componente
  * @param {function} props.onClick   Ação de click do botão
  */
-const ButtonComponent = (props) => {
-  const {
-    color,
-    size,
-    href,
-    type,
-    disabled,
-    block,
-    className,
-    onClick,
-  } = props;
+class ButtonComponent extends React.PureComponent {
+  render() {
+    const {
+      color,
+      size,
+      href,
+      type,
+      disabled,
+      block,
+      className,
+      onClick,
+      children,
+    } = this.props;
 
-  return (
-    <Button
-      bsStyle={color}
-      bsSize={size}
-      href={href}
-      type={type}
-      disabled={disabled}
-      block={block}
-      className={className}
-      onClick={onClick}
-    >
-      {props.children}
-    </Button>
-  );
-};
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'color',
+      'size',
+      'href',
+      'type',
+      'disabled',
+      'block',
+      'className',
+      'onClick',
+      'children',
+    ]);
+
+    return (
+      <Button
+        {...newProps}
+        bsStyle={color}
+        bsSize={size}
+        href={href}
+        type={type}
+        disabled={disabled}
+        block={block}
+        className={className}
+        onClick={onClick}
+      >
+        {children}
+      </Button>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 ButtonComponent.defaultProps = {
@@ -50,7 +68,7 @@ ButtonComponent.defaultProps = {
   type: null,
   disabled: false,
   block: false,
-  className: null,
+  className: '',
   onClick: null,
   children: null,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import genHash from 'random-hash';
+import _ from 'lodash';
 import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'react-bootstrap';
 
 /**
@@ -21,46 +22,88 @@ import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'rea
  * @param {function} props.onChange    Função a ser executada na ação de escrever do usuário
  * @param   {object} props.helpBlock   Descrição abaixo do campo
  */
-const InputComponent = props => (
-  <FormGroup
-    controlId={props.id || genHash()}
-    validationState={props.state}
-    bsSize={props.size}
-    className={props.className}
-  >
-    <ControlLabel>{props.label}</ControlLabel>
-    <InputGroup>
-      {props.btnLeft
-        ? <InputGroup.Button>{props.btnLeft}</InputGroup.Button>
-        : false}
-      {props.addonLeft
-        ? <InputGroup.Addon>{props.addonLeft}</InputGroup.Addon>
-        : false}
-      <FormControl
-        type={props.type}
-        value={props.value}
-        placeholder={props.placeholder}
-        disabled={props.disabled}
-        onChange={props.onChange}
-      />
-      {/* Feddback se Addon se sobrepõem. Feedback só apresenta quando não houver Addon */}
-      {props.addonRight
-        ? <InputGroup.Addon>{props.addonRight}</InputGroup.Addon>
-        : <FormControl.Feedback />}
-      {props.btnRight
-        ? <InputGroup.Button>{props.btnRight}</InputGroup.Button>
-        : false}
-    </InputGroup>
-    <HelpBlock>{props.helpBlock}</HelpBlock>
-  </FormGroup>
-);
+class InputComponent extends React.PureComponent {
+  render() {
+    const {
+      id,
+      state,
+      size,
+      className,
+      label,
+      btnLeft,
+      btnRight,
+      addonLeft,
+      addonRight,
+      type,
+      value,
+      placeholder,
+      disabled,
+      onChange,
+      helpBlock,
+    } = this.props;
+
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'id',
+      'state',
+      'size',
+      'className',
+      'label',
+      'btnLeft',
+      'btnRight',
+      'addonLeft',
+      'addonRight',
+      'type',
+      'value',
+      'placeholder',
+      'disabled',
+      'onChange',
+      'helpBlock',
+    ]);
+
+    return (
+      <FormGroup
+        {...newProps}
+        controlId={id || genHash()}
+        validationState={state}
+        bsSize={size}
+        className={className}
+      >
+        <ControlLabel>{label}</ControlLabel>
+        <InputGroup>
+          {btnLeft
+            ? <InputGroup.Button>{btnLeft}</InputGroup.Button>
+            : false}
+          {addonLeft
+            ? <InputGroup.Addon>{addonLeft}</InputGroup.Addon>
+            : false}
+          <FormControl
+            type={type}
+            value={value}
+            placeholder={placeholder}
+            disabled={disabled}
+            onChange={onChange}
+          />
+          {/* Feddback e Addon se sobrepõem. Feedback só apresenta quando não houver Addon */}
+          {addonRight
+            ? <InputGroup.Addon>{addonRight}</InputGroup.Addon>
+            : <FormControl.Feedback />}
+          {btnRight
+            ? <InputGroup.Button>{btnRight}</InputGroup.Button>
+            : false}
+        </InputGroup>
+        <HelpBlock>{helpBlock}</HelpBlock>
+      </FormGroup>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 InputComponent.defaultProps = {
   id: null,
   state: null,
   size: null,
-  className: null,
+  className: '',
   label: null,
   btnLeft: null,
   btnRight: null,

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import genHash from 'random-hash';
 import { SplitButton, MenuItem } from 'react-bootstrap';
 
@@ -14,76 +15,108 @@ import { SplitButton, MenuItem } from 'react-bootstrap';
  * @param    {array} props.options   Array de objetos com dados para o menu
  * @param {function} props.onClick   Função a ser executada na ação do click
  */
-const ButtonSplitComponent = (props) => {
-  /**
-   * Id é exigido pelo SplitButton do react-bootstrap.
-   * É utilizado para navegação assistiva para acessibilidade (WAI-ARIA).
-   */
-  let id = 'button-dropdown';
-  /**
-   * A condição tentarar identificar a descrição no componente Label recebido.
-   * Caso localize irá aplicar no id, limpando espaços da borda em branco,
-   * Deixando o texto em caixa baixa e substituindo os espaços por "-"
-   */
-  if (typeof props.label.props.children === 'string') {
-    const text = props.label.props.children;
-    id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
-  } else if (Array.isArray(props.label.props.children)) {
-    props.label.props.children.forEach((value) => {
-      if (typeof value === 'string') {
-        const text = value;
-        id = text.trim().toLocaleLowerCase().replace(/ /g, '-');
-      }
-    });
-  }
+class ButtonSplitComponent extends React.PureComponent {
+  render() {
+    const {
+      label,
+      color,
+      size,
+      dropup,
+      pullRight,
+      className,
+      options,
+      onClick,
+    } = this.props;
 
-  return (
-    <SplitButton
-      bsStyle={props.color}
-      title={props.label}
-      bsSize={props.size}
-      dropup={props.dropup}
-      pullRight={props.pullRight}
-      className={props.className}
-      id={id}
-      onClick={props.onClick}
-    >
-      {props.options.map((item) => {
-        if (item.divider) {
-          /** Linha horizonal que separa as opções */
-          return <MenuItem divider key={genHash()} />;
-        } else if (item.header) {
-          /** Texto sem link, pode ser utilizado para identificar seções de opções */
-          return <MenuItem header key={genHash()}>{item.label}</MenuItem>;
-        }
-        return (
-          /**
-           * Ítem do menu com possibilidade de link e função de click.
-           * O disable deixa o item desabilitado.
-           * O label é a descrição do item.
-           */
-          <MenuItem
-            disabled={item.disabled}
-            href={item.href}
-            key={genHash()}
-            onClick={item.onClick}
-          >
-            {item.label}
-          </MenuItem>
-        );
-      })}
-    </SplitButton>
-  );
-};
+    // Removendo props para não inteferir no ReacDOM e retirar o warning
+    const newProps = _.omit(this.props, [
+      'label',
+      'color',
+      'size',
+      'dropup',
+      'pullRight',
+      'className',
+      'options',
+      'onClick',
+    ]);
+
+    /**
+     * Id é exigido pelo SplitButton do react-bootstrap.
+     * É utilizado para navegação assistiva para acessibilidade (WAI-ARIA).
+     */
+    let id = 'button-dropdown';
+    /**
+     * A condição tentarar identificar a descrição no componente Label recebido.
+     * Caso localize irá aplicar no id.
+     */
+    if (label) {
+      if (typeof label === 'string') {
+        id = label;
+      } else if (typeof label.props.children === 'string') {
+        id = label.props.children;
+      } else if (Array.isArray(label.props.children)) {
+        label.props.children.forEach((value) => {
+          if (typeof value === 'string') {
+            id = value;
+          }
+        });
+      }
+      /**
+       * Limpa espaços das extremidades,
+       * Deixa o texto em caixa baixa e substituindo os espaços por "-"
+       */
+      id = id.trim().toLocaleLowerCase().replace(/ /g, '-');
+    }
+
+    return (
+      <SplitButton
+        {...newProps}
+        bsStyle={color}
+        title={label}
+        bsSize={size}
+        dropup={dropup}
+        pullRight={pullRight}
+        className={className}
+        id={id}
+        onClick={onClick}
+      >
+        {options.map((item) => {
+          if (item.divider) {
+            /** Linha horizonal que separa as opções */
+            return <MenuItem divider key={genHash()} />;
+          } else if (item.header) {
+            /** Texto sem link, pode ser utilizado para identificar seções de opções */
+            return <MenuItem header key={genHash()}>{item.label}</MenuItem>;
+          }
+          return (
+            /**
+             * Ítem do menu com possibilidade de link e função de click.
+             * O disable deixa o item desabilitado.
+             * O label é a descrição do item.
+             */
+            <MenuItem
+              disabled={item.disabled}
+              href={item.href}
+              key={genHash()}
+              onClick={item.onClick}
+            >
+              {item.label}
+            </MenuItem>
+          );
+        })}
+      </SplitButton>
+    );
+  }
+}
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 ButtonSplitComponent.defaultProps = {
-  label: null,
-  color: null,
+  label: '',
+  color: 'default',
   size: null,
   dropup: false,
   pullRight: false,
-  className: null,
+  className: '',
   options: [],
   onClick: null,
 };
@@ -92,7 +125,7 @@ ButtonSplitComponent.defaultProps = {
 ButtonSplitComponent.propTypes = {
   label: PropTypes.node,
   color: PropTypes.oneOf(['default', 'primary', 'success', 'info', 'warning', 'danger']),
-  size: PropTypes.oneOf(['default', 'large', 'small', 'xsmall']),
+  size: PropTypes.oneOf(['large', 'small', 'xsmall']),
   dropup: PropTypes.bool,
   pullRight: PropTypes.bool,
   className: PropTypes.string,
