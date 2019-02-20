@@ -21,3 +21,4 @@ export { default as Callout } from './info/Callout';
 export { default as Table } from './general/Table';
 export { default as Popover } from './general/Popover';
 export { default as Tooltip } from './general/Tooltip';
+export { Tabs, Tab } from './general/Tabs';
