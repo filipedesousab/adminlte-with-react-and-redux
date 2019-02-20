@@ -29,6 +29,19 @@ input[type="checkbox"], input[type="radio"] {
     }
   }
 }
+// Tamanho máximo de um táblet
+@media (max-width: 768px) {
+  // Manter o componente [WindowModal, UIE024] nas dimensões corretas
+  .modal.window-modal {
+    .modal-dialog {
+      .modal-content {
+        .modal-body {
+          height: calc(100% - 150px);
+        }
+      }
+    }
+  }
+}
 
 // Manter o [AlertsPopup, UIE007] no canto superior direito
 .alertspopup {
@@ -102,16 +115,17 @@ input[type="checkbox"], input[type="radio"] {
 }
 // Fim das regras para o [Tabs, UIE029]
 
-// Tamanho máximo de um táblet
-@media (max-width: 768px) {
-  // Manter o componente [WindowModal, UIE024] nas dimensões corretas
-  .modal.window-modal {
-    .modal-dialog {
-      .modal-content {
-        .modal-body {
-          height: calc(100% - 150px);
-        }
-      }
-    }
+// Início das regras para o [Footer, UIL005]
+footer.main-footer {
+  font {
+    vertical-align: inherit;
   }
 }
+// Tamanho máximo de um táblet
+@media (max-width: 991px) {
+  // Manter o componente [WindowModal, UIE024] nas dimensões corretas
+  footer.main-footer div{
+    text-align: center;
+  }
+}
+// Fim das regras para o [Footer, UIL005]
