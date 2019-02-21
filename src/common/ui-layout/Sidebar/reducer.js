@@ -2,8 +2,8 @@ const INITIAL_STATE = {
   menu: [
     {
       href: '#',
-      label: 'Home',
-      icon: 'fa fa-home',
+      label: 'Testes',
+      icon: 'fa fa-edit',
     },
   ],
 };

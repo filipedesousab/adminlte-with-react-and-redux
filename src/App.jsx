@@ -2,7 +2,7 @@ import React from 'react';
 
 import './common/dependencies';
 import Routes from './routes';
-import { Navbar, Sidebar, AlertsPopup } from './common/ui-layout';
+import { Navbar, Sidebar, Footer, AlertsPopup } from './common/ui-layout';
 
 /** @type {function} Inicia os componentes visuais da aplicação */
 const App = () => (
@@ -13,7 +13,7 @@ const App = () => (
       {/* Instancia as páginas da aplicação a partir de rotas */}
       <Routes />
     </div>
-    {/*<Footer />*/}
+    <Footer />
     <AlertsPopup />
   </div>
 );
