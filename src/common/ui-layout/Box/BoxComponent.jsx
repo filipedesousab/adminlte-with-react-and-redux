@@ -48,7 +48,7 @@ BoxComponent.defaultProps = {
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 BoxComponent.propTypes = {
-  color: PropTypes.string,
+  color: PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger', 'muted']),
   title: PropTypes.element,
   children: PropTypes.node,
   footer: PropTypes.node,

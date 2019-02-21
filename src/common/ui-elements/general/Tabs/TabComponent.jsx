@@ -24,7 +24,10 @@ TabComponent.defaultProps = {
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 TabComponent.propTypes = {
   eventKey: PropTypes.string,
-  title: PropTypes.node,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
   children: PropTypes.node,
 };
 

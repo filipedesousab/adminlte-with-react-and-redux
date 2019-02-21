@@ -10,12 +10,15 @@ const TableComponent = props => (
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 TableComponent.defaultProps = {
-  children: PropTypes.node,
+  children: null,
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 TableComponent.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 };
 
 export default TableComponent;

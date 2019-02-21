@@ -104,10 +104,11 @@ class InputFileComponent extends React.Component {
             <Label icon={`fa fa-${this.state.icon}`}>{this.state.fileName}</Label>
           </Button>
           {
-            this.state.clean &&
-            <Button onClick={this.clean} color="danger">
-              <Label icon="fa fa-times" />
-            </Button>
+            this.state.clean ?
+              <Button onClick={this.clean} color="danger">
+                <Label icon="fa fa-times" />
+              </Button>
+            : null
           }
         </ButtonGroup>
         <FormControl
@@ -140,8 +141,11 @@ InputFileComponent.defaultProps = {
 InputFileComponent.propTypes = {
   id: PropTypes.string,
   label: PropTypes.element,
-  state: PropTypes.string,
-  helpBlock: PropTypes.string,
+  state: PropTypes.oneOf(['success', 'warning', 'error']),
+  helpBlock: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   className: PropTypes.string,

@@ -45,7 +45,10 @@ ButtonGroupComponent.defaultProps = {
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 ButtonGroupComponent.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
   vertical: PropTypes.bool,
   className: PropTypes.string,
 };

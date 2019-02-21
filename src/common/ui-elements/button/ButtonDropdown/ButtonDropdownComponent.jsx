@@ -116,7 +116,7 @@ ButtonDropdownComponent.defaultProps = {
 ButtonDropdownComponent.propTypes = {
   label: PropTypes.node,
   color: PropTypes.oneOf(['default', 'primary', 'success', 'info', 'warning', 'danger']),
-  size: PropTypes.oneOf(['default', 'large', 'small', 'xsmall']),
+  size: PropTypes.oneOf(['large', 'small', 'xsmall']),
   dropup: PropTypes.bool,
   pullRight: PropTypes.bool,
   className: PropTypes.string,

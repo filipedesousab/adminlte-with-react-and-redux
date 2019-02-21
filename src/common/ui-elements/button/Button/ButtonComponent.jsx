@@ -75,10 +75,10 @@ ButtonComponent.defaultProps = {
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 ButtonComponent.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.string,
+  color: PropTypes.oneOf(['default', 'primary', 'success', 'info', 'warning', 'danger']),
+  size: PropTypes.oneOf(['large', 'small', 'xsmall']),
   href: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['button', 'reset', 'submit']),
   disabled: PropTypes.bool,
   block: PropTypes.bool,
   className: PropTypes.string,

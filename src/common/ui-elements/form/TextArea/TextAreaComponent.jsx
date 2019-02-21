@@ -118,7 +118,10 @@ TextAreaComponent.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  helpBlock: PropTypes.node,
+  helpBlock: PropTypes.PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
 };
 
 export default TextAreaComponent;

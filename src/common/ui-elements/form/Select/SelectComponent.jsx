@@ -149,7 +149,10 @@ SelectComponent.propTypes = {
   ]),
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  helpBlock: PropTypes.node,
+  helpBlock: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
 };
 
 export default SelectComponent;
