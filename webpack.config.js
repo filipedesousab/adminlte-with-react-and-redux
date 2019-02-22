@@ -1,60 +1,81 @@
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
+const HtmlPlugin = require('html-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+
 module.exports = {
-  entry: path.join(__dirname, 'src','index.jsx'), // Arquivo inicial de entrada, a partir daqui toda a aplicação é carregada
+  devtool: 'source-map', // Ajuda no debug pelo navegador, apresentando alguns erros no código do projeto
+
+  entry: path.join(__dirname, 'src', 'index.jsx'), // Arquivo inicial de entrada, a partir daqui toda a aplicação é carregada
+
   output: {
-    path: path.join(__dirname, 'public'), // Pasta de saída do arquivo do webpack
-    filename: 'bundle.js', // Nome do arquivo criado pelo webpack
+    filename: '[name].js', // Nome gerado automáticamente
   },
-  devServer: {
+
+  devServer: { // Servidor de desenvolvimento
     disableHostCheck: true,
     host: '0.0.0.0',
-    port: 3030,
-    contentBase: path.join(__dirname, 'public'), // Pasta para iniciar o modo de desenvolvimento
+    port: 3000,
   },
+
   resolve: {
     extensions: ['.js', '.jsx'], // As extensões que serão interpretadas pelo webpack
-    alias: {
-      modules: path.join(__dirname, 'node_modules'),
-      common: path.join(__dirname, 'src', 'common'),
-      jquery: path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.min.js'), // Lugar onde onde o jQuery está intelado no admin-lte
-      bootstrap: path.join(__dirname, 'modules', 'admin-lte', 'bootstrap', 'js', 'bootstrap.js'), // Lugar onde onde o bootstrap está intelado no admin-lte
+
+    alias: { // Pseudônimo para pastas e arquivos
+      modules: path.join(__dirname, 'node_modules'), // Usado geralmente para importar arquivo de uma dependencia
+      common: path.join(__dirname, 'src', 'common'), // Local com componentes e outros arquivos comuns do projeto
+      jquery: path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.min.js'), // Local onde onde o jQuery está instalado no admin-lte
+      bootstrap: path.join(__dirname, 'modules', 'admin-lte', 'bootstrap', 'js', 'bootstrap.js'), // Local onde onde o bootstrap está instalado no admin-lte
     },
   },
+
   plugins: [
+    new DashboardPlugin(), // Fornece informaçõe do progresso ao webpack-dashboard
+
     new webpack.ProvidePlugin({ // Deixar o jQuery disponível
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
     }),
-    new ExtractTextPlugin('app.css'), // Apontando qual o arquivo css será gerado após a compilação
+
+    new HtmlPlugin({ // Gera o html de forma dinâmica
+      title: 'VolgClin', // Título a ser exibido na página
+      template: path.join(__dirname, 'src', 'html', 'template.html'), // Template no padrão ejs para gerar o html de forma dinâmica
+    }),
   ],
+
   module: {
     rules: [{
       test: /.js[x]?$/, // Configura os arquios a serem lidos pelo babel
       loader: 'babel-loader', // Babel ajuda a interpretar o código
       exclude: /node_modules|bower_components/, // Ignorar as pastas
       query: {
-        presets: ['es2015', 'react'], // es2015 para usar as configuraçõe do ES6, react para as configurações do react(JSX)
-        plugins: ['transform-object-rest-spread'], // transform-object-rest-spread permite a utilização de Spread "..."
+        presets: [
+          'es2015', // Usado para compular ES6 para ES5
+          'react', // Usado para compular react(JSX) para JavaScript
+        ],
+        plugins: ['transform-object-rest-spread'], // Permite a utilização de Spread "..."
       },
     }, {
-      test: /\.css$/, // Configura os arquios a serem lidos pelo style-loader e css-loader
-      loader: ExtractTextPlugin.extract({ // Loaders para tratar os arquivos de estilos
-        fallback: 'style-loader',
-        use: 'css-loader',
-      }),
+      test: /\.css$/, // Tratar arquivos CSS
+      loader: [
+        'style-loader', // Inclui o css em uma tag <style> dentro do html
+        'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
+      ],
     }, {
-      test: /\.less$/, // Configura os arquios a serem lidos pelo style-loader e css-loader
-      loader: ExtractTextPlugin.extract({ // Loaders para tratar os arquivos de estilos
-        fallback: 'style-loader',
-        use: ['css-loader', 'less-loader'],
-      }),
+      test: /\.less$/, // Tratar arquivos de código LESS
+      loader: [
+        'style-loader', // Inclui o css em uma tag <style> dentro do html
+        'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
+        'less-loader', // Compila LESS para CSS
+      ],
     }, {
-      test: /\.woff|.woff2|.ttf|.eot|.svg|.png|.jpg*.*$/, // Configura os arquios a serem carregados na aplicação pelo file
-      loader: 'file-loader', // Loader para carregar estáticos da aplicação
+      test: /\.(woff2?|ttf|eot|jpe?g|png|gif|svg|ico)$/, // Configura os arquios a serem carregados na aplicação pelo file
+      loader: 'file-loader', // Loader para carregar arquivos estáticos da aplicação
+      query: {
+        name: '[name].[ext]', // Nome de saída dos arquivos
+      },
     }],
   },
 };

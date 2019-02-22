@@ -4,8 +4,9 @@
   "description": "Frontend do sistema Volgclin",
   "main": "src/index.jsx",
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors --inline --hot",
-    "webpack": "webpack-cli"
+    "start": "webpack-dev-server --colors --inline --hot",
+    "dev": "webpack-dashboard -- webpack-dev-server --progress --colors --inline --hot",
+    "build": "webpack --progress --config webpack.prod.config -p"
   },
   "author": "filipedesousab@gmail.com, marlonlira2@gmail.com",
   "license": "UNLICENSED",
@@ -21,17 +22,20 @@
     "css-loader": "0.28.11",
     "eslint": "4.18.2",
     "eslint-config-airbnb": "16.1.0",
+    "eslint-import-resolver-webpack": "^0.11.0",
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.11",
     "font-awesome": "4.7.0",
+    "html-webpack-plugin": "^3.2.0",
     "ionicons": "3.0.0",
     "less": "3.0.2",
     "less-loader": "4.1.0",
     "style-loader": "0.20.3",
     "webpack": "3.11.0",
+    "webpack-dashboard": "^3.0.0",
     "webpack-dev-server": "2.11.1"
   },
   "dependencies": {

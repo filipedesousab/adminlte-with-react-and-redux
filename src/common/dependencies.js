@@ -13,3 +13,4 @@ import 'modules/admin-lte/dist/css/skins/_all-skins.min.css';
 
 /** Estilos costomizados da aplicação */
 import './less/custom.less';
+import '../images/favicon.png'; // Só funciona com favicon no nome da imagem
