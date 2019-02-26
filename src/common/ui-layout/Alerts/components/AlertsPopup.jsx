@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Alert } from '../../../ui-elements';
+import { Alert } from 'common/ui-elements';
 
 /**
- * Grupo de Alerts que aparecem no canto superior direito temporareamente.
+ * [AlertsPopup, UIL007] Grupo de Alerts que aparecem no canto superior direito temporareamente.
  * @param {array} props.alertsPopup Array com dados dos Alert [{ title: '', body: '', color: '' }]
  */
 const AlertsPopupComponent = props => (

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../../../ui-elements/Icon';
-import Label from '../../../ui-elements/Label';
+import { Icon, Label } from 'common/ui-elements';
 
 /**
  * Árvore de itens do Menu do Sidebar

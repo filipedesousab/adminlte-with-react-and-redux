@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 
-import Label from '../../Label';
-import Icon from '../../Icon';
+import { Icon, Label } from 'common/ui-elements';
 
 /**
  * [ButtonIcon, UIE005] Botão com ícone ao lado esquerdo.

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Alerts } from 'common/ui-layout';
 import Breadcrumb from './containers/Breadcrumb';
-import { Alerts } from '../';
 
 /**
  * [Content, UIL003] Recebe o conteúdo da página

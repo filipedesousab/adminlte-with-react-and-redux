@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from '../../../ui-elements';
+
+import { Alert } from 'common/ui-elements';
 
 /**
- * Grupo de Alerts que aparecem acima do título da página.
+ * [Alerts, UIL004] Grupo de Alerts que aparecem acima do título da página.
  * @param {array} props.alerts Array com dados dos Alert [{ title: '', body: '', color: '' }]
  */
 const AlertsComponent = props => (

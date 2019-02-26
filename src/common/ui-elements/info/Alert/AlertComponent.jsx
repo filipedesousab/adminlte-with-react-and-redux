@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
 
-import { Label } from '../../';
+import { Label } from 'common/ui-elements';
 
 /**
  * [Alert, UIE025] Alert a ser apresentado no componente [Alerts, UIL004] e [AlertsPopup, UIL007]

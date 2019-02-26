@@ -4,7 +4,7 @@ import _ from 'lodash';
 import genHash from 'random-hash';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-import { ButtonGroup, Button, Label } from '../../';
+import { ButtonGroup, Button, Label } from 'common/ui-elements';
 
 /**
  * [InputFile, UIE016] Entrada de arquivos

@@ -1,6 +1,5 @@
-export { default as Icon } from './Icon';
-export { default as Label } from './Label';
-export { default as LabelForm } from './LabelForm';
+export { default as Icon } from './general/Icon';
+export { default as Label } from './general/Label';
 export { default as Button } from './button/Button';
 export { default as ButtonIcon } from './button/ButtonIcon';
 export { default as ButtonDropdown } from './button/ButtonDropdown';

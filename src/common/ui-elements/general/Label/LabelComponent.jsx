@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import genHash from 'random-hash';
 import _ from 'lodash';
 
-import Icon from '../Icon';
+import { Icon } from 'common/ui-elements';
 
 /**
  * [Label, UIE002] Label geral da aplicação.

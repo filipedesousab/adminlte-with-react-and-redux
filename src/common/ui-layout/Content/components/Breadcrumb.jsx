@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import genHash from 'random-hash';
 
-import Icon from '../../../ui-elements/Icon';
+import { Icon } from 'common/ui-elements';
 
 /**
  * Breadcrumb aparece no lado direito da página, ajuda o usuário se localizar no sistema.
