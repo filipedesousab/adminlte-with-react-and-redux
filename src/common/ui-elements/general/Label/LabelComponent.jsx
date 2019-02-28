@@ -50,7 +50,7 @@ class LabelComponent extends React.PureComponent {
           {...newProps}
           className={`control-label ${className}`}
           htmlFor={htmlFor}
-          style={{ ...style, color }}
+          style={{ color, ...style }}
         >
           <Icon name={icon} /> {children}
         </label>
@@ -61,7 +61,7 @@ class LabelComponent extends React.PureComponent {
       <span
         {...newProps}
         className={className}
-        style={{ ...style, color }}
+        style={{ color, ...style }}
       >
         <Icon name={icon} /> {children}
       </span>
