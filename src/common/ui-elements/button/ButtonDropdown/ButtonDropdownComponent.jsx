@@ -81,17 +81,22 @@ class ButtonDropdownComponent extends React.PureComponent {
             return <MenuItem header key={genHash()}>{item.label}</MenuItem>;
           }
 
+          const target = item.target === '' || item.target === false ? null : item.target;
           const onClick = !item.disabled && item.onClick ? item.onClick : null;
 
           return (
             /**
              * Ítem do menu com possibilidade de link e função de click.
-             * O disable deixa o item desabilitado.
+             * O disabled deixa o item desabilitado.
+             * O href inclui um link na opção.
+             * O target é o mesmo do target HTML para trabalhar com o href.
+             * O onClik executa uma função na ação do click.
              * O label é a descrição do item.
              */
             <MenuItem
               disabled={item.disabled}
               href={item.href}
+              target={target}
               key={genHash()}
               onClick={onClick}
             >
