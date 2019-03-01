@@ -80,6 +80,9 @@ class ButtonDropdownComponent extends React.PureComponent {
             /** Texto sem link, pode ser utilizado para identificar seções de opções */
             return <MenuItem header key={genHash()}>{item.label}</MenuItem>;
           }
+
+          const onClick = !item.disabled && item.onClick ? item.onClick : null;
+
           return (
             /**
              * Ítem do menu com possibilidade de link e função de click.
@@ -90,7 +93,7 @@ class ButtonDropdownComponent extends React.PureComponent {
               disabled={item.disabled}
               href={item.href}
               key={genHash()}
-              onClick={item.onClick}
+              onClick={onClick}
             >
               {item.label}
             </MenuItem>
