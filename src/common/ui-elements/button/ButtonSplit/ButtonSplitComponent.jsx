@@ -89,6 +89,7 @@ class ButtonSplitComponent extends React.PureComponent {
             return <MenuItem header key={genHash()}>{item.label}</MenuItem>;
           }
 
+          const target = item.target === '' || item.target === false ? null : item.target;
           const opOnClick = !item.disabled && item.onClick ? item.onClick : null;
 
           return (
@@ -103,6 +104,7 @@ class ButtonSplitComponent extends React.PureComponent {
             <MenuItem
               disabled={item.disabled}
               href={item.href}
+              target={target}
               key={genHash()}
               onClick={opOnClick}
             >
