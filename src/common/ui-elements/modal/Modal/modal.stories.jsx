@@ -42,6 +42,14 @@ const stories = storiesOf('ui-elements/modal/Modal [Modal, UIE023]', module)
     notes: 'O children(Corpo do Modal) pode ser qualquer Elemento React.',
   })
 
+  .add('children grande', () => (
+    <Modal show title={<Label>Título do modal</Label>}>
+      {[...Array(30).keys()].map(value => <p key={value.toString()}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed posuere metus.</p>)}
+    </Modal>
+  ), {
+    notes: 'O Modal não é ideal para um conteúdo muito extenso.',
+  })
+
   .add('btnFooterLeft', () => (
     <Modal
       show
