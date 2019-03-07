@@ -15,15 +15,17 @@ import { Modal } from 'react-bootstrap';
 class ModalComponent extends React.Component {
   /** Método para renderizar os botões do footer */
   renderButtons() {
+    const { btnFooterLeft, btnFooterRight } = this.props;
+
     /** Para o modal default os botões devem manter a cor original do bootstrap */
     if (this.props.color === 'default') {
       return (
         <React.Fragment>
-          {this.props.btnFooterLeft.map((button, index) => React.cloneElement(
+          {btnFooterLeft && btnFooterLeft.map((button, index) => React.cloneElement(
             button,
             { className: 'pull-left', key: index.toString() },
           ))}
-          {this.props.btnFooterRight.map((button, index) => React.cloneElement(
+          {btnFooterRight && btnFooterRight.map((button, index) => React.cloneElement(
             button,
             { key: index.toString() },
           ))}
@@ -34,11 +36,11 @@ class ModalComponent extends React.Component {
     /** Para os modais com cor os botões devem receber as classes do AdminLTE */
     return (
       <React.Fragment>
-        {this.props.btnFooterLeft.map((button, index) => React.cloneElement(
+        {btnFooterLeft && btnFooterLeft.map((button, index) => React.cloneElement(
           button,
           { className: 'btn-outline pull-left', color: null, key: index.toString() },
         ))}
-        {this.props.btnFooterRight.map((button, index) => React.cloneElement(
+        {btnFooterRight && btnFooterRight.map((button, index) => React.cloneElement(
           button,
           { className: 'btn-outline', color: null, key: index.toString() },
         ))}
