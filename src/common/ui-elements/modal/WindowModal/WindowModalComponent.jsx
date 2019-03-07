@@ -57,7 +57,7 @@ WindowModalComponent.defaultProps = {
   children: null,
   btnFooterLeft: null,
   btnFooterRight: null,
-  show: 'false',
+  show: false,
   onHide: null,
 };
 
