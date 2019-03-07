@@ -14,13 +14,15 @@ import { Modal } from 'react-bootstrap';
 class WindowModalComponent extends React.Component {
   /** Método para renderizar os botões do footer */
   renderButtons() {
+    const { btnFooterLeft, btnFooterRight } = this.props;
+
     return (
       <React.Fragment>
-        {this.props.btnFooterLeft.map((button, index) => React.cloneElement(
+        {btnFooterLeft && btnFooterLeft.map((button, index) => React.cloneElement(
           button,
           { className: 'pull-left', key: index.toString() },
         ))}
-        {this.props.btnFooterRight.map((button, index) => React.cloneElement(
+        {btnFooterRight && btnFooterRight.map((button, index) => React.cloneElement(
           button,
           { key: index.toString() },
         ))}
