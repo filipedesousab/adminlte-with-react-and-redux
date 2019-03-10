@@ -28,7 +28,10 @@ CalloutComponent.defaultProps = {
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 CalloutComponent.propTypes = {
   color: PropTypes.oneOf(['info', 'success', 'warning', 'danger']),
-  title: PropTypes.element,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
   children: PropTypes.node,
 };
 
