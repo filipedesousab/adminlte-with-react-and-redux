@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Alerts } from 'common/ui-layout';
-import Breadcrumb from './containers/Breadcrumb';
+import Breadcrumb from './components/Breadcrumb';
 
 /**
  * [Content, UIL003] Recebe o conteúdo da página
@@ -12,49 +12,38 @@ import Breadcrumb from './containers/Breadcrumb';
  * @param {object} props.children   Conteúdo da página
  * @param {object} props.footer     Rodapé da página
  */
-class ContentComponent extends Component {
-  /** Executado pelo react antes de montar o componente */
-  componentWillMount() {
-    if (this.props.title) {
-      this.props.changeTitle(this.props.title);
-    }
+const ContentComponent = (props) => {
+  const {
+    title,
+    subtitle,
+    breadcrumb,
+    children,
+    footer,
+  } = props;
 
-    if (this.props.subtitle) {
-      this.props.changeSubtitle(this.props.subtitle);
-    }
-
-    if (this.props.breadcrumb) {
-      this.props.changeBreadcrumb(this.props.breadcrumb);
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <Alerts />
-        <div className="content-header">
-          <h1>{this.props.contentTitle}
-            {this.props.contentSubtitle ? <small>{this.props.subtitle}</small> : false}
-          </h1>
-          <Breadcrumb />
-        </div>
-        <div className="content">
-          {this.props.children}
-        </div>
-        <div className="content-footer">
-          {this.props.footer}
-        </div>
+  return (
+    <div>
+      <Alerts />
+      <div className="content-header">
+        <h1>{title}
+          {subtitle ? <small>{subtitle}</small> : false}
+        </h1>
+        <Breadcrumb breadcrumb={breadcrumb} />
       </div>
-    );
-  }
-}
+      <div className="content">
+        {children}
+      </div>
+      <div className="content-footer">
+        {footer}
+      </div>
+    </div>
+  );
+};
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 ContentComponent.defaultProps = {
   title: null,
-  contentTitle: null,
   subtitle: null,
-  contentSubtitle: null,
   breadcrumb: [],
   children: null,
   footer: null,
@@ -63,15 +52,10 @@ ContentComponent.defaultProps = {
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 ContentComponent.propTypes = {
   title: PropTypes.element,
-  contentTitle: PropTypes.element,
   subtitle: PropTypes.element,
-  contentSubtitle: PropTypes.element,
   breadcrumb: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node,
   footer: PropTypes.node,
-  changeTitle: PropTypes.func.isRequired,
-  changeSubtitle: PropTypes.func.isRequired,
-  changeBreadcrumb: PropTypes.func.isRequired,
 };
 
 
