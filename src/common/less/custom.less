@@ -34,6 +34,14 @@ input[type="checkbox"], input[type="radio"] {
 .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
     margin-left: 0px;
 }
+
+// Corrigir bordas dos addons quando o campo TextArea é alterado de tamanho
+.input-group-addon:first-child {
+  border-right: 1px solid;
+}
+.input-group-addon:last-child {
+  border-left: 1px solid;
+}
 // Fom das regras para os componentes do form
 
 // Manter o componente [WindowModal, UIE024] nas dimensões corretas
