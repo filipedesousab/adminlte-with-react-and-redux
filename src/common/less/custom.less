@@ -42,6 +42,12 @@ input[type="checkbox"], input[type="radio"] {
 .input-group-addon:last-child {
   border-left: 1px solid;
 }
+
+// remover o ícone do form-control-feedback,
+// o mesmo está atrapalhando a visualização correta do componente.
+select + .form-control-feedback {
+  display: none;
+}
 // Fom das regras para os componentes do form
 
 // Manter o componente [WindowModal, UIE024] nas dimensões corretas
