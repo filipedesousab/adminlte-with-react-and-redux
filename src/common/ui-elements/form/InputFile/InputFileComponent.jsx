@@ -70,6 +70,7 @@ class InputFileComponent extends React.Component {
     const {
       label,
       state,
+      size,
       helpBlock,
       disabled,
       className,
@@ -80,6 +81,7 @@ class InputFileComponent extends React.Component {
       'id',
       'label',
       'state',
+      'size',
       'helpBlock',
       'disabled',
       'onChange',
@@ -101,6 +103,7 @@ class InputFileComponent extends React.Component {
           <Button
             onClick={() => this.inputFileField.click()}
             disabled={disabled}
+            size={size}
           >
             <Label icon={`fa fa-${this.state.icon}`}>{this.state.fileName}</Label>
           </Button>
@@ -131,6 +134,7 @@ InputFileComponent.defaultProps = {
   id: null,
   label: null,
   state: null,
+  size: null,
   helpBlock: null,
   disabled: false,
   onChange: null,
@@ -142,6 +146,7 @@ InputFileComponent.propTypes = {
   id: PropTypes.string,
   label: PropTypes.element,
   state: PropTypes.oneOf(['success', 'warning', 'error']),
+  size: PropTypes.oneOf(['large', 'small']),
   helpBlock: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
