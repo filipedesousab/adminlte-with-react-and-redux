@@ -30,6 +30,7 @@ class TextAreaComponent extends React.PureComponent {
       addonLeft,
       addonRight,
       value,
+      defaultValue,
       placeholder,
       disabled,
       onChange,
@@ -46,6 +47,7 @@ class TextAreaComponent extends React.PureComponent {
       'addonLeft',
       'addonRight',
       'value',
+      'defaultValue',
       'placeholder',
       'disabled',
       'onChange',
@@ -67,6 +69,7 @@ class TextAreaComponent extends React.PureComponent {
             : false}
           <FormControl
             value={value}
+            defaultValue={defaultValue}
             placeholder={placeholder}
             disabled={disabled}
             onChange={onChange}
@@ -93,6 +96,7 @@ TextAreaComponent.defaultProps = {
   addonLeft: null,
   addonRight: null,
   value: undefined,
+  defaultValue: undefined,
   placeholder: null,
   disabled: false,
   onChange: null,
@@ -115,6 +119,7 @@ TextAreaComponent.propTypes = {
     PropTypes.element,
   ]),
   value: PropTypes.string,
+  defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
