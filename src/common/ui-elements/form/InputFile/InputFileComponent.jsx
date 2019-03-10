@@ -93,6 +93,7 @@ class InputFileComponent extends React.Component {
         {...newProps}
         controlId={id}
         validationState={state}
+        className={className}
       >
         <ControlLabel>{label}</ControlLabel>
         <br />
@@ -115,7 +116,6 @@ class InputFileComponent extends React.Component {
           type="file"
           disabled={disabled}
           onChange={this.handleChange}
-          className={className}
           inputRef={(e) => { this.inputFileField = e; }}
           style={{ display: 'none' }}
         />
