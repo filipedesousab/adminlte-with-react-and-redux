@@ -8,6 +8,8 @@
   margin: 0px;
 }
 
+// Início das regras para os componentes do form
+
 // Ajuste na posição dos componentes [Checkbox, UIE014] e [Radio, UIE015]
 input[type="checkbox"], input[type="radio"] {
   margin-top: 0px;
@@ -23,6 +25,16 @@ input[type="checkbox"], input[type="radio"] {
 .form-group-sm .form-control, .form-group-lg .form-control {
   border-radius: 0px;
 }
+
+// Corrigir bordas do input com state quando houver button
+// O button sobrepõe a borda com cor do campo
+.input-group-btn:first-child>.btn-group {
+    margin-right: 0px;
+}
+.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
+    margin-left: 0px;
+}
+// Fom das regras para os componentes do form
 
 // Manter o componente [WindowModal, UIE024] nas dimensões corretas
 .modal.window-modal {
