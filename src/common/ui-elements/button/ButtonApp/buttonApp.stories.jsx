@@ -36,7 +36,7 @@ storiesOf('ui-elements/button/ButtonApp [ButtonApp, UIE008]', module)
       />
     </div>
   )), {
-    notes: `O badge tem que ser string ou int. Por padrão a cor do badge é aqua.`,
+    notes: 'O badge tem que ser string ou int. Por padrão a cor do badge é aqua.',
   })
 
   .add('badge com outros dados', () => [false, undefined, null, '', 0, <Label>badge</Label>].map((value, index) => (
@@ -73,10 +73,19 @@ storiesOf('ui-elements/button/ButtonApp [ButtonApp, UIE008]', module)
     notes: 'O "disabled" permite desabilitar o botão. Também é possível passar o parâmetro da forma disabled={true} ou disabled={false}.',
   })
 
+  .add('onClick', () => (
+    <ButtonApp
+      label={<Label icon="fa fa-users">Usuários</Label>}
+      onClick={action('Click deve funcionar')}
+    />
+  ), {
+    notes: 'onClick recebe função a ser executada na ação do click',
+  })
+
   .add('onClick com disabled', () => (
     <ButtonApp
       label={<Label icon="fa fa-users">Usuários</Label>}
-      onClick={action('clicked')}
+      onClick={action('Click não deve funcionar')}
       disabled
     />
   ), {
