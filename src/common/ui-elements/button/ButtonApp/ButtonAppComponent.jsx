@@ -40,6 +40,8 @@ class ButtonAppComponent extends React.PureComponent {
     ]);
 
     const newClassName = `btn-app ${className}`;
+    const newOnClick = disabled ? () => {} : onClick;
+
     /**
      * Clonar elemento [Label, UIE002] recebido pelo this.props.label passando noSpan como true.
      * O componente ButtonApp precisa da descrição e ícone sem a tag span.
@@ -54,7 +56,7 @@ class ButtonAppComponent extends React.PureComponent {
         disabled={disabled}
         block={block}
         className={newClassName}
-        onClick={onClick}
+        onClick={newOnClick}
         componentClass="a"
       >
         {badge || badge === 0 ? <span className={`badge bg-${badgeColor}`}>{badge}</span> : false}
