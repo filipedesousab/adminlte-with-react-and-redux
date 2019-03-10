@@ -36,6 +36,7 @@ class InputComponent extends React.PureComponent {
       addonRight,
       type,
       value,
+      defaultValue,
       placeholder,
       disabled,
       onChange,
@@ -55,6 +56,7 @@ class InputComponent extends React.PureComponent {
       'addonRight',
       'type',
       'value',
+      'defaultValue',
       'placeholder',
       'disabled',
       'onChange',
@@ -80,6 +82,7 @@ class InputComponent extends React.PureComponent {
           <FormControl
             type={type}
             value={value}
+            defaultValue={defaultValue}
             placeholder={placeholder}
             disabled={disabled}
             onChange={onChange}
