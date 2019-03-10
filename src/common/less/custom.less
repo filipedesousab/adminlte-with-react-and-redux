@@ -18,6 +18,12 @@ input[type="checkbox"], input[type="radio"] {
     margin: 0px 0px -8px;
 }
 
+// Corrigir border-radius do lado direito dos campos quando estão small e large
+// A borda esquerda mantia um radiu de 3px enquanto a direita um radio de 0px
+.form-group-sm .form-control, .form-group-lg .form-control {
+  border-radius: 0px;
+}
+
 // Manter o componente [WindowModal, UIE024] nas dimensões corretas
 .modal.window-modal {
   padding: 4vh !important;
