@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 
 /**
- * [ButtonApp, UIE008] Botão padrão da aplicação.
+ * [ButtonApp, UIE008] Botão de aplicativo (maior e com ícone)
  * @param   {string} props.label      Descrição do botão com ícone
  * @param   {string} props.badge      Texto do badge do botão
  * @param   {string} props.badgeColor Cor do badge
@@ -57,7 +57,7 @@ class ButtonAppComponent extends React.PureComponent {
         onClick={onClick}
         componentClass="a"
       >
-        {badge ? <span className={`badge bg-${badgeColor}`}>{badge}</span> : false}
+        {badge || badge === 0 ? <span className={`badge bg-${badgeColor}`}>{badge}</span> : false}
         {description}
       </Button>
     );
