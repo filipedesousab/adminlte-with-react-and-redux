@@ -7,7 +7,11 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 module.exports = {
   devtool: 'source-map', // Ajuda no debug pelo navegador, apresentando alguns erros no código do projeto
 
-  entry: path.join(__dirname, 'src', 'index.jsx'), // Arquivo inicial de entrada, a partir daqui toda a aplicação é carregada
+  entry: [
+    path.join(__dirname, 'src', 'index.jsx'), // Arquivo inicial de entrada, a partir daqui toda a aplicação é carregada
+    path.join(__dirname, 'src', 'common', 'scss', 'dependencies.scss'), // Arquivo com importações dos estilos das dependencias
+    path.join(__dirname, 'src', 'common', 'scss', 'custom.scss'), // Arquivo com estilos customizados
+  ],
 
   output: {
     filename: '[name].js', // Nome gerado automáticamente
@@ -59,16 +63,18 @@ module.exports = {
       },
     }, {
       test: /\.css$/, // Tratar arquivos CSS
+      sideEffects: true,
       loader: [
         'style-loader', // Inclui o css em uma tag <style> dentro do html
         'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
       ],
     }, {
-      test: /\.less$/, // Tratar arquivos de código LESS
+      test: /\.scss$/, // Tratar arquivos de código LESS
+      sideEffects: true,
       loader: [
         'style-loader', // Inclui o css em uma tag <style> dentro do html
         'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
-        'less-loader', // Compila LESS para CSS
+        'sass-loader', // Compila SASS e SCSS para CSS
       ],
     }, {
       test: /\.(woff2?|ttf|eot|jpe?g|png|gif|svg|ico)$/, // Configura os arquios a serem carregados na aplicação pelo file

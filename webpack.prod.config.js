@@ -2,13 +2,14 @@ const webpack = require('webpack');
 const path = require('path');
 
 const HtmlPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const crp = new ExtractTextPlugin('crp.css'); // Instancia para o Critical Rendering Path
-const styles = new ExtractTextPlugin('[name]-[contenthash:8].css'); // Nome gerado automáticamente com uma hash do conteúdo, após a compilação
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.jsx'), // Arquivo inicial de entrada, a partir daqui toda a aplicação é carregada
+  entry: [
+    path.join(__dirname, 'src', 'index.jsx'), // Arquivo inicial de entrada, a partir daqui toda a aplicação é carregada
+    path.join(__dirname, 'src', 'common', 'scss', 'dependencies.scss'), // Arquivo com importações dos estilos das dependencias
+    path.join(__dirname, 'src', 'common', 'scss', 'custom.scss'), // Arquivo com estilos customizados
+  ],
 
   output: {
     path: path.join(__dirname, 'public'), // Local de saída dos arquivos compilados
@@ -16,7 +17,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'], // As extensões que serão interpretadas pelo webpack
+    extensions: ['.js', '.jsx', '.scss'], // As extensões que serão interpretadas pelo webpack
 
     alias: { // Pseudônimo para pastas e arquivos
       modules: path.join(__dirname, 'node_modules'), // Usado geralmente para importar arquivo de uma dependencia
@@ -27,8 +28,9 @@ module.exports = {
   },
 
   plugins: [
-    crp, // Instância do ExtractTextPlugin para o Critical Rendering Path
-    styles, // Instância do ExtractTextPlugin para os demais CSS
+    new MiniCssExtractPlugin({ // Extai o CSS dos loaders
+      filename: '[name]-[contenthash:8].css',
+    }),
 
     new webpack.ProvidePlugin({ // Deixar o jQuery disponível
       $: 'jquery',
@@ -64,19 +66,17 @@ module.exports = {
       },
     }, {
       test: /\.css$/, // Tratar arquivos CSS
-      loader: crp.extract({ // Extrai o código para um arquivo css configurado acima
-        fallback: 'style-loader', // Caso alguma coisa dê errado, inclui o css em uma tag <style> dentro do html
-        use: 'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
-      }),
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
+      ],
     }, {
-      test: /\.less$/, // Tratar arquivos de código LESS
-      loader: styles.extract({ // Extrai o código para um arquivo css configurado acima
-        fallback: 'style-loader', // Caso alguma coisa dê errado, inclui o css em uma tag <style> dentro do html
-        use: [
-          'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
-          'less-loader', // Compila LESS para CSS
-        ],
-      }),
+      test: /\.scss$/, // Tratar arquivos de código SCSS
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
+        'sass-loader', // Compila SASS e SCSS para CSS
+      ],
     }, {
       test: /\.(woff2?|ttf|eot|svg)$/, // Configura os arquios a serem carregados na aplicação pelo file
       include: /node_modules/,
