@@ -2,7 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { linkTo } from '@storybook/addon-links';
 
-import 'common/dependencies.js';
+import 'common/dependencies';
+import 'common/scss/dependencies.scss';
+import 'common/scss/custom.scss';
 import Menu from './components/Menu';
 
 const items = [{

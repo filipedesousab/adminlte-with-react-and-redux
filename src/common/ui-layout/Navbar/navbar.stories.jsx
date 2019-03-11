@@ -1,7 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import 'common/dependencies.js';
+import 'common/dependencies';
+import 'common/scss/dependencies.scss';
+import 'common/scss/custom.scss';
 import Navbar from './';
 
 const styles = ['skin-blue-light', 'skin-yellow', 'skin-yellow-light', 'skin-green', 'skin-green-light', 'skin-purple', 'skin-purple-light', 'skin-red', 'skin-red-light', 'skin-black', 'skin-black-light']

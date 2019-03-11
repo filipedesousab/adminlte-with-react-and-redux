@@ -2,7 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import 'common/dependencies.js';
+import 'common/dependencies';
+import 'common/scss/dependencies.scss';
+import 'common/scss/custom.scss';
 import { Button, ButtonDropdown, Label } from 'common/ui-elements';
 import ButtonGroup from './';
 

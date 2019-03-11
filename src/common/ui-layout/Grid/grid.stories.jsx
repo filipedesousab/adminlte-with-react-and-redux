@@ -1,7 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import 'common/dependencies.js';
+import 'common/dependencies';
+import 'common/scss/dependencies.scss';
+import 'common/scss/custom.scss';
 import Grid from './';
 
 const style = {

@@ -47,11 +47,11 @@ module.exports = {
         'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
       ],
     }, {
-      test: /\.less$/, // Tratar arquivos de código LESS
+      test: /\.scss$/, // Tratar arquivos de código SCSS
       loader: [
         'style-loader', // Inclui o css em uma tag <style> dentro do html
         'css-loader', // Interpreta @import e url() como import/require() e irá resolvê-los
-        'less-loader', // Compila LESS para CSS
+        'sass-loader', // Compila SASS e SCSS para CSS
       ],
     }, {
       test: /\.(woff2?|ttf|eot|jpe?g|png|gif|svg|ico)$/, // Configura os arquios a serem carregados na aplicação pelo file

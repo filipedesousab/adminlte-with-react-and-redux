@@ -2,7 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { storiesOf } from '@storybook/react';
 
-import 'common/dependencies.js';
+import 'common/dependencies';
+import 'common/scss/dependencies.scss';
+import 'common/scss/custom.scss';
 import Label from './';
 
 const designColors = ['#3C8DBC', '#00C0EF', '#00A65A', '#F39C12', '#F56954', '#D2D6DE', '#001F3F', '#39CCCC', '#605CA8', '#FF851B', '#D81B60', '#111111'];
