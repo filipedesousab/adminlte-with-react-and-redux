@@ -53,14 +53,7 @@ module.exports = {
     rules: [{
       test: /.js[x]?$/, // Configura os arquios a serem lidos pelo babel
       loader: 'babel-loader', // Babel ajuda a interpretar o código
-      exclude: /node_modules|bower_components/, // Ignorar as pastas
-      query: {
-        presets: [
-          'es2015', // Usado para compular ES6 para ES5
-          'react', // Usado para compular react(JSX) para JavaScript
-        ],
-        plugins: ['transform-object-rest-spread'], // Permite a utilização de Spread "..."
-      },
+      exclude: /node_modules/, // Ignorar a pasta
     }, {
       test: /\.css$/, // Tratar arquivos CSS
       sideEffects: true,
