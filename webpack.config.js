@@ -44,7 +44,7 @@ module.exports = {
     }),
 
     new HtmlPlugin({ // Gera o html de forma dinâmica
-      title: 'VolgClin', // Título a ser exibido na página
+      title: 'AdminLTE', // Título a ser exibido na página
       template: path.join(__dirname, 'src', 'html', 'template.html'), // Template no padrão ejs para gerar o html de forma dinâmica
     }),
   ],

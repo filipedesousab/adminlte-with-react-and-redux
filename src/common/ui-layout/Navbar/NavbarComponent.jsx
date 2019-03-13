@@ -8,11 +8,11 @@ const NavbarComponent = () => (
         className="logo-mini"
         style={{ fontSize: 10, lineHeight: '10px', marginTop: 16 }}
       >
-        <b>Volg</b>
-        <p style={{ letterSpacing: '1px' }}>Clin</p>
+        Admin
+        <p style={{ letterSpacing: '1px' }}>LTE</p>
       </span>
       <span className="logo-lg">
-        <b>Volg</b>Clin
+        AdminLTE
       </span>
     </a>
     <nav className="navbar navbar-static-top">

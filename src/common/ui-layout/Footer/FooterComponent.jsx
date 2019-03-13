@@ -4,9 +4,9 @@ const FooterComponent = () => (
   <footer className="main-footer row">
     <div className="col-md-4">
       <strong>
-        <font>VolgClin © 2019 </font>
-        <a href="https://volgsoft.com.br">
-          <font>Volgsoft</font>
+        <font>AdminLTE © 2019 </font>
+        <a href="https://adminlte.io">
+          <font>AdminLTE</font>
         </a>
       </strong>
     </div>
@@ -14,8 +14,8 @@ const FooterComponent = () => (
       <div className="text-center">
         <font>
           <strong>Suporte:</strong>
-          <a href="tel:81982890000">
-            <font> (81) 98289-0000</font>
+          <a href="tel:81900000000">
+            <font> (81) 90000-0000</font>
           </a>
         </font>
       </div>
@@ -23,7 +23,7 @@ const FooterComponent = () => (
     <div className="col-md-4">
       <div className="text-right">
         <b><font>Versão</font></b>
-        <font> 0.0.1</font>
+        <font> 2.4.8</font>
       </div>
     </div>
   </footer>

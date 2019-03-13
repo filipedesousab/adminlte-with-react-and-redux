@@ -39,7 +39,7 @@ module.exports = {
     }),
 
     new HtmlPlugin({ // Gera o html de forma dinâmica
-      title: 'VolgClin', // Título a ser exibido na página
+      title: 'AdminLTE', // Título a ser exibido na página
       inject: false,
       filename: 'index.html', // Arquivo de saída do HTML gerado
       template: path.join(__dirname, 'src', 'html', 'template.prod.html'), // Template no padrão ejs para gerar o html de forma dinâmica
