@@ -1,7 +1,7 @@
 {
-  "name": "frontend",
+  "name": "adminlte-with-react",
   "version": "0.0.1",
-  "description": "Frontend do sistema Volgclin",
+  "description": "Template AdminLTE construído com react",
   "main": "src/index.jsx",
   "scripts": {
     "start": "webpack-dev-server --colors --inline --hot",
@@ -10,8 +10,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "author": "filipedesousab@gmail.com, marlonlira2@gmail.com",
-  "license": "UNLICENSED",
+  "author": "filipedesousab@gmail.com",
+  "license": "MIT",
   "private": true,
   "babel": {
     "presets": [
