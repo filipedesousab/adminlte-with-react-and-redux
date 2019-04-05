@@ -14,21 +14,25 @@ import { Modal } from 'react-bootstrap';
  */
 class ModalComponent extends React.Component {
   /** Método para renderizar os botões do footer */
-  renderButtons() {
-    const { btnFooterLeft, btnFooterRight } = this.props;
-
+  renderButtons({ btnFooterLeft, btnFooterRight, color }) {
     /** Para o modal default os botões devem manter a cor original do bootstrap */
-    if (this.props.color === 'default') {
+    if (color === 'default') {
       return (
         <React.Fragment>
-          {btnFooterLeft && btnFooterLeft.map((button, index) => React.cloneElement(
-            button,
-            { className: 'pull-left', key: index.toString() },
-          ))}
-          {btnFooterRight && btnFooterRight.map((button, index) => React.cloneElement(
-            button,
-            { key: index.toString() },
-          ))}
+          {btnFooterLeft && React.Children.map(
+            btnFooterLeft,
+            (button, index) => React.cloneElement(
+              button,
+              { className: 'pull-left', key: index.toString() },
+            ),
+          )}
+          {btnFooterRight && React.Children.map(
+            btnFooterRight,
+            (button, index) => React.cloneElement(
+              button,
+              { key: index.toString() },
+            ),
+          )}
         </React.Fragment>
       );
     }
@@ -36,33 +40,51 @@ class ModalComponent extends React.Component {
     /** Para os modais com cor os botões devem receber as classes do AdminLTE */
     return (
       <React.Fragment>
-        {btnFooterLeft && btnFooterLeft.map((button, index) => React.cloneElement(
-          button,
-          { className: 'btn-outline pull-left', color: null, key: index.toString() },
-        ))}
-        {btnFooterRight && btnFooterRight.map((button, index) => React.cloneElement(
-          button,
-          { className: 'btn-outline', color: null, key: index.toString() },
-        ))}
+        {btnFooterLeft && React.Children.map(
+          btnFooterLeft,
+          (button, index) => React.cloneElement(
+            button,
+            { className: 'btn-outline pull-left', color: null, key: index.toString() },
+          ),
+        )}
+        {btnFooterRight && React.Children.map(
+          btnFooterRight,
+          (button, index) => React.cloneElement(
+            button,
+            { className: 'btn-outline', color: null, key: index.toString() },
+          ),
+        )}
       </React.Fragment>
     );
   }
 
   render() {
+    const {
+      btnFooterLeft,
+      btnFooterRight,
+      children,
+      color,
+      onHide,
+      show,
+      title,
+      ...props
+    } = this.props;
+
     return (
       <Modal
-        className={`modal-${this.props.color}`}
-        show={this.props.show}
-        onHide={this.props.onHide}
+        className={`modal-${color}`}
+        show={show}
+        onHide={onHide}
+        {...props}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{this.props.title}</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>{this.props.children}</Modal.Body>
+        <Modal.Body>{children}</Modal.Body>
 
         <Modal.Footer>
-          {this.renderButtons()}
+          {this.renderButtons({ btnFooterLeft, btnFooterRight, color })}
         </Modal.Footer>
       </Modal>
     );
@@ -85,8 +107,14 @@ ModalComponent.propTypes = {
   color: PropTypes.oneOf(['default', 'info', 'success', 'warning', 'danger']),
   title: PropTypes.element,
   children: PropTypes.node,
-  btnFooterLeft: PropTypes.arrayOf(PropTypes.element),
-  btnFooterRight: PropTypes.arrayOf(PropTypes.element),
+  btnFooterLeft: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
+  btnFooterRight: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
   show: PropTypes.bool,
   onHide: PropTypes.func,
 };
