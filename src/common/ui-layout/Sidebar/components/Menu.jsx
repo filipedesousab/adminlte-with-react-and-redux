@@ -7,11 +7,11 @@ import MenuTree from './MenuTree';
 
 /**
  * Itens do menu esquerdo da aplicação.
- * @param {array} props.items [{ label: '', icon: '', items: [{ label: '', icon: '', href: '' }] }]
+ * @param {?array} props.items [{ label: '', icon: '', items: [{ label: '', icon: '', href: '' }] }]
  */
-const MenuComponent = props => (
+const MenuComponent = ({ items }) => (
   <ul className="sidebar-menu tree" data-widget="tree">
-    {props.items.map((item) => {
+    {items.map((item) => {
       if (item.hasOwnProperty('items')) {
         return (
           <MenuTree label={item.label} icon={item.icon} key={genHash()}>
