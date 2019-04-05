@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 
 /**
- * [ButtonIcon, UIE004] Botão padrão da aplicação.
- * @param   {string} props.color     Cor em rgb ou exadecimal
- * @param   {string} props.size      Tamanho do botão large, small ou xsmall
- * @param   {string} props.href      Endereço do link
- * @param   {string} props.type      Tipo do botão button(default), reset ou submit
- * @param  {boolean} props.disabled  Botão desabilitado
- * @param  {boolean} props.block     Botão com width 100%
- * @param   {string} props.className Class html opcional no componente
- * @param   {object} props.children  Corpo do componente
- * @param {function} props.onClick   Ação de click do botão
+ * [Button, UIE004] Botão padrão da aplicação.
+ * @param   {string} props.color       Cor em rgb ou exadecimal
+ * @param   {string} props.size        Tamanho do botão large, small ou xsmall
+ * @param   {string} props.href        Endereço do link
+ * @param   {string} props.type        Tipo do botão button(default), reset ou submit
+ * @param  {boolean} props.disabled    Botão desabilitado
+ * @param  {boolean} props.block       Botão com width 100%
+ * @param  {boolean} props.nextToField Posicionar botão corretamente com os campos com label
+ * @param   {string} props.className   Class html opcional no componente
+ * @param   {object} props.children    Corpo do componente
+ * @param {function} props.onClick     Ação de click do botão
  */
 class ButtonComponent extends React.PureComponent {
   render() {
@@ -24,35 +24,29 @@ class ButtonComponent extends React.PureComponent {
       type,
       disabled,
       block,
+      nextToField,
       className,
       onClick,
       children,
+      ...props
     } = this.props;
 
-    // Removendo props para não inteferir no ReacDOM e retirar o warning
-    const newProps = _.omit(this.props, [
-      'color',
-      'size',
-      'href',
-      'type',
-      'disabled',
-      'block',
-      'className',
-      'onClick',
-      'children',
-    ]);
+    const newClassName = [
+      (nextToField && 'btn-nexttofield') || '',
+      className,
+    ].join(' ');
 
     return (
       <Button
-        {...newProps}
         bsStyle={color}
         bsSize={size}
         href={href}
         type={type}
         disabled={disabled}
         block={block}
-        className={className}
+        className={newClassName}
         onClick={onClick}
+        {...props}
       >
         {children}
       </Button>
@@ -68,6 +62,7 @@ ButtonComponent.defaultProps = {
   type: null,
   disabled: false,
   block: false,
+  nextToField: false,
   className: '',
   onClick: null,
   children: null,
@@ -81,6 +76,7 @@ ButtonComponent.propTypes = {
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
   disabled: PropTypes.bool,
   block: PropTypes.bool,
+  nextToField: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.element,
