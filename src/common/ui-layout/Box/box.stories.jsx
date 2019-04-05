@@ -5,7 +5,7 @@ import 'common/dependencies';
 import 'common/scss/dependencies.scss';
 import 'common/scss/custom.scss';
 import { Button, Label } from 'common/ui-elements';
-import Box from './';
+import Box from '.';
 
 const colors = ['primary', 'info', 'success', 'warning', 'danger', 'muted'];
 
@@ -16,6 +16,25 @@ const stories = storiesOf('ui-layout/Box [Box, UIL006]', module)
     </div>
   ), {
     notes: 'O "title" deve ser um Elemento React, o ideal é que seja um [Label, UIE002].',
+  })
+
+  .add('titleAddon', () => (
+    <div style={{ width: '250px' }}>
+      <Box titleAddon={<Button><Label>Botão no título do box</Label></Button>} />
+    </div>
+  ), {
+    notes: 'O "titleAddon" deve ser um Elemento React, servirá para inserir componentes ao lado do título.',
+  })
+
+  .add('title com titleAddon', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        title={<Label icon="fa fa-smile-o">Título do box</Label>}
+        titleAddon={<Button><Label>Botão</Label></Button>}
+      />
+    </div>
+  ), {
+    notes: 'É possível inserir o title com titleAddon.',
   })
 
   .add('children', () => (
@@ -32,7 +51,7 @@ const stories = storiesOf('ui-layout/Box [Box, UIL006]', module)
     <div style={{ width: '250px' }}>
       <Box
         title={<Label>Título do box</Label>}
-        footer={<Button>Footer Button</Button>}
+        footer={<Button><Label>Footer Button</Label></Button>}
       >
         Corpo do Box
       </Box>
@@ -45,7 +64,7 @@ const stories = storiesOf('ui-layout/Box [Box, UIL006]', module)
     <div style={{ width: '250px' }}>
       <Box
         title={<Label>Box color null</Label>}
-        footer={<Button>Footer Button</Button>}
+        footer={<Button><Label>Footer Button</Label></Button>}
         color={null}
       >
         Corpo do Box
@@ -59,8 +78,8 @@ const stories = storiesOf('ui-layout/Box [Box, UIL006]', module)
 colors.every((color, index) => stories.add(`color ${color}`, () => (
   <div style={{ width: '250px' }} key={index.toString()}>
     <Box
-      title={<Label>Box color {color}</Label>}
-      footer={<Button>Footer Button</Button>}
+      title={<Label>{`Box color ${color}`}</Label>}
+      footer={<Button><Label>Footer Button</Label></Button>}
       color={color}
     >
       Corpo do Box
