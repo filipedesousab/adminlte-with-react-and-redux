@@ -5,15 +5,16 @@ import { action } from '@storybook/addon-actions';
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
 import 'common/scss/custom.scss';
-import { Label, Icon } from 'common/ui-elements';
-import Button from './';
+import { Label, Icon, Input } from 'common/ui-elements';
+import { Grid } from 'common/ui-layout';
+import Button from '.';
 
 const colors = ['default', 'primary', 'success', 'info', 'warning', 'danger'];
 
 storiesOf('ui-elements/button/Button [Button, UIE004]', module)
   .add('color', () => colors.map((color, index) => (
     <div key={index.toString()} style={{ margin: '5px', float: 'left' }}>
-      <Button color={color}><Label>Botão {color}</Label></Button>
+      <Button color={color}><Label>{`Botão ${color}`}</Label></Button>
     </div>
   )), {
     notes: 'É possível passar o nome das cores pelo "color" relacionada ao contexto: default, primary, success, info, warning, danger.',
@@ -21,7 +22,7 @@ storiesOf('ui-elements/button/Button [Button, UIE004]', module)
 
   .add('size', () => ['large', null, 'small', 'xsmall'].map((size, index) => (
     <div key={index.toString()} style={{ margin: '5px', float: 'left' }}>
-      <Button size={size}><Label>Botão {size}</Label></Button>
+      <Button size={size}><Label>{`Botão ${size}`}</Label></Button>
     </div>
   )), {
     notes: 'É possível definir o tamanho do botão através do "size". Os tamanhos aceitos são large, small, xsmall. Para o botão padrão deve deixar o size null.',
@@ -35,7 +36,7 @@ storiesOf('ui-elements/button/Button [Button, UIE004]', module)
 
   .add('type', () => ['button', 'reset', 'submit'].map((type, index) => (
     <div key={index.toString()} style={{ margin: '5px', float: 'left' }}>
-      <Button type={type}><Label>Tyle {type}</Label></Button>
+      <Button type={type}><Label>{`Tyle ${type}`}</Label></Button>
     </div>
   )), {
     notes: 'É possível definir o type do botão. Esse type geralmente é utilizado em um formulário. É possível inspecionar o código e objervar a inclusão do atributo "type" em cada botão.',
@@ -57,6 +58,33 @@ storiesOf('ui-elements/button/Button [Button, UIE004]', module)
             Para o funcionamento correto, essa função depende do "width" do elemento HTML que está envolvendo o botão.`,
   })
 
+  .add('nextToField', () => ['large', null, 'small', 'xsmall'].map((size, index) => (
+    <React.Fragment key={index.toString()}>
+      <Grid.Row>
+        <Grid.Col xs={6}>
+          <Input label={<Label>Campo padrão</Label>} />
+        </Grid.Col>
+        <Grid.Col xs={6}>
+          <Button nextToField size={size}><Label>{`Botão ${size}`}</Label></Button>
+        </Grid.Col>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Col xs={6}>
+          <Input
+            size={(size === 'xsmall' && 'small') || size}
+            label={<Label>{`Campo ${(size === 'xsmall' && 'small') || size}`}</Label>}
+          />
+        </Grid.Col>
+        <Grid.Col xs={6}>
+          <Button nextToField size={size}><Label>{`Botão ${size}`}</Label></Button>
+        </Grid.Col>
+      </Grid.Row>
+    </React.Fragment>
+  )), {
+    notes: `O "nextToField" permite posicionar corretamente o botão ao lado de campos com label.
+            Também é possível passar o parâmetro da forma block={true} ou block={false}.`,
+  })
+
   .add('className', () => (
     <Button className="um-teste"><Label>Botão com a class &quot;um-teste&quot;</Label></Button>
   ), {
@@ -75,13 +103,13 @@ storiesOf('ui-elements/button/Button [Button, UIE004]', module)
     notes: 'O corpo do componente (children) deve ser um Elemento React',
   })
 
-  .add('children with Icon', () => (
+  .add('children com Icon', () => (
     <Button><Icon name="fa fa-fa" /></Button>
   ), {
     notes: 'O corpo do componente (children) deve ser um Elemento React',
   })
 
-  .add('children with string', () => (
+  .add('children com string', () => (
     <Button>Botão com stringk</Button>
   ), {
     notes: `O corpo do componente (children) deve ser um Elemento React.
