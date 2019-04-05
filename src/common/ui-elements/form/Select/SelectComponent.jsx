@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import genHash from 'random-hash';
-import _ from 'lodash';
-import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'react-bootstrap';
+import {
+  FormGroup,
+  ControlLabel,
+  InputGroup,
+  FormControl,
+  HelpBlock,
+} from 'react-bootstrap';
 
 /**
  * [Select, UIE012] Campo para selecionar uma opção
@@ -10,6 +15,7 @@ import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'rea
  * @param   {string} props.value        Opção selecionada no componente controlado
  * @param   {string} props.defaultValue Opção selecionada no componente não controlado
  * @param   {string} props.id           Id do campo. Se não for passado, recebe uma hash aleatória.
+ * @param   {string} props.name         Nome do campo, utilizado para submit ou libs como o Formik
  * @param   {string} props.state        Estado(cor) [success, warning, error], nulo para degault.
  * @param   {string} props.size         Tamanho(altura) [large, small], nulo para default.
  * @param   {string} props.className    Class html opcional no componente
@@ -29,6 +35,7 @@ class SelectComponent extends React.PureComponent {
       value,
       defaultValue,
       id,
+      name,
       state,
       size,
       className,
@@ -40,34 +47,16 @@ class SelectComponent extends React.PureComponent {
       disabled,
       onChange,
       helpBlock,
+      ...props
     } = this.props;
-
-    // Removendo props para não inteferir no ReacDOM e retirar o warning
-    const newProps = _.omit(this.props, [
-      'options',
-      'value',
-      'defaultValue',
-      'id',
-      'state',
-      'size',
-      'className',
-      'label',
-      'btnLeft',
-      'btnRight',
-      'addonLeft',
-      'addonRight',
-      'disabled',
-      'onChange',
-      'helpBlock',
-    ]);
 
     return (
       <FormGroup
-        {...newProps}
         controlId={id || genHash()}
         validationState={state}
         bsSize={size}
         className={className}
+        {...props}
       >
         <ControlLabel>{label}</ControlLabel>
         <InputGroup>
@@ -83,6 +72,7 @@ class SelectComponent extends React.PureComponent {
             componentClass="select"
             value={value}
             defaultValue={defaultValue}
+            name={name}
           >
             {options.map((item, index) => (
               <option
@@ -114,6 +104,7 @@ SelectComponent.defaultProps = {
   value: undefined,
   defaultValue: undefined,
   id: null,
+  name: null,
   state: null,
   size: null,
   className: '',
@@ -133,6 +124,7 @@ SelectComponent.propTypes = {
   value: PropTypes.string,
   defaultValue: PropTypes.string,
   id: PropTypes.string,
+  name: PropTypes.string,
   state: PropTypes.oneOf(['success', 'warning', 'error']),
   size: PropTypes.oneOf(['large', 'small']),
   className: PropTypes.string,
