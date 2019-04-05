@@ -14,7 +14,7 @@ import {
   Label,
   Radio,
 } from 'common/ui-elements';
-import Select from './';
+import Select from '.';
 
 storiesOf('ui-elements/form/Select [Select, UIE012]', module)
   .add('select com id', () => (
@@ -27,6 +27,14 @@ storiesOf('ui-elements/form/Select [Select, UIE012]', module)
     <Select />
   ), {
     notes: 'Inspecionar id com uma hash aleatória no HTML do select.',
+  })
+
+  .add('name', () => (
+    <Select name="name-teste" />
+  ), {
+    notes: `É possível definir o name do select.
+            O name pode ser utilizado na submissão de formulário ou para utilizar bibliotecas como Formik.
+            É possível inspecionar o código e objervar o "name" com "name-teste".`,
   })
 
   .add('label', () => (
