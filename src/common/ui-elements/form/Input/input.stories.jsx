@@ -14,7 +14,7 @@ import {
   Label,
   Radio,
 } from 'common/ui-elements';
-import Input from './';
+import Input from '.';
 
 storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   .add('input com id', () => (
@@ -72,9 +72,9 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   .add('state', () => ['success', 'warning', 'error'].map((state, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input {state}</Label>}
+        label={<Label>{`Input ${state}`}</Label>}
         placeholder={`Placeholder ${state}`}
-        helpBlock={<Label>Help Block {state}.</Label>}
+        helpBlock={<Label>{`Help Block ${state}.`}</Label>}
         state={state}
       />
       <br />
@@ -100,10 +100,21 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
             O Placeholder acompanha o tamanho do size, já o Label ẽ Help Block se mantêm no mesmo tamanho`,
   })
 
+  .add('name', () => (
+    <Input
+      label={<Label>Input com name</Label>}
+      name="name-teste"
+    />
+  ), {
+    notes: `É possível definir o name do input.
+            O name pode ser utilizado na submissão de formulário ou para utilizar bibliotecas como Formik.
+            É possível inspecionar o código e objervar o "name" com "name-teste".`,
+  })
+
   .add('type', () => ['text', 'email', 'password', 'number'].map((type, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input type {type}</Label>}
+        label={<Label>{`Input type ${type}`}</Label>}
         type={type}
       />
       <br />
@@ -120,7 +131,7 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ].map((button, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input com {button.type.name} no lado esquerdo</Label>}
+        label={<Label>{`Input com ${button.type.name} no lado esquerdo`}</Label>}
         btnLeft={button}
       />
       <br />
@@ -136,7 +147,7 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ].map((button, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input com {button.type.name} no lado direito</Label>}
+        label={<Label>{`Input com ${button.type.name} no lado direito`}</Label>}
         btnRight={button}
       />
       <br />
@@ -183,7 +194,7 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input com size {`${value.size}`}</Label>}
+        label={<Label>{`Input com size ${value.size}`}</Label>}
         placeholder={`Input com size ${value.size}`}
         btnLeft={value.button}
         btnRight={value.button}
@@ -203,7 +214,7 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ].map((addon, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input com {typeof addon === 'string' ? addon : addon.type.name} no lado esquerdo</Label>}
+        label={<Label>{`Input com ${typeof addon === 'string' ? addon : addon.type.name} no lado esquerdo`}</Label>}
         addonLeft={addon}
       />
       <br />
@@ -220,7 +231,7 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ].map((addon, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input com {typeof addon === 'string' ? addon : addon.type.name} no lado direito</Label>}
+        label={<Label>{`Input com ${typeof addon === 'string' ? addon : addon.type.name} no lado direito`}</Label>}
         addonRight={addon}
       />
       <br />
@@ -237,7 +248,7 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input com {typeof value.addon === 'string' ? value.addon : value.addon.type.name} no lado direito</Label>}
+        label={<Label>{`Input com ${typeof value.addon === 'string' ? value.addon : value.addon.type.name} no lado direito`}</Label>}
         addonLeft={value.addon}
         addonRight={value.addon}
         state={value.state}
@@ -266,7 +277,7 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <Input
-        label={<Label>Input com size {`${value.size}`}</Label>}
+        label={<Label>{`Input com size ${value.size}`}</Label>}
         placeholder={`Input com size ${value.size}`}
         addonLeft={value.addon}
         addonRight={value.addon}
