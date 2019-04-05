@@ -10,32 +10,56 @@ import PropTypes from 'prop-types';
  * @param {object} props.footer     Rodapé do box
  */
 const BoxComponent = (props) => {
-  let color = 'box-primary';
+  const {
+    color,
+    title,
+    titleAddon,
+    children,
+    footer,
+  } = props;
 
-  if (props.color) {
-    color = `box-${props.color}`;
+  let newColor = 'box-primary';
+
+  if (color) {
+    newColor = `box-${color}`;
 
     if (color === 'muted') {
-      color = '';
+      newColor = '';
     }
   }
 
-  return (
-    <div className={`box ${color}`}>
-      {props.title ?
+  const renderTitle = () => {
+    if (title || titleAddon) {
+      return (
         <div className="box-header with-border">
-          <h3 className="box-title">{props.title}</h3>
-          <div className="box-title-addon">{props.titleAddon}</div>
+          { title ? <h3 className="box-title">{title}</h3> : null}
+          { titleAddon ? <div className="box-title-addon">{titleAddon}</div> : null}
         </div>
-      : false}
-      <div className="box-body">
-        {props.children}
-      </div>
-      {props.footer ?
+      );
+    }
+
+    return null;
+  };
+
+  const renderFooter = () => {
+    if (footer) {
+      return (
         <div className="box-footer">
-          {props.footer}
+          {footer}
         </div>
-      : false}
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div className={`box ${newColor}`}>
+      {renderTitle()}
+      <div className="box-body">
+        {children}
+      </div>
+      {renderFooter()}
     </div>
   );
 };
