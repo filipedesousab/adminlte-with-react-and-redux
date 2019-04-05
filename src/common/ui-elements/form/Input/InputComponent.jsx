@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import genHash from 'random-hash';
-import _ from 'lodash';
-import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'react-bootstrap';
+import {
+  FormGroup,
+  ControlLabel,
+  InputGroup,
+  FormControl,
+  HelpBlock,
+} from 'react-bootstrap';
 
 /**
  * [Input, UIE010] Input de texto
@@ -15,6 +20,7 @@ import { FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock } from 'rea
  * @param   {object} props.btnRight    Botão do lado direito
  * @param   {object} props.addonLeft   Addon do lado esquerdo
  * @param   {object} props.addonRight  Addon do lado direito
+ * @param   {string} props.name        Nome do campo, usado por exemplo para o Formk
  * @param   {string} props.type        Tipo do campo [text, email, password, number]
  * @param   {string} props.value       Conteúdo do campo
  * @param   {string} props.placeholder Descrição dentro do campo
@@ -34,6 +40,7 @@ class InputComponent extends React.PureComponent {
       btnRight,
       addonLeft,
       addonRight,
+      name,
       type,
       value,
       defaultValue,
@@ -41,35 +48,16 @@ class InputComponent extends React.PureComponent {
       disabled,
       onChange,
       helpBlock,
+      ...props
     } = this.props;
-
-    // Removendo props para não inteferir no ReacDOM e retirar o warning
-    const newProps = _.omit(this.props, [
-      'id',
-      'state',
-      'size',
-      'className',
-      'label',
-      'btnLeft',
-      'btnRight',
-      'addonLeft',
-      'addonRight',
-      'type',
-      'value',
-      'defaultValue',
-      'placeholder',
-      'disabled',
-      'onChange',
-      'helpBlock',
-    ]);
 
     return (
       <FormGroup
-        {...newProps}
         controlId={id || genHash()}
         validationState={state}
         bsSize={size}
         className={className}
+        {...props}
       >
         <ControlLabel>{label}</ControlLabel>
         <InputGroup>
@@ -80,6 +68,7 @@ class InputComponent extends React.PureComponent {
             ? <InputGroup.Addon>{addonLeft}</InputGroup.Addon>
             : false}
           <FormControl
+            name={name}
             type={type}
             value={value}
             defaultValue={defaultValue}
@@ -112,8 +101,10 @@ InputComponent.defaultProps = {
   btnRight: null,
   addonLeft: null,
   addonRight: null,
+  name: null,
   type: 'text',
   value: undefined,
+  defaultValue: undefined,
   placeholder: null,
   disabled: false,
   onChange: null,
@@ -137,8 +128,10 @@ InputComponent.propTypes = {
     PropTypes.string,
     PropTypes.element,
   ]),
+  name: PropTypes.string,
   type: PropTypes.oneOf(['text', 'email', 'password', 'number']),
   value: PropTypes.string,
+  defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
