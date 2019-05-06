@@ -20,7 +20,11 @@ class InputFileComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { icon: 'file', fileName: 'Selecionar', clean: false };
+    this.state = {
+      icon: 'file',
+      fileName: props.description || <Label icon="fa fa-file">Selecionar</Label>,
+      clean: false,
+    };
 
     /** Executado quando é selecionado um arquivo */
     this.handleChange = this.handleChange.bind(this);
@@ -50,7 +54,7 @@ class InputFileComponent extends React.Component {
     this.setState({
       ...this.state,
       icon: 'check',
-      fileName,
+      fileName: <Label icon="fa fa-check">{fileName}</Label>,
       clean: true,
     });
   }
@@ -59,7 +63,7 @@ class InputFileComponent extends React.Component {
     this.setState({
       ...this.state,
       icon: 'file',
-      fileName: 'Selecionar',
+      fileName: this.props.description || <Label icon="fa fa-file">Selecionar</Label>,
       clean: false,
     });
 
@@ -69,23 +73,28 @@ class InputFileComponent extends React.Component {
   render() {
     const {
       label,
+      color,
       state,
       size,
       helpBlock,
       disabled,
       className,
+      accept,
     } = this.props;
 
     // Removendo props para não inteferir no ReacDOM e retirar o warning
     const newProps = _.omit(this.props, [
       'id',
       'label',
+      'description',
+      'color',
       'state',
       'size',
       'helpBlock',
       'disabled',
       'onChange',
       'className',
+      'accept',
     ]);
 
     const id = this.props.id || genHash();
@@ -101,11 +110,12 @@ class InputFileComponent extends React.Component {
         <br />
         <ButtonGroup>
           <Button
+            color={color}
             onClick={() => this.inputFileField.click()}
             disabled={disabled}
             size={size}
           >
-            <Label icon={`fa fa-${this.state.icon}`}>{this.state.fileName}</Label>
+            {this.state.fileName}
           </Button>
           {
             this.state.clean ?
@@ -121,6 +131,7 @@ class InputFileComponent extends React.Component {
           onChange={this.handleChange}
           inputRef={(e) => { this.inputFileField = e; }}
           style={{ display: 'none' }}
+          accept={accept}
         />
         {/** Se houver helpBlock, inclui */}
         {helpBlock && <HelpBlock>{helpBlock}</HelpBlock>}
@@ -133,18 +144,23 @@ class InputFileComponent extends React.Component {
 InputFileComponent.defaultProps = {
   id: null,
   label: null,
+  description: null,
+  color: 'default',
   state: null,
   size: null,
   helpBlock: null,
   disabled: false,
   onChange: null,
   className: '',
+  accept: null,
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 InputFileComponent.propTypes = {
   id: PropTypes.string,
   label: PropTypes.element,
+  description: PropTypes.element,
+  color: PropTypes.oneOf(['default', 'primary', 'success', 'info', 'warning', 'danger']),
   state: PropTypes.oneOf(['success', 'warning', 'error']),
   size: PropTypes.oneOf(['large', 'small']),
   helpBlock: PropTypes.oneOfType([
@@ -154,6 +170,7 @@ InputFileComponent.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   className: PropTypes.string,
+  accept: PropTypes.string,
 };
 
 export default InputFileComponent;
