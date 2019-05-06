@@ -384,4 +384,14 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
   ), {
     notes: `É possível passar livremente class pelo className.
             Verificar a class "um-teste" junto a "form-group".`,
+  })
+
+  .add('_ref', () => (
+    <Input
+      label={<Label>Input com referência</Label>}
+      _ref={action('Referência do input')}
+    />
+  ), {
+    notes: `É obter a referência do input com o _ref.
+            Pode ser uma função que retorna a referência ou o React.createRef()`,
   });
