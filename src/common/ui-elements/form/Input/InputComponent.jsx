@@ -11,22 +11,23 @@ import {
 
 /**
  * [Input, UIE010] Input de texto
- * @param   {string} props.id          Id do campo. Se não for passado, recebe uma hash aleatória.
- * @param   {string} props.state       Estado(cor) [success, warning, error], nulo para degault.
- * @param   {string} props.size        Tamanho(altura) [large, small], nulo para default.
- * @param   {string} props.className   Class html opcional no componente
- * @param   {object} props.label       Descrição do campo
- * @param   {object} props.btnLeft     Botão do lado esquerdo
- * @param   {object} props.btnRight    Botão do lado direito
- * @param   {object} props.addonLeft   Addon do lado esquerdo
- * @param   {object} props.addonRight  Addon do lado direito
- * @param   {string} props.name        Nome do campo, usado por exemplo para o Formk
- * @param   {string} props.type        Tipo do campo [text, email, password, number]
- * @param   {string} props.value       Conteúdo do campo
- * @param   {string} props.placeholder Descrição dentro do campo
- * @param  {boolean} props.disabled    Desabilitar campo
- * @param {function} props.onChange    Função a ser executada na ação de escrever do usuário
- * @param   {object} props.helpBlock   Descrição abaixo do campo
+ * @param   {?string} props.id          Id do campo. Se não for passado, recebe uma hash aleatória.
+ * @param   {?string} props.state       Estado(cor) [success, warning, error], nulo para degault.
+ * @param   {?string} props.size        Tamanho(altura) [large, small], nulo para default.
+ * @param   {?string} props.className   Class html opcional no componente
+ * @param   {?object} props.label       Descrição do campo
+ * @param   {?object} props.btnLeft     Botão do lado esquerdo
+ * @param   {?object} props.btnRight    Botão do lado direito
+ * @param   {?object} props.addonLeft   Addon do lado esquerdo
+ * @param   {?object} props.addonRight  Addon do lado direito
+ * @param   {?string} props.name        Nome do campo, usado por exemplo para o Formk
+ * @param   {?string} props.type        Tipo do campo [text, email, password, number]
+ * @param   {?string} props.value       Conteúdo do campo
+ * @param   {?string} props.placeholder Descrição dentro do campo
+ * @param  {?boolean} props.disabled    Desabilitar campo
+ * @param {?function} props.onChange    Função a ser executada na ação de escrever do usuário
+ * @param   {?object} props.helpBlock   Descrição abaixo do campo
+ * @param {?function} props._ref        Passar referência do input
  */
 class InputComponent extends React.PureComponent {
   render() {
@@ -48,6 +49,7 @@ class InputComponent extends React.PureComponent {
       disabled,
       onChange,
       helpBlock,
+      _ref,
       ...props
     } = this.props;
 
@@ -75,6 +77,7 @@ class InputComponent extends React.PureComponent {
             placeholder={placeholder}
             disabled={disabled}
             onChange={onChange}
+            inputRef={_ref}
           />
           {/* Feddback e Addon se sobrepõem. Feedback só apresenta quando não houver Addon */}
           {addonRight
@@ -109,6 +112,7 @@ InputComponent.defaultProps = {
   disabled: false,
   onChange: null,
   helpBlock: null,
+  _ref: null,
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
@@ -138,6 +142,10 @@ InputComponent.propTypes = {
   helpBlock: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
+  ]),
+  _ref: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
   ]),
 };
 
