@@ -18,14 +18,20 @@ class WindowModalComponent extends React.Component {
 
     return (
       <React.Fragment>
-        {btnFooterLeft && btnFooterLeft.map((button, index) => React.cloneElement(
-          button,
-          { className: 'pull-left', key: index.toString() },
-        ))}
-        {btnFooterRight && btnFooterRight.map((button, index) => React.cloneElement(
-          button,
-          { key: index.toString() },
-        ))}
+        {btnFooterLeft && React.Children.map(
+          btnFooterLeft,
+          (button, index) => React.cloneElement(
+            button,
+            { className: 'pull-left', key: index.toString() },
+          ),
+        )}
+        {btnFooterRight && React.Children.map(
+          btnFooterRight,
+          (button, index) => React.cloneElement(
+            button,
+            { key: index.toString() },
+          ),
+        )}
       </React.Fragment>
     );
   }
@@ -65,8 +71,14 @@ WindowModalComponent.defaultProps = {
 WindowModalComponent.propTypes = {
   title: PropTypes.element,
   children: PropTypes.node,
-  btnFooterLeft: PropTypes.arrayOf(PropTypes.element),
-  btnFooterRight: PropTypes.arrayOf(PropTypes.element),
+  btnFooterLeft: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
+  btnFooterRight: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
   show: PropTypes.bool,
   onHide: PropTypes.func,
 };
