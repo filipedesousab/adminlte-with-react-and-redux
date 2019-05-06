@@ -22,3 +22,4 @@ export { default as Popover } from './general/Popover';
 export { default as Tooltip } from './general/Tooltip';
 export { Tabs, Tab } from './general/Tabs';
 export { Spinner, FadeSpinner } from './general/Spinner';
+export { default as Photograph } from './general/Photograph';
