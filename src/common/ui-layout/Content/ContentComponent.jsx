@@ -6,11 +6,11 @@ import Breadcrumb from './components/Breadcrumb';
 
 /**
  * [Content, UIL003] Recebe o conteúdo da página
- * @param {object} props.title      Título da página [Label, UIE002]
- * @param {object} props.subtitle   Subtitulo da página [Label, UIE002]
- * @param  {array} props.breadcrumb Breadcrumb da página [{ label: ‘’, path: ‘’ }]
- * @param {object} props.children   Conteúdo da página
- * @param {object} props.footer     Rodapé da página
+ * @param {?object} props.title      Título da página [Label, UIE002]
+ * @param {?object} props.subtitle   Subtitulo da página [Label, UIE002]
+ * @param  {?array} props.breadcrumb Breadcrumb da página [{ label: ‘’, path: ‘’ }]
+ * @param {?object} props.children   Conteúdo da página
+ * @param {?object} props.footer     Rodapé da página
  */
 const ContentComponent = (props) => {
   const {
@@ -22,10 +22,12 @@ const ContentComponent = (props) => {
   } = props;
 
   return (
-    <div>
+    <>
       <Alerts />
       <div className="content-header">
-        <h1>{title}
+        <h1>
+          {title}
+          &nbsp;
           {subtitle ? <small>{subtitle}</small> : false}
         </h1>
         <Breadcrumb breadcrumb={breadcrumb} />
@@ -36,7 +38,7 @@ const ContentComponent = (props) => {
       <div className="content-footer">
         {footer}
       </div>
-    </div>
+    </>
   );
 };
 

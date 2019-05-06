@@ -6,14 +6,14 @@ import { Icon } from 'common/ui-elements';
 
 /**
  * Breadcrumb aparece no lado direito da página, ajuda o usuário se localizar no sistema.
- * @param {array} props.breadcrumb Array do breadcrumb da página [{ label: ‘’, path: ‘’ }]
+ * @param {?array} props.breadcrumb Array do breadcrumb da página [{ label: ‘’, path: ‘’ }]
  */
-const BreadcrumbComponent = props => (
+const BreadcrumbComponent = ({ breadcrumb }) => (
   <ol className="breadcrumb">
     <li><Icon name="fa fa-dashboard" /></li>
-    {props.breadcrumb.map(item => (
+    {breadcrumb.map(({ href, label }) => (
       <li key={genHash()}>
-        {item.href ? <a href={item.href}>{item.label}</a> : <span>{item.label}</span>}
+        {href ? <a href={href}>{label}</a> : <span>{label}</span>}
       </li>
     ))}
   </ol>
