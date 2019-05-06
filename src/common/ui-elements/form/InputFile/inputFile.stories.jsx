@@ -1,10 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withState } from '@dump247/storybook-state';
 
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
 import 'common/scss/custom.scss';
-import { Label } from 'common/ui-elements';
+import { ButtonIcon, Label, Icon } from 'common/ui-elements';
 import InputFile from '.';
 
 const colors = ['default', 'primary', 'success', 'info', 'warning', 'danger'];
@@ -107,6 +109,62 @@ storiesOf('ui-elements/form/InputFile [InputFile, UIE016]', module)
   ), {
     notes: `Quando é selecionado um arquivo essa função é executada.
             É passado como primeiro parâmetro o target e segundo o nome do arquivo.`,
+  })
+
+  .add('onClean', () => (
+    <InputFile
+      label={<Label>InputFile com onClean</Label>}
+      onClean={action('Limpou a entrada e chamou o onClean')}
+    />
+  ), {
+    notes: 'Quando tem a ação de remover o arquivo essa função é executada.',
+  })
+
+  .add('component', () => (
+    <InputFile
+      component={(
+        <ButtonIcon icon={<Icon name="fa fa-smile-o" />}>
+          <Label>Componente personalizado</Label>
+        </ButtonIcon>
+      )}
+    />
+  ), {
+    notes: `O "component" permite inserir um componente personalizado para selecionar um arquivo.
+            O "component" deve ser um [Button, UIE004] ou [ButtonIcon, UIE005].`,
+  })
+
+  .add('componentSelected', () => (
+    <InputFile
+      componentSelected={(
+        <ButtonIcon icon={<Icon name="fa fa-smile-o" />}>
+          <Label>Componente Selecionado</Label>
+        </ButtonIcon>
+      )}
+    />
+  ), {
+    notes: `O "componentSelected" permite inserir um componente personalizado quando um arquivo for selecionado.
+            O "componentSelected" deve ser um [Button, UIE004] ou [ButtonIcon, UIE005].`,
+  })
+
+  .add('component e componentSelected', withState({ fileName: '' })(({ store }) => (
+    <InputFile
+      component={(
+        <ButtonIcon icon={<Icon name="fa fa-smile-o" />}>
+          <Label>Selecione um arquivo</Label>
+        </ButtonIcon>
+      )}
+      componentSelected={(
+        <ButtonIcon icon={<Icon name="fa fa-smile-ofa fa-thumbs-up" />}>
+          <Label>{`${store.state.fileName} selecionado`}</Label>
+        </ButtonIcon>
+      )}
+      onChange={(e, fileName) => store.set({ fileName })}
+      onClean={() => store.set({ fileName: '' })}
+    />
+  )), {
+    notes: `O "component" permite inserir um componente personalizado para selecionar um arquivo.
+            O "componentSelected" permite inserir um componente personalizado quando um arquivo for selecionado.
+            O "component" e "componentSelected" deve ser um [Button, UIE004] ou [ButtonIcon, UIE005].`,
   })
 
   .add('className', () => (
