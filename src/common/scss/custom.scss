@@ -48,6 +48,11 @@
   border-left: 1px solid;
 }
 
+// Padding dentro do input para corrigir o 42.5px aplicado pelo has-feedback
+.has-feedback .form-control {
+  padding-right: 12px;
+}
+
 // remover o ícone do form-control-feedback,
 // o mesmo está atrapalhando a visualização correta do componente.
 select + .form-control-feedback {
