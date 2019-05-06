@@ -13,7 +13,7 @@ const BreadcrumbComponent = props => (
     <li><Icon name="fa fa-dashboard" /></li>
     {props.breadcrumb.map(item => (
       <li key={genHash()}>
-        <a href={item.href ? item.href : '#'}>{item.label}</a>
+        {item.href ? <a href={item.href}>{item.label}</a> : <span>{item.label}</span>}
       </li>
     ))}
   </ol>

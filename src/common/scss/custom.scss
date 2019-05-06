@@ -16,6 +16,8 @@
 }
 // Fim das regras para os componentes do button
 
+/* ---------- */
+
 // Início das regras para os componentes do form
 
 // Ajustar as margens dos componentes [Checkbox, UIE014] e [Radio, UIE015] em um addon no form
@@ -51,7 +53,9 @@
 select + .form-control-feedback {
   display: none;
 }
-// Fom das regras para os componentes do form
+// Fim das regras para os componentes do form
+
+/* ---------- */
 
 // Manter o componente [WindowModal, UIE024] nas dimensões corretas
 .modal.window-modal {
@@ -86,6 +90,8 @@ select + .form-control-feedback {
   }
 }
 
+/* ---------- */
+
 // Início das regras para o [AlertsPopup, UIL007]
 
 // Manter no canto superior direito
@@ -105,6 +111,8 @@ select + .form-control-feedback {
   }
 }
 // Fim das regras para o [AlertsPopup, UIL007]
+
+/* ---------- */
 
 // Início das regras para o [Tabs, UIE029]
 .nav-tabs {
@@ -168,12 +176,16 @@ select + .form-control-feedback {
 }
 // Fim das regras para o [Tabs, UIE029]
 
+/* ---------- */
+
 // Início das regras para o [Box, UIL006]
 .box-header .box-title {
   float: left;
   margin-right: 24px;
 }
 // Fim das regras para o [Box, UIL006]
+
+/* ---------- */
 
 // Início das regras para o [FadeSpinner, UIE034]
 .fade-spinner {
@@ -206,6 +218,19 @@ select + .form-control-feedback {
   }
 }
 // Fim das regras para o [FadeSpinner, UIE034]
+
+/* ---------- */
+
+// Início das regras para o [Content, UIL003]
+
+.content-header>.breadcrumb>li>span {
+  color: #444;
+  text-decoration: none;
+  display: inline-block;
+}
+// Fim das regras para o [Content, UIL003]
+
+/* ---------- */
 
 // Início das regras para o [Footer, UIL005]
 footer.main-footer {
