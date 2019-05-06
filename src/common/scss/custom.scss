@@ -226,6 +226,29 @@ select + .form-control-feedback {
 
 /* ---------- */
 
+// Início das regras para o [Photograph, UIE035]
+
+.photograph {
+  background-color: #bbb;
+  padding: 5px;
+  border-radius: 5px;
+
+  .image {
+    border-radius: 3px;
+
+    &.photo {
+      margin-bottom: 5px;
+    }
+  }
+
+  button {
+    text-align: center;
+  }
+}
+// Fim das regras para o [Photograph, UIE035]
+
+/* ---------- */
+
 // Início das regras para o [Content, UIL003]
 
 .content-header>.breadcrumb>li>span {
@@ -245,7 +268,6 @@ footer.main-footer {
 }
 // Tamanho máximo de um táblet
 @media (max-width: 991px) {
-  // Manter o componente [WindowModal, UIE024] nas dimensões corretas
   footer.main-footer div{
     text-align: center;
   }
