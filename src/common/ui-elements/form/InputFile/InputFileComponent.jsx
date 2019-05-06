@@ -68,11 +68,65 @@ class InputFileComponent extends React.Component {
     });
 
     this.inputFileField.value = null;
+
+    /** executa o onClean */
+    if (this.props.onClean) {
+      this.props.onClean();
+    }
+  }
+
+  renderButton() {
+    const { component, color, disabled, size } = this.props;
+    if (component) {
+      return React.cloneElement(
+        component,
+        {
+          onClick: () => this.inputFileField.click(),
+          disabled,
+        },
+      );
+    }
+
+    return (
+      <Button
+        color={color}
+        onClick={() => this.inputFileField.click()}
+        disabled={disabled}
+        size={size}
+      >
+        {this.state.fileName}
+      </Button>
+    );
+  }
+
+  renderButtonSelected() {
+    const { componentSelected, color, disabled, size } = this.props;
+    if (componentSelected) {
+      return React.cloneElement(
+        componentSelected,
+        {
+          onClick: () => this.inputFileField.click(),
+          disabled,
+        },
+      );
+    }
+
+    return (
+      <Button
+        color={color}
+        onClick={() => this.inputFileField.click()}
+        disabled={disabled}
+        size={size}
+      >
+        {this.state.fileName}
+      </Button>
+    );
   }
 
   render() {
     const {
       label,
+      component,
       color,
       state,
       size,
@@ -86,6 +140,8 @@ class InputFileComponent extends React.Component {
     const newProps = _.omit(this.props, [
       'id',
       'label',
+      'component',
+      'componentSelected',
       'description',
       'color',
       'state',
@@ -93,6 +149,7 @@ class InputFileComponent extends React.Component {
       'helpBlock',
       'disabled',
       'onChange',
+      'onClean',
       'className',
       'accept',
     ]);
@@ -109,14 +166,7 @@ class InputFileComponent extends React.Component {
         <ControlLabel>{label}</ControlLabel>
         <br />
         <ButtonGroup>
-          <Button
-            color={color}
-            onClick={() => this.inputFileField.click()}
-            disabled={disabled}
-            size={size}
-          >
-            {this.state.fileName}
-          </Button>
+          {this.state.clean ? this.renderButtonSelected() : this.renderButton()}
           {
             this.state.clean ?
               <Button onClick={this.clean} color="danger">
@@ -144,6 +194,8 @@ class InputFileComponent extends React.Component {
 InputFileComponent.defaultProps = {
   id: null,
   label: null,
+  component: null,
+  componentSelected: null,
   description: null,
   color: 'default',
   state: null,
@@ -151,6 +203,7 @@ InputFileComponent.defaultProps = {
   helpBlock: null,
   disabled: false,
   onChange: null,
+  onClean: null,
   className: '',
   accept: null,
 };
@@ -159,6 +212,8 @@ InputFileComponent.defaultProps = {
 InputFileComponent.propTypes = {
   id: PropTypes.string,
   label: PropTypes.element,
+  component: PropTypes.element,
+  componentSelected: PropTypes.element,
   description: PropTypes.element,
   color: PropTypes.oneOf(['default', 'primary', 'success', 'info', 'warning', 'danger']),
   state: PropTypes.oneOf(['success', 'warning', 'error']),
@@ -169,6 +224,7 @@ InputFileComponent.propTypes = {
   ]),
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+  onClean: PropTypes.func,
   className: PropTypes.string,
   accept: PropTypes.string,
 };
