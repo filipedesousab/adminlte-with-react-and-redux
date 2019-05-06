@@ -64,12 +64,12 @@ select + .form-control-feedback {
 
 // Manter o componente [WindowModal, UIE024] nas dimensões corretas
 .modal.window-modal {
-  padding: 4vh !important;
+  padding: 2vh !important;
 
   .modal-dialog {
     width: 100%;
     margin: auto;
-    height: 92vh;
+    height: 96vh;
 
     .modal-content {
       height: 100%;
