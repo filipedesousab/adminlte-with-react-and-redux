@@ -9,7 +9,7 @@ import {
 
 /**
  * Adicionar um Alert no estado
- * @param  {[type]} { title, body, color } Dados do alert
+ * @param {!object} { title, body, color } Dados do alert
  * @return {object}                        Action
  */
 export const addAlert = ({ title, body, color }) => {
@@ -27,8 +27,8 @@ export const addAlert = ({ title, body, color }) => {
 };
 
 /**
- * Remover um AlertPopup do estado
- * @param  {[type]} alertName Hash que identifica o Alert
+ * Remover um Alert do estado
+ * @param {!object} alertName Hash que identifica o Alert
  * @return {object}           Action
  */
 export const delAlert = alertName => ({
@@ -38,7 +38,7 @@ export const delAlert = alertName => ({
 
 /**
  * Adicionar um AlertPopup no estado
- * @param  {[type]} { title, body, color } Dados do AlertPopup
+ * @param {!object} { title, body, color } Dados do AlertPopup
  * @return {object}                        Action
  */
 export const addAlertPopup = ({ title, body, color }) => (dispatch) => {
@@ -65,7 +65,7 @@ export const addAlertPopup = ({ title, body, color }) => (dispatch) => {
 
 /**
  * Remover um AlertPopup do estado
- * @param  {[type]} alertName Hash que identifica o AlertPopup
+ * @param {!object} alertName Hash que identifica o AlertPopup
  * @return {object}           Action
  */
 export const delAlertPopup = alertName => ({

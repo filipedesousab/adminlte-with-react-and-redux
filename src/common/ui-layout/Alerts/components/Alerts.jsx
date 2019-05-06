@@ -5,20 +5,25 @@ import { Alert } from 'common/ui-elements';
 
 /**
  * [Alerts, UIL004] Grupo de Alerts que aparecem acima do título da página.
- * @param {array} props.alerts Array com dados dos Alert [{ title: '', body: '', color: '' }]
+ * @param {?array} props.alerts Array com dados dos Alert [{ title: '', body: '', color: '' }]
  */
-const AlertsComponent = props => (
-  props.alerts.length > 0 ? (
+const AlertsComponent = ({ alerts }) => (
+  alerts.length > 0 ? (
     <div className="alerts" style={{ padding: '15px 15px 0px 15px' }}>
-      {props.alerts.map(alert => (
+      {alerts.map(({
+        alertName,
+        body,
+        color,
+        title,
+      }) => (
         <Alert
-          title={alert.title}
-          color={alert.color}
-          alertName={alert.alertName}
-          key={alert.alertName}
+          title={title}
+          color={color}
+          alertName={alertName}
+          key={alertName}
           alert
         >
-          {alert.body}
+          {body}
         </Alert>
       ))}
     </div>

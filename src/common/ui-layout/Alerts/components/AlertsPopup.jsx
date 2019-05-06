@@ -7,17 +7,22 @@ import { Alert } from 'common/ui-elements';
  * [AlertsPopup, UIL007] Grupo de Alerts que aparecem no canto superior direito temporareamente.
  * @param {array} props.alertsPopup Array com dados dos Alert [{ title: '', body: '', color: '' }]
  */
-const AlertsPopupComponent = props => (
+const AlertsPopupComponent = ({ alertsPopup }) => (
   <div className="alertspopup">
-    {props.alertsPopup.map(alertPopup => (
+    {alertsPopup.map(({
+      alertName,
+      body,
+      color,
+      title,
+    }) => (
       <Alert
-        title={alertPopup.title}
-        color={alertPopup.color}
-        alertName={alertPopup.alertName}
-        key={alertPopup.alertName}
+        title={title}
+        color={color}
+        alertName={alertName}
+        key={alertName}
         alertPopup
       >
-        {alertPopup.body}
+        {body}
       </Alert>
     ))}
   </div>
