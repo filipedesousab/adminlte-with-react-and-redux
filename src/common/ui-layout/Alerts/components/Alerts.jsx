@@ -8,19 +8,21 @@ import { Alert } from 'common/ui-elements';
  * @param {array} props.alerts Array com dados dos Alert [{ title: '', body: '', color: '' }]
  */
 const AlertsComponent = props => (
-  <div className="alerts" style={{ padding: '15px 15px 0px 15px' }}>
-    {props.alerts.map(alert => (
-      <Alert
-        title={alert.title}
-        color={alert.color}
-        alertName={alert.alertName}
-        key={alert.alertName}
-        alert
-      >
-        {alert.body}
-      </Alert>
-    ))}
-  </div>
+  props.alerts.length > 0 ? (
+    <div className="alerts" style={{ padding: '15px 15px 0px 15px' }}>
+      {props.alerts.map(alert => (
+        <Alert
+          title={alert.title}
+          color={alert.color}
+          alertName={alert.alertName}
+          key={alert.alertName}
+          alert
+        >
+          {alert.body}
+        </Alert>
+      ))}
+    </div>
+  ) : null
 );
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
