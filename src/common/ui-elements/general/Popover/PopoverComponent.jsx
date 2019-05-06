@@ -4,7 +4,7 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 /**
  * [Popover, UIE029] Balão com descrição de um elemento.
- * @param {string} props.description Texto a ser exibido no Popover
+ * @param {object} props.description Conteúdo a ser exibido no Popover
  * @param {string} props.title       Título do Popover
  * @param {string} props.trigger     Ação para acionar o Popover, pode ser um array.
  * @param {string} props.placement   Posição de exibição do Popover
@@ -25,11 +25,11 @@ const PopoverComponent = props => React.Children.map(props.children, (child) => 
       trigger={trigger}
       placement={placement}
       delay={typeof delay === 'boolean' && delay ? 600 : delay}
-      overlay={
+      overlay={(
         <Popover id={`tooltip-${placement}`} title={title}>
           {description}
         </Popover>
-      }
+      )}
     >
       {child}
     </OverlayTrigger>
@@ -38,7 +38,7 @@ const PopoverComponent = props => React.Children.map(props.children, (child) => 
 
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 PopoverComponent.defaultProps = {
-  description: '',
+  description: null,
   popoverTitle: undefined,
   trigger: ['hover', 'focus'],
   placement: 'top',
@@ -48,7 +48,7 @@ PopoverComponent.defaultProps = {
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 PopoverComponent.propTypes = {
-  description: PropTypes.string,
+  description: PropTypes.node,
   popoverTitle: PropTypes.string,
   trigger: PropTypes.oneOfType([
     PropTypes.oneOf(['click', 'hover', 'focus']),
