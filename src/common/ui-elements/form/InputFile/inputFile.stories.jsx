@@ -1,12 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
 import 'common/scss/custom.scss';
 import { Label } from 'common/ui-elements';
-import InputFile from './';
+import InputFile from '.';
+
+const colors = ['default', 'primary', 'success', 'info', 'warning', 'danger'];
 
 storiesOf('ui-elements/form/InputFile [InputFile, UIE016]', module)
   .add('input com id', () => (
@@ -25,6 +26,21 @@ storiesOf('ui-elements/form/InputFile [InputFile, UIE016]', module)
     <InputFile label={<Label>InputFile</Label>} />
   ), {
     notes: `O "label" deve ser o [Label, UIE002] e deve ser passado sem a props form.
+            É possível usar string, mas o proptypes não está aceitando string para manter um padrão no projeto.`,
+  })
+
+  .add('color', () => colors.map((color, index) => (
+    <div key={index.toString()} style={{ margin: '5px', float: 'left' }}>
+      <InputFile color={color} />
+    </div>
+  )), {
+    notes: 'É possível passar o nome das cores pelo "color" relacionada ao contexto: default, primary, success, info, warning, danger.',
+  })
+
+  .add('description', () => (
+    <InputFile description={<Label icon="fa fa-smile-o">Nova Descrição</Label>} />
+  ), {
+    notes: `O "description" deve ser o [Label, UIE002].
             É possível usar string, mas o proptypes não está aceitando string para manter um padrão no projeto.`,
   })
 
@@ -49,8 +65,8 @@ storiesOf('ui-elements/form/InputFile [InputFile, UIE016]', module)
   .add('state', () => ['success', 'warning', 'error'].map((state, index) => (
     <React.Fragment key={index.toString()}>
       <InputFile
-        label={<Label>InputFile {state}</Label>}
-        helpBlock={<Label>Help Block {state}.</Label>}
+        label={<Label>{`InputFile ${state}`}</Label>}
+        helpBlock={<Label>{`Help Block ${state}.`}</Label>}
         state={state}
       />
       <br />
@@ -62,8 +78,8 @@ storiesOf('ui-elements/form/InputFile [InputFile, UIE016]', module)
   .add('state e size', () => [null, 'success', 'warning', 'error'].map((state, index) => ['large', null, 'small'].map((size, index2) => (
     <React.Fragment key={`${index.toString()}${index2.toString()}`}>
       <InputFile
-        label={<Label>size {`${size}`} - Label mantém o mesmo tamanho</Label>}
-        helpBlock={<Label>size {`${size}`} - Help Block mantém o mesmo tamanho.</Label>}
+        label={<Label>{`size ${size} - Label mantém o mesmo tamanho`}</Label>}
+        helpBlock={<Label>{`size ${size} - Help Block mantém o mesmo tamanho.`}</Label>}
         state={state}
         size={size}
       />
