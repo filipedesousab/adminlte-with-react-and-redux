@@ -42,6 +42,7 @@ class WindowModalComponent extends React.Component {
       onHide,
       show,
       title,
+      ...props
     } = this.props;
 
     return (
@@ -49,6 +50,8 @@ class WindowModalComponent extends React.Component {
         className="modal-default window-modal"
         show={show}
         onHide={onHide}
+        backdrop="static"
+        {...props}
       >
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
