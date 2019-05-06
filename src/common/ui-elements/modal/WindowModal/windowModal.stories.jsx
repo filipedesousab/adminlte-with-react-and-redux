@@ -12,7 +12,7 @@ import {
   Icon,
   Label,
 } from 'common/ui-elements';
-import Modal from './';
+import Modal from '.';
 
 storiesOf('ui-elements/modal/WindowModal [WindowModal, UIE024]', module)
   .add('show', () => (

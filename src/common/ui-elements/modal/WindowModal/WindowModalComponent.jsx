@@ -4,18 +4,16 @@ import { Modal } from 'react-bootstrap';
 
 /**
  * [WindowModal, UIE024] Modal tamanho padrão
- * @param   {object} props.title          Título do modal [Label, UIE002]
- * @param   {object} props.children       Corpo do componente
- * @param    {array} props.btnFooterLeft  Array de botões no footer esquerdo do modal
- * @param    {array} props.btnFooterRight Array de botões no footer direito do modal
- * @param  {boolean} props.show           True para abrir modal e false para fechar
- * @param {function} props.onHide         Executada na ação de fechar modal
+ * @param   {?object} props.title          Título do modal [Label, UIE002]
+ * @param   {?object} props.children       Corpo do componente
+ * @param    {?array} props.btnFooterLeft  Array de botões no footer esquerdo do modal
+ * @param    {?array} props.btnFooterRight Array de botões no footer direito do modal
+ * @param  {?boolean} props.show           True para abrir modal e false para fechar
+ * @param {?function} props.onHide         Executada na ação de fechar modal
  */
 class WindowModalComponent extends React.Component {
   /** Método para renderizar os botões do footer */
-  renderButtons() {
-    const { btnFooterLeft, btnFooterRight } = this.props;
-
+  renderButtons({ btnFooterLeft, btnFooterRight }) {
     return (
       <React.Fragment>
         {btnFooterLeft && React.Children.map(
@@ -37,20 +35,29 @@ class WindowModalComponent extends React.Component {
   }
 
   render() {
+    const {
+      btnFooterLeft,
+      btnFooterRight,
+      children,
+      onHide,
+      show,
+      title,
+    } = this.props;
+
     return (
       <Modal
         className="modal-default window-modal"
-        show={this.props.show}
-        onHide={this.props.onHide}
+        show={show}
+        onHide={onHide}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{this.props.title}</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>{this.props.children}</Modal.Body>
+        <Modal.Body>{children}</Modal.Body>
 
         <Modal.Footer>
-          {this.renderButtons()}
+          {this.renderButtons({ btnFooterLeft, btnFooterRight })}
         </Modal.Footer>
       </Modal>
     );
