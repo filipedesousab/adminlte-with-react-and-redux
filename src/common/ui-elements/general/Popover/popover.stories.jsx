@@ -1,12 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
 import 'common/scss/custom.scss';
 import { Button, Label } from 'common/ui-elements';
-import Popover from './';
+import Popover from '.';
 
 storiesOf('ui-elements/general/Popover [Popover, UIE029]', module)
   .add('description e children', () => (
@@ -14,7 +13,7 @@ storiesOf('ui-elements/general/Popover [Popover, UIE029]', module)
       <Button><Label>Botão</Label></Button>
     </Popover>
   ), {
-    notes: `Texto a ser exibido no Popover. Deve ser string.
+    notes: `Conteúdo a ser exibido no Popover. Pode ser qualquer elemento que seja impresso.
             O children é o elemento a receber o Popover.`,
   })
 
@@ -32,9 +31,10 @@ storiesOf('ui-elements/general/Popover [Popover, UIE029]', module)
         description="Descrição do Popover"
         trigger={trigger}
       >
-        <Button><Label>trigger {trigger}</Label></Button>
+        <Button><Label>{`trigger ${trigger}`}</Label></Button>
       </Popover>
-      <br /><br />
+      <br />
+      <br />
     </React.Fragment>
   )), {
     notes: `Ação do usuário para acionar o Popover.
@@ -48,9 +48,10 @@ storiesOf('ui-elements/general/Popover [Popover, UIE029]', module)
         description={`Popover ${placement}`}
         placement={placement}
       >
-        <Button><Label>placement {placement}</Label></Button>
+        <Button><Label>{`placement ${placement}`}</Label></Button>
       </Popover>
-      <br /><br />
+      <br />
+      <br />
     </React.Fragment>
   )), {
     notes: `Posição de exibição do Popover.
@@ -71,4 +72,4 @@ storiesOf('ui-elements/general/Popover [Popover, UIE029]', module)
     </Popover>
   ), {
     notes: 'O delay aplica um atraso em milissegundos para exibir o Popover, quando true aplica 600ms.',
-  })
+  });
