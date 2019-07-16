@@ -11,6 +11,7 @@ import Breadcrumb from './components/Breadcrumb';
  * @param  {?array} props.breadcrumb Breadcrumb da página [{ label: ‘’, path: ‘’ }]
  * @param {?object} props.children   Conteúdo da página
  * @param {?object} props.footer     Rodapé da página
+ * @param {?string} props.className  Class HTML opcional no componente
  */
 const ContentComponent = (props) => {
   const {
@@ -19,12 +20,13 @@ const ContentComponent = (props) => {
     breadcrumb,
     children,
     footer,
+    className,
   } = props;
 
   return (
     <>
       <Alerts />
-      <div className="content-header">
+      <div className={`content-header ${className}`}>
         <h1>
           {title}
           &nbsp;
@@ -32,10 +34,10 @@ const ContentComponent = (props) => {
         </h1>
         <Breadcrumb breadcrumb={breadcrumb} />
       </div>
-      <div className="content">
+      <div className={`content ${className}`}>
         {children}
       </div>
-      <div className="content-footer">
+      <div className={`content-footer ${className}`}>
         {footer}
       </div>
     </>
@@ -49,6 +51,7 @@ ContentComponent.defaultProps = {
   breadcrumb: [],
   children: null,
   footer: null,
+  className: '',
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
@@ -58,6 +61,7 @@ ContentComponent.propTypes = {
   breadcrumb: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node,
   footer: PropTypes.node,
+  className: PropTypes.string,
 };
 
 
