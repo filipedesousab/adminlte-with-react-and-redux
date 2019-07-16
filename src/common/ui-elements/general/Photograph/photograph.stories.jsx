@@ -15,6 +15,12 @@ storiesOf('ui-elements/general/Photograph [Photograph, UIE035]', module)
             Seu aspect ratio é fixado em 4/3.`,
   })
 
+  .add('noWebcam', () => (
+    <Photograph noWebcam />
+  ), {
+    notes: 'O noWebcam permite inserir imagem selecionando e não capturando pela webcam.',
+  })
+
   .add('defaultImage', () => (
     <Photograph defaultImage="https://live.staticflickr.com/3354/3175235977_e392128a42_m.jpg" />
   ), {
