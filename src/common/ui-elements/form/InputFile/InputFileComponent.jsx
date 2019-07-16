@@ -1,27 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import genHash from 'random-hash';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import {
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock,
+} from 'react-bootstrap';
 
 import { ButtonGroup, Button, Label } from 'common/ui-elements';
 
 /**
  * [InputFile, UIE016] Entrada de arquivos
- * @param   {string} props.id        Id do campo. Se não for passado, recebe uma hash aleatória
- * @param   {object} props.label     Descrição do campo
- * @param   {string} props.state     Estado(cor) [success, warning, error], nulo para default
- * @param  {boolean} props.disabled  Desabilitar campo
- * @param   {object} props.helpBlock Descrição abaixo do campo
- * @param {function} props.onChange  Primeiro parâmetro é o target e segundo é nome do arquivo
- * @param   {string} props.className Class html opcional no componente
+ * @param   {string} props.id                Id do campo. Se não for passado, recebe uma hash aleatória
+ * @param   {object} props.label             Descrição do campo
+ * @param   {object} props.component         Permite inserir um componente personalizado para selecionar um arquivo
+ * @param   {object} props.componentSelected Permite inserir um componente personalizado quando um arquivo for selecionado
+ * @param   {string} props.state             Estado(cor) [success, warning, error], nulo para default
+ * @param  {boolean} props.disabled          Desabilitar campo
+ * @param   {object} props.helpBlock         Descrição abaixo do campo
+ * @param {function} props.onChange          Primeiro parâmetro é o target e segundo é nome do arquivo
+ * @param   {string} props.className         Class html opcional no componente
  */
 class InputFileComponent extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      icon: 'file',
       fileName: props.description || <Label icon="fa fa-file">Selecionar</Label>,
       clean: false,
     };
@@ -36,6 +41,7 @@ class InputFileComponent extends React.Component {
   }
 
   handleChange(e) {
+    const { onChange } = this.props;
     /**
      * Pega o caminho completo do arquivo
      * Divide a string do caminho completo em array pelo \ ou /
@@ -45,38 +51,36 @@ class InputFileComponent extends React.Component {
       .split(/(\\|\/)/g)
       .pop();
 
-    /** executa o onChange passado para o componente */
-    if (this.props.onChange) {
-      this.props.onChange(e, fileName);
-    }
+    onChange(e, fileName);
 
-    /** Atualiza o estado */
     this.setState({
-      ...this.state,
-      icon: 'check',
       fileName: <Label icon="fa fa-check">{fileName}</Label>,
       clean: true,
     });
   }
 
   clean() {
+    const { description, onClean } = this.props;
+
     this.setState({
-      ...this.state,
-      icon: 'file',
-      fileName: this.props.description || <Label icon="fa fa-file">Selecionar</Label>,
+      fileName: description || <Label icon="fa fa-file">Selecionar</Label>,
       clean: false,
     });
 
     this.inputFileField.value = null;
 
-    /** executa o onClean */
-    if (this.props.onClean) {
-      this.props.onClean();
-    }
+    onClean();
   }
 
   renderButton() {
-    const { component, color, disabled, size } = this.props;
+    const {
+      component,
+      color,
+      disabled,
+      size,
+    } = this.props;
+    const { fileName } = this.state;
+
     if (component) {
       return React.cloneElement(
         component,
@@ -94,13 +98,20 @@ class InputFileComponent extends React.Component {
         disabled={disabled}
         size={size}
       >
-        {this.state.fileName}
+        {fileName}
       </Button>
     );
   }
 
   renderButtonSelected() {
-    const { componentSelected, color, disabled, size } = this.props;
+    const {
+      componentSelected,
+      color,
+      disabled,
+      size,
+    } = this.props;
+    const { fileName } = this.state;
+
     if (componentSelected) {
       return React.cloneElement(
         componentSelected,
@@ -118,62 +129,48 @@ class InputFileComponent extends React.Component {
         disabled={disabled}
         size={size}
       >
-        {this.state.fileName}
+        {fileName}
       </Button>
     );
   }
 
   render() {
     const {
+      id,
       label,
       component,
+      componentSelected,
+      description,
       color,
       state,
       size,
       helpBlock,
       disabled,
+      onChange,
+      onClean,
       className,
       accept,
+      ...newProps
     } = this.props;
-
-    // Removendo props para não inteferir no ReacDOM e retirar o warning
-    const newProps = _.omit(this.props, [
-      'id',
-      'label',
-      'component',
-      'componentSelected',
-      'description',
-      'color',
-      'state',
-      'size',
-      'helpBlock',
-      'disabled',
-      'onChange',
-      'onClean',
-      'className',
-      'accept',
-    ]);
-
-    const id = this.props.id || genHash();
+    const { clean } = this.state;
+    const newId = id || genHash();
 
     return (
       <FormGroup
         {...newProps}
-        controlId={id}
+        controlId={newId}
         validationState={state}
         className={className}
       >
         <ControlLabel>{label}</ControlLabel>
         <br />
-        <ButtonGroup>
-          {this.state.clean ? this.renderButtonSelected() : this.renderButton()}
-          {
-            this.state.clean ?
-              <Button onClick={this.clean} color="danger">
-                <Label icon="fa fa-times" />
-              </Button>
-            : null
-          }
+        <ButtonGroup style={{ width: '100%' }}>
+          {clean ? this.renderButtonSelected() : this.renderButton()}
+          {clean ? (
+            <Button onClick={this.clean} color="danger">
+              <Label icon="fa fa-times" />
+            </Button>
+          ) : null}
         </ButtonGroup>
         <FormControl
           type="file"
@@ -202,8 +199,8 @@ InputFileComponent.defaultProps = {
   size: null,
   helpBlock: null,
   disabled: false,
-  onChange: null,
-  onClean: null,
+  onChange: () => {},
+  onClean: () => {},
   className: '',
   accept: null,
 };
