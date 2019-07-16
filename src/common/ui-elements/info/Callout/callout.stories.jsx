@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
@@ -35,9 +34,20 @@ storiesOf('ui-elements/info/Callout [Callout, UIE027]', module)
       color={color}
       key={index.toString()}
     >
-      Callout color {color}
+      {`Callout color ${color}`}
     </Callout>
   )), {
     notes: `É possível passar o nome das cores pelo "color" relacionada ao contexto: info, success, warning, danger.
             O padrão é info.`,
+  })
+
+  .add('outras props', () => (
+    <Callout
+      title="Título"
+      className="text-right"
+    >
+      Callout com className text-right
+    </Callout>
+  ), {
+    notes: 'É possível passar outras props como o "className" e "style.',
   });

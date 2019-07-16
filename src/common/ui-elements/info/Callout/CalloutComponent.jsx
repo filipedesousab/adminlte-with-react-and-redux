@@ -8,13 +8,19 @@ import { Alert } from 'react-bootstrap';
  * @param {object} props.children Corpo do componente
  * @param {string} props.color    Cor do Callout [info, success, warning, danger]
  */
-const CalloutComponent = props => (
+const CalloutComponent = ({
+  color,
+  title,
+  children,
+  ...props
+}) => (
   <Alert
-    bsStyle={props.color}
+    bsStyle={color}
     className="callout"
+    {...props}
   >
-    <h4>{props.title}</h4>
-    {props.children}
+    <h4>{title}</h4>
+    {children}
   </Alert>
 );
 
