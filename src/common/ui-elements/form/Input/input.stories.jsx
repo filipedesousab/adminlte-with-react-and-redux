@@ -376,6 +376,20 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
     notes: 'O "disabled" permite desabilitar o campo. Também é possível passar o parâmetro da forma disabled={true} ou disabled={false}.',
   })
 
+  .add('blockInput', () => (
+    <div style={{ width: '300px', backgroundColor: '#ddd' }}>
+      <p>Área com width 300px</p>
+      <br />
+      <Input
+        label={<Label>Campo com width 100%</Label>}
+        placeholder="Placeholder"
+        blockInput
+      />
+    </div>
+  ), {
+    notes: 'O "blockInput" permite habilitar o width 100% no campo. Também é possível passar o parâmetro da forma blockInput={true} ou blockInput={false}.',
+  })
+
   .add('className', () => (
     <Input
       label={<Label>Input com class &quot;um-teste&quot;</Label>}
