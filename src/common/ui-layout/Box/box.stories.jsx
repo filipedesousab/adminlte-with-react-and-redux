@@ -60,6 +60,104 @@ const stories = storiesOf('ui-layout/Box [Box, UIL006]', module)
     notes: 'É possível adicionar qualquer coisa que renderize no "footer".',
   })
 
+  .add('className', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        className="text-uppercase"
+        title={<Label>Título do box</Label>}
+        footer="Footer do Box"
+      >
+        Box com class text-uppercase
+      </Box>
+    </div>
+  ), {
+    notes: 'É possível passar livremente class para o Box pelo "className".',
+  })
+
+  .add('classHeader', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        classHeader="bg-green"
+        title={<Label>Título do box</Label>}
+        footer="Footer do Box"
+      >
+        Header com class bg-green
+      </Box>
+    </div>
+  ), {
+    notes: 'É possível passar livremente class para o header pelo "classHeader".',
+  })
+
+  .add('classBody', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        classBody="bg-green"
+        title={<Label>Título do box</Label>}
+        footer="Footer do Box"
+      >
+        Body com class bg-green
+      </Box>
+    </div>
+  ), {
+    notes: 'É possível passar livremente class para o body pelo "classBody".',
+  })
+
+  .add('classFooter', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        classFooter="bg-green"
+        title={<Label>Título do box</Label>}
+        footer="Footer do Box"
+      >
+        Footer com class bg-green
+      </Box>
+    </div>
+  ), {
+    notes: 'É possível passar livremente class para o footer pelo "classFooter".',
+  })
+
+  .add('styleHeader', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        styleHeader={{ backgroundColor: '#ff00ff' }}
+        title={<Label>Título do box</Label>}
+        footer="Footer do Box"
+      >
+        Header com style background-color #ff00ff
+      </Box>
+    </div>
+  ), {
+    notes: 'É possível passar style para o header pelo "styleHeader".',
+  })
+
+  .add('styleBody', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        styleBody={{ backgroundColor: '#ff00ff' }}
+        title={<Label>Título do box</Label>}
+        footer="Footer do Box"
+      >
+        Body com style background-color #ff00ff
+      </Box>
+    </div>
+  ), {
+    notes: 'É possível passar style para o body pelo "styleBody".',
+  })
+
+  .add('styleFooter', () => (
+    <div style={{ width: '250px' }}>
+      <Box
+        styleFooter={{ backgroundColor: '#ff00ff' }}
+        title={<Label>Título do box</Label>}
+        footer="Footer do Box"
+      >
+        Footer com style background-color #ff00ff
+      </Box>
+    </div>
+  ), {
+    notes: 'É possível passar style para o footer pelo "styleFooter".',
+  })
+
   .add('color null', () => (
     <div style={{ width: '250px' }}>
       <Box
