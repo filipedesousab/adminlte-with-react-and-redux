@@ -25,6 +25,7 @@ import {
  * @param   {?string} props.value       Conteúdo do campo
  * @param   {?string} props.placeholder Descrição dentro do campo
  * @param  {?boolean} props.disabled    Desabilitar campo
+ * @param  {?boolean} props.blockInput  Input com width 100%
  * @param {?function} props.onChange    Função a ser executada na ação de escrever do usuário
  * @param   {?object} props.helpBlock   Descrição abaixo do campo
  * @param {?function} props._ref        Passar referência do input
@@ -47,6 +48,7 @@ class InputComponent extends React.PureComponent {
       defaultValue,
       placeholder,
       disabled,
+      blockInput,
       onChange,
       helpBlock,
       _ref,
@@ -62,7 +64,7 @@ class InputComponent extends React.PureComponent {
         {...props}
       >
         <ControlLabel>{label}</ControlLabel>
-        <InputGroup>
+        <InputGroup style={blockInput ? { width: '100%' } : {}}>
           {btnLeft
             ? <InputGroup.Button>{btnLeft}</InputGroup.Button>
             : false}
@@ -110,6 +112,7 @@ InputComponent.defaultProps = {
   defaultValue: undefined,
   placeholder: null,
   disabled: false,
+  blockInput: false,
   onChange: null,
   helpBlock: null,
   _ref: null,
@@ -138,6 +141,7 @@ InputComponent.propTypes = {
   defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  blockInput: PropTypes.bool,
   onChange: PropTypes.func,
   helpBlock: PropTypes.oneOfType([
     PropTypes.string,
