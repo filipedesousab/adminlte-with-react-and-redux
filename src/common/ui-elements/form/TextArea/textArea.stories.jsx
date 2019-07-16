@@ -11,7 +11,7 @@ import {
   Label,
   Radio,
 } from 'common/ui-elements';
-import TextArea from './';
+import TextArea from '.';
 
 storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
   .add('textarea com id', () => (
@@ -69,9 +69,9 @@ storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
   .add('state', () => ['success', 'warning', 'error'].map((state, index) => (
     <React.Fragment key={index.toString()}>
       <TextArea
-        label={<Label>TextArea {state}</Label>}
+        label={<Label>{`TextArea ${state}`}</Label>}
         placeholder={`Placeholder ${state}`}
-        helpBlock={<Label>Help Block {state}.</Label>}
+        helpBlock={<Label>{`Help Block ${state}.`}</Label>}
         state={state}
       />
       <br />
@@ -105,7 +105,13 @@ storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
   ].map((addon, index) => (
     <React.Fragment key={index.toString()}>
       <TextArea
-        label={<Label>TextArea com {typeof addon === 'string' ? addon : addon.type.name} no lado esquerdo</Label>}
+        label={(
+          <Label>
+            TextArea com
+            {` ${typeof addon === 'string' ? addon : addon.type.name} `}
+            no lado esquerdo
+          </Label>
+        )}
         addonLeft={addon}
       />
       <br />
@@ -122,7 +128,13 @@ storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
   ].map((addon, index) => (
     <React.Fragment key={index.toString()}>
       <TextArea
-        label={<Label>TextArea com {typeof addon === 'string' ? addon : addon.type.name} no lado direito</Label>}
+        label={(
+          <Label>
+            TextArea com
+            {` ${typeof addon === 'string' ? addon : addon.type.name} `}
+            no lado direito
+          </Label>
+        )}
         addonRight={addon}
       />
       <br />
@@ -139,7 +151,13 @@ storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <TextArea
-        label={<Label>TextArea com {typeof value.addon === 'string' ? value.addon : value.addon.type.name} no lado direito</Label>}
+        label={(
+          <Label>
+            TextArea com
+            {` ${typeof value.addon === 'string' ? value.addon : value.addon.type.name} `}
+            no lado direito
+          </Label>
+        )}
         addonLeft={value.addon}
         addonRight={value.addon}
         state={value.state}
@@ -168,7 +186,7 @@ storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <TextArea
-        label={<Label>TextArea com size {`${value.size}`}</Label>}
+        label={<Label>{`TextArea com size ${value.size}`}</Label>}
         placeholder={`TextArea com size ${value.size}`}
         addonLeft={value.addon}
         addonRight={value.addon}
@@ -244,6 +262,20 @@ storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
     notes: 'O "disabled" permite desabilitar o campo. Também é possível passar o parâmetro da forma disabled={true} ou disabled={false}.',
   })
 
+  .add('blockInput', () => (
+    <div style={{ width: '300px', backgroundColor: '#ddd' }}>
+      <p>Área com width 300px</p>
+      <br />
+      <TextArea
+        label={<Label>Campo com width 100%</Label>}
+        placeholder="Placeholder"
+        blockInput
+      />
+    </div>
+  ), {
+    notes: 'O "blockInput" permite habilitar o width 100% no campo. Também é possível passar o parâmetro da forma blockInput={true} ou blockInput={false}.',
+  })
+
   .add('className', () => (
     <TextArea
       label={<Label>TextArea com class &quot;um-teste&quot;</Label>}
@@ -252,4 +284,14 @@ storiesOf('ui-elements/form/TextArea [TextArea, UIE011]', module)
   ), {
     notes: `É possível passar livremente class pelo className.
             Verificar a class "um-teste" junto a "form-group".`,
+  })
+
+  .add('_ref', () => (
+    <TextArea
+      label={<Label>TextArea com referência</Label>}
+      _ref={action('Referência do textarea')}
+    />
+  ), {
+    notes: `Serve para obter a referência do campo com o _ref.
+            Pode ser uma função que retorna a referência ou o React.createRef()`,
   });
