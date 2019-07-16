@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 
-const TableComponent = props => (
-  <Table striped bordered hover responsive size="sm">
-    {props.children}
+/**
+ * [Table, UIE028] Tabela
+ * @param {object} props.children Elementos HTML thead, tbody, tfoot, tr, th e td
+ */
+const TableComponent = ({ children, ...props }) => (
+  <Table striped bordered hover responsive size="sm" {...props}>
+    {children}
   </Table>
 );
 

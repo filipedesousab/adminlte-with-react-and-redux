@@ -1,11 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
 import 'common/scss/custom.scss';
-import Table from './';
+import Table from '.';
 
 storiesOf('ui-elements/general/Table [Table, UIE028]', module)
   .add('children thead', () => (
@@ -69,4 +68,21 @@ storiesOf('ui-elements/general/Table [Table, UIE028]', module)
     notes: `Tabela exemplo.
             Observar as diferenças das cores entre as linhas.
             Observar ação do cursor em cima das linhas.`,
+  })
+
+  .add('outras props', () => (
+    <>
+      Tabela com className text-danger
+      <Table className="text-danger">
+        <tbody>
+          <tr>
+            <td>Coluna 1</td>
+            <td>Coluna 2</td>
+            <td>Coluna 3</td>
+          </tr>
+        </tbody>
+      </Table>
+    </>
+  ), {
+    notes: 'É possível passar outras props do react-bootstrap como o "condensed" ou "className".',
   });
