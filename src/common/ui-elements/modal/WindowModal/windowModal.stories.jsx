@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { withState } from '@dump247/storybook-state';
 
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
@@ -97,4 +98,46 @@ storiesOf('ui-elements/modal/WindowModal [WindowModal, UIE024]', module)
   ), {
     notes: `Função executada na ação de fechar modal.
             O WindowModal executa essa função ao clicar no botão "X" ou fora do WindowModal.`,
+  })
+
+  .add('onHide com show', withState({ show: false })(({ store }) => (
+    <>
+      <button type="button" onClick={() => store.set({ show: true })}>
+        Abrir WindowModal
+      </button>
+      <Modal
+        show={store.state.show}
+        title={<Label>WindowModal pode ser fechado</Label>}
+        onHide={() => store.set({ show: false })}
+      >
+        Fechar WindowModal clicando no X
+      </Modal>
+    </>
+  )), {
+    notes: 'WindowModal com o "onHide" e "show" funcionando juntos.',
+  })
+
+  .add('noFooter com btnFooterRight', () => (
+    <Modal
+      show
+      noFooter
+      title={<Label>Título do WindowModal</Label>}
+      btnFooterRight={<Button><Label>Button</Label></Button>}
+    >
+      O noFooter escondeu o footer no qual deveria aparecer o botão ao lado direito.
+    </Modal>
+  ), {
+    notes: 'O noFooter permite um WindowModal sem o footer.',
+  })
+
+  .add('className', () => (
+    <Modal
+      show
+      title={<Label>Título do WindowModal</Label>}
+      className="text-danger"
+    >
+      WindowModal com className text-danger
+    </Modal>
+  ), {
+    notes: 'É possível passar livremente class pelo "className".',
   });

@@ -6,8 +6,10 @@ import { Modal } from 'react-bootstrap';
  * [WindowModal, UIE024] Modal tamanho padrão
  * @param   {?object} props.title          Título do modal [Label, UIE002]
  * @param   {?object} props.children       Corpo do componente
+ * @param   {?string} props.className      Class HTML opcional no componente
  * @param    {?array} props.btnFooterLeft  Array de botões no footer esquerdo do modal
  * @param    {?array} props.btnFooterRight Array de botões no footer direito do modal
+ * @param  {?boolean} props.noFooter       Permite WindowModal sem footer
  * @param  {?boolean} props.show           True para abrir modal e false para fechar
  * @param {?function} props.onHide         Executada na ação de fechar modal
  */
@@ -39,6 +41,8 @@ class WindowModalComponent extends React.Component {
       btnFooterLeft,
       btnFooterRight,
       children,
+      className,
+      noFooter,
       onHide,
       show,
       title,
@@ -47,7 +51,7 @@ class WindowModalComponent extends React.Component {
 
     return (
       <Modal
-        className="modal-default window-modal"
+        className={`modal-default window-modal ${className}`}
         show={show}
         onHide={onHide}
         backdrop="static"
@@ -57,11 +61,15 @@ class WindowModalComponent extends React.Component {
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>{children}</Modal.Body>
+        <Modal.Body style={noFooter ? { height: 'calc(100% - 58px)' } : null}>
+          {children}
+        </Modal.Body>
 
-        <Modal.Footer>
-          {this.renderButtons({ btnFooterLeft, btnFooterRight })}
-        </Modal.Footer>
+        {!noFooter && (
+          <Modal.Footer>
+            {this.renderButtons({ btnFooterLeft, btnFooterRight })}
+          </Modal.Footer>
+        )}
       </Modal>
     );
   }
@@ -71,8 +79,10 @@ class WindowModalComponent extends React.Component {
 WindowModalComponent.defaultProps = {
   title: null,
   children: null,
+  className: '',
   btnFooterLeft: null,
   btnFooterRight: null,
+  noFooter: false,
   show: false,
   onHide: null,
 };
@@ -81,6 +91,7 @@ WindowModalComponent.defaultProps = {
 WindowModalComponent.propTypes = {
   title: PropTypes.element,
   children: PropTypes.node,
+  className: PropTypes.string,
   btnFooterLeft: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element),
@@ -89,6 +100,7 @@ WindowModalComponent.propTypes = {
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element),
   ]),
+  noFooter: PropTypes.bool,
   show: PropTypes.bool,
   onHide: PropTypes.func,
 };
