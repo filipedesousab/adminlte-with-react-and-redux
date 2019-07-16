@@ -9,6 +9,7 @@ import {
   Icon,
   InputFile,
 } from 'common/ui-elements';
+import imageNoPhoto from 'images/no-photo.jpg';
 
 import Crop from './components/Crop';
 
@@ -17,6 +18,7 @@ import Crop from './components/Crop';
 * @param   {string} defaultImage Imagem inicial já cortada. URL, Data URL ou Blob.
 * @param   {number} width        Largura da imagem
 * @param   {number} height       Altura da imagem
+* @param  {boolean} noWebcam     Identifica se é para não utilizar webcam
 * @param {function} onCapture    Executa depois de capturar
 * @param {function} onError      Executa se houver erro
 */
@@ -130,7 +132,14 @@ class PhotographComponent extends Component {
   }
 
   /** Renderiza os componentes quando for dispositivo mobile */
-  renderMobile() {
+  renderInputFile(props = {}) {
+    let block = false;
+    let newProps = { ...props };
+
+    if (props.block || props.block === false) {
+      ({ block, ...newProps } = props);
+    }
+
     const { image, crop, invalidType } = this.state;
 
     /** Se houver imagem capturada e não cortada, renderiza o corte */
@@ -143,8 +152,12 @@ class PhotographComponent extends Component {
     return (
       <InputFile
         component={(
-          <ButtonIcon icon={<Icon name="fa fa-camera" />} color="primary">
-            <Label>Capturar Imagem</Label>
+          <ButtonIcon
+            icon={<Icon name="fa fa-camera" />}
+            color="primary"
+            block={block}
+          >
+            <Label>Inserir Imagem</Label>
           </ButtonIcon>
         )}
         accept="image/jpeg"
@@ -152,12 +165,14 @@ class PhotographComponent extends Component {
         state={invalidType ? 'error' : null}
         onChange={this.capturePhotoMobile}
         ref={(e) => { this.inputRef = e; }}
+        {...newProps}
       />
     );
   }
 
   /** Renderiza os componentes quando for dispositivo desktop */
   renderDesktop() {
+    const { noWebcam } = this.props;
     const {
       image,
       crop,
@@ -174,23 +189,40 @@ class PhotographComponent extends Component {
     /** Se não houver imagem capturada, renderiza a webcam */
     return (
       <div className="photograph" style={{ width: `${width + 10}px` }}>
-        <Webcam
-          width={width}
-          height={height}
-          ref={(e) => { this.webcamRef = e; }}
-          audio={false}
-          screenshotFormat="image/jpeg"
-          className="image"
-          style={{ width: `${width}px`, height: `${height}px` }}
-        />
-        <ButtonIcon
-          color="primary"
-          block
-          onClick={this.capturePhotoDesktop}
-          icon={<Icon name="fa fa-camera" />}
-        >
-          <Label>Fotografar</Label>
-        </ButtonIcon>
+        {noWebcam ? (
+          <>
+            <img
+              width={width}
+              src={imageNoPhoto}
+              alt="Sem imagem"
+              className="image photo"
+            />
+            {this.renderInputFile({
+              style: { marginBottom: '0px', marginTop: '-20px' },
+              block: true,
+            })}
+          </>
+        ) : (
+          <>
+            <Webcam
+              width={width}
+              height={height}
+              ref={(e) => { this.webcamRef = e; }}
+              audio={false}
+              screenshotFormat="image/jpeg"
+              className="image"
+              style={{ width: `${width}px`, height: `${height}px` }}
+            />
+            <ButtonIcon
+              color="primary"
+              block
+              onClick={this.capturePhotoDesktop}
+              icon={<Icon name="fa fa-camera" />}
+            >
+              <Label>Fotografar</Label>
+            </ButtonIcon>
+          </>
+        )}
       </div>
     );
   }
@@ -198,7 +230,7 @@ class PhotographComponent extends Component {
   render() {
     const mobileDetect = new MobileDetect(window.navigator.userAgent);
 
-    return mobileDetect.mobile() ? this.renderMobile() : this.renderDesktop();
+    return mobileDetect.mobile() ? this.renderInputFile() : this.renderDesktop();
   }
 }
 
@@ -207,6 +239,7 @@ PhotographComponent.defaultProps = {
   defaultImage: null,
   width: null,
   height: null,
+  noWebcam: false,
   onCapture: () => {},
   onError: () => {},
 };
@@ -216,6 +249,7 @@ PhotographComponent.propTypes = {
   defaultImage: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
+  noWebcam: PropTypes.bool,
   onCapture: PropTypes.func,
   onError: PropTypes.func,
 };
