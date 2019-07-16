@@ -14,7 +14,7 @@ import {
   Label,
   Radio,
 } from 'common/ui-elements';
-import SelectMultiple from './';
+import SelectMultiple from '.';
 
 storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   .add('select com id', () => (
@@ -93,12 +93,12 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   .add('options e state', () => [null, 'success', 'warning', 'error'].map((state, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple {state}</Label>}
+        label={<Label>{`SelectMultiple state ${state}`}</Label>}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
         ]}
-        helpBlock={<Label>Help Block {state}.</Label>}
+        helpBlock={<Label>{`Help Block ${state}.`}</Label>}
         state={state}
       />
       <br />
@@ -134,7 +134,7 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ].map((button, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple com {button.type.name} no lado esquerdo</Label>}
+        label={<Label>{`SelectMultiple com ${button.type.name} no lado esquerdo`}</Label>}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
@@ -154,7 +154,7 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ].map((button, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple com {button.type.name} no lado direito</Label>}
+        label={<Label>{`SelectMultiple com ${button.type.name} no lado direito`}</Label>}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
@@ -209,7 +209,7 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple com size {`${value.size}`}</Label>}
+        label={<Label>{`SelectMultiple com size ${value.size}`}</Label>}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
@@ -232,7 +232,13 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ].map((addon, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple com {typeof addon === 'string' ? addon : addon.type.name} no lado esquerdo</Label>}
+        label={(
+          <Label>
+            SelectMultiple com
+            {` ${typeof addon === 'string' ? addon : addon.type.name} `}
+            no lado esquerdo
+          </Label>
+        )}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
@@ -253,7 +259,13 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ].map((addon, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple com {typeof addon === 'string' ? addon : addon.type.name} no lado direito</Label>}
+        label={(
+          <Label>
+            SelectMultiple com
+            {` ${typeof addon === 'string' ? addon : addon.type.name} `}
+            no lado direito
+          </Label>
+        )}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
@@ -274,7 +286,13 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple com {typeof value.addon === 'string' ? value.addon : value.addon.type.name} no lado direito</Label>}
+        label={(
+          <Label>
+            SelectMultiple com
+            {` ${typeof value.addon === 'string' ? value.addon : value.addon.type.name} `}
+            no lado esquerdo e direito
+          </Label>
+        )}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
@@ -307,7 +325,7 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ].map((value, index) => (
     <React.Fragment key={index.toString()}>
       <SelectMultiple
-        label={<Label>SelectMultiple com size {`${value.size}`}</Label>}
+        label={<Label>{`SelectMultiple com size ${value.size}`}</Label>}
         options={[
           { value: 'op1', label: 'Opção 1' },
           { value: 'op2', label: 'Opção 2' },
@@ -432,6 +450,23 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
     notes: 'O "disabled" permite desabilitar o campo. Também é possível passar o parâmetro da forma disabled={true} ou disabled={false}.',
   })
 
+  .add('blockInput', () => (
+    <div style={{ width: '300px', backgroundColor: '#ddd' }}>
+      <p>Área com width 300px</p>
+      <br />
+      <SelectMultiple
+        label={<Label>Campo com width 100%</Label>}
+        options={[
+          { value: 'op1', label: 'Opção 1' },
+          { value: 'op2', label: 'Opção 2' },
+        ]}
+        blockInput
+      />
+    </div>
+  ), {
+    notes: 'O "blockInput" permite habilitar o width 100% no campo. Também é possível passar o parâmetro da forma blockInput={true} ou blockInput={false}.',
+  })
+
   .add('className', () => (
     <SelectMultiple
       label={<Label>SelectMultiple com class &quot;um-teste&quot;</Label>}
@@ -440,4 +475,14 @@ storiesOf('ui-elements/form/SelectMultiple [SelectMultiple, UIE013]', module)
   ), {
     notes: `É possível passar livremente class pelo className.
             Verificar a class "um-teste" junto a "form-group".`,
+  })
+
+  .add('_ref', () => (
+    <SelectMultiple
+      label={<Label>SelectMultiple com referência</Label>}
+      _ref={action('Referência do select')}
+    />
+  ), {
+    notes: `Serve para obter a referência do select com o _ref.
+            Pode ser uma função que retorna a referência ou o React.createRef()`,
   });
