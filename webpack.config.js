@@ -29,6 +29,7 @@ module.exports = {
     alias: { // Pseudônimo para pastas e arquivos
       modules: path.join(__dirname, 'node_modules'), // Usado geralmente para importar arquivo de uma dependencia
       common: path.join(__dirname, 'src', 'common'), // Local com componentes e outros arquivos comuns do projeto
+      images: path.join(__dirname, 'src', 'images'), // Local com imagens do projeto
       jquery: path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.min.js'), // Local onde onde o jQuery está instalado no admin-lte
       bootstrap: path.join(__dirname, 'modules', 'admin-lte', 'bootstrap', 'js', 'bootstrap.js'), // Local onde onde o bootstrap está instalado no admin-lte
     },
