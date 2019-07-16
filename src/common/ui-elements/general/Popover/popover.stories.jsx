@@ -72,4 +72,12 @@ storiesOf('ui-elements/general/Popover [Popover, UIE029]', module)
     </Popover>
   ), {
     notes: 'O delay aplica um atraso em milissegundos para exibir o Popover, quando true aplica 600ms.',
+  })
+
+  .add('popoverClassName', () => (
+    <Popover popoverClassName="bg-green" description="Popover com class" trigger="click">
+      <Button><Label>Clique e pesquise a class bg-green</Label></Button>
+    </Popover>
+  ), {
+    notes: 'É possível passar livremente class pelo popoverClassName para o componente Popover dentro do OverlayTrigger.',
   });
