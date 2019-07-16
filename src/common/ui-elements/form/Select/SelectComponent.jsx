@@ -11,22 +11,24 @@ import {
 
 /**
  * [Select, UIE012] Campo para selecionar uma opção
- * @param   {string} props.options      Opções do campo
- * @param   {string} props.value        Opção selecionada no componente controlado
- * @param   {string} props.defaultValue Opção selecionada no componente não controlado
- * @param   {string} props.id           Id do campo. Se não for passado, recebe uma hash aleatória.
- * @param   {string} props.name         Nome do campo, utilizado para submit ou libs como o Formik
- * @param   {string} props.state        Estado(cor) [success, warning, error], nulo para degault.
- * @param   {string} props.size         Tamanho(altura) [large, small], nulo para default.
- * @param   {string} props.className    Class html opcional no componente
- * @param   {object} props.label        Descrição do campo
- * @param   {object} props.btnLeft      Botão do lado esquerdo
- * @param   {object} props.btnRight     Botão do lado direito
- * @param   {object} props.addonLeft    Addon do lado esquerdo
- * @param   {object} props.addonRight   Addon do lado direito
- * @param  {boolean} props.disabled     Desabilitar campo
- * @param {function} props.onChange     Função a ser executada na ação de escrever do usuário
- * @param   {object} props.helpBlock    Descrição abaixo do campo
+ * @param   {?string} props.options      Opções do campo
+ * @param   {?string} props.value        Opção selecionada no componente controlado
+ * @param   {?string} props.defaultValue Opção selecionada no componente não controlado
+ * @param   {?string} props.id           Id do campo. Se não for passado, recebe uma hash aleatória.
+ * @param   {?string} props.name         Nome do campo, utilizado para submit ou libs como o Formik
+ * @param   {?string} props.state        Estado(cor) [success, warning, error], nulo para degault.
+ * @param   {?string} props.size         Tamanho(altura) [large, small], nulo para default.
+ * @param   {?string} props.className    Class html opcional no componente
+ * @param   {?object} props.label        Descrição do campo
+ * @param   {?object} props.btnLeft      Botão do lado esquerdo
+ * @param   {?object} props.btnRight     Botão do lado direito
+ * @param   {?object} props.addonLeft    Addon do lado esquerdo
+ * @param   {?object} props.addonRight   Addon do lado direito
+ * @param  {?boolean} props.disabled     Desabilitar campo
+ * @param  {?boolean} props.blockInput   Input com width 100%
+ * @param {?function} props.onChange     Função a ser executada na ação de escrever do usuário
+ * @param   {?object} props.helpBlock    Descrição abaixo do campo
+ * @param {?function} props._ref         Passar referência do select
  */
 class SelectComponent extends React.PureComponent {
   render() {
@@ -45,8 +47,10 @@ class SelectComponent extends React.PureComponent {
       addonLeft,
       addonRight,
       disabled,
+      blockInput,
       onChange,
       helpBlock,
+      _ref,
       ...props
     } = this.props;
 
@@ -59,7 +63,7 @@ class SelectComponent extends React.PureComponent {
         {...props}
       >
         <ControlLabel>{label}</ControlLabel>
-        <InputGroup>
+        <InputGroup style={blockInput ? { width: '100%' } : {}}>
           {btnLeft
             ? <InputGroup.Button>{btnLeft}</InputGroup.Button>
             : false}
@@ -73,6 +77,7 @@ class SelectComponent extends React.PureComponent {
             value={value}
             defaultValue={defaultValue}
             name={name}
+            inputRef={_ref}
           >
             {options.map((item, index) => (
               <option
@@ -114,8 +119,10 @@ SelectComponent.defaultProps = {
   addonLeft: null,
   addonRight: null,
   disabled: false,
+  blockInput: false,
   onChange: null,
   helpBlock: null,
+  _ref: null,
 };
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
@@ -140,10 +147,15 @@ SelectComponent.propTypes = {
     PropTypes.element,
   ]),
   disabled: PropTypes.bool,
+  blockInput: PropTypes.bool,
   onChange: PropTypes.func,
   helpBlock: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
+  ]),
+  _ref: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
   ]),
 };
 
