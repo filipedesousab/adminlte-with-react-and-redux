@@ -440,6 +440,23 @@ storiesOf('ui-elements/form/Select [Select, UIE012]', module)
     notes: 'O "disabled" permite desabilitar o campo. Também é possível passar o parâmetro da forma disabled={true} ou disabled={false}.',
   })
 
+  .add('blockInput', () => (
+    <div style={{ width: '300px', backgroundColor: '#ddd' }}>
+      <p>Área com width 300px</p>
+      <br />
+      <Select
+        label={<Label>Campo com width 100%</Label>}
+        options={[
+          { value: 'op1', label: 'Opção 1' },
+          { value: 'op2', label: 'Opção 2' },
+        ]}
+        blockInput
+      />
+    </div>
+  ), {
+    notes: 'O "blockInput" permite habilitar o width 100% no campo. Também é possível passar o parâmetro da forma blockInput={true} ou blockInput={false}.',
+  })
+
   .add('className', () => (
     <Select
       label={<Label>Select com class &quot;um-teste&quot;</Label>}
@@ -448,4 +465,14 @@ storiesOf('ui-elements/form/Select [Select, UIE012]', module)
   ), {
     notes: `É possível passar livremente class pelo className.
             Verificar a class "um-teste" junto a "form-group".`,
+  })
+
+  .add('_ref', () => (
+    <Select
+      label={<Label>Select com referência</Label>}
+      _ref={action('Referência do select')}
+    />
+  ), {
+    notes: `Serve para obter a referência do select com o _ref.
+            Pode ser uma função que retorna a referência ou o React.createRef()`,
   });
