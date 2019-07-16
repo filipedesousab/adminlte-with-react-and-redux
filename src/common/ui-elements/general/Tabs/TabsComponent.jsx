@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import genHash from 'random-hash';
 import { Tabs } from 'react-bootstrap';
 
-import { Icon, Button, Popover } from '../../';
+import { Icon, Button, Popover } from 'common/ui-elements';
 
 /**
  * [Tabs, UIE032] Grupo de Abas
- * @param {string} props.defaultActiveKey Identificação da tab a ser aberta por default em Tabs não controladas
- * @param {string} props.activeKey        Identificação da Tab atual aberta, para Tabs controladas
- * @param {string} props.onSelect         Função utilizada para trocar de Tab em um componente controlado, ela retorna o eventKey da TabAção para acionar o Popover, pode ser um array.
- * @param {object} props.children         Tabs a serem exibidas
+ * @param {?string} props.defaultActiveKey Tab a ser aberta por default em Tabs não controladas
+ * @param {?string} props.activeKey        Identificação da Tab atual aberta, para Tabs controladas
+ * @param {?string} props.onSelect         Troca de Tab em comp controlado, retorna eventKey da Tab
+ * @param {?object} props.children         Tabs a serem exibidas
  */
 class TabsComponent extends React.Component {
   constructor(props) {
@@ -19,30 +19,32 @@ class TabsComponent extends React.Component {
     this.state = { activeKey: props.activeKey };
   }
 
-  componentWillReceiveProps(nextProps) {
-    let children;
-    let nextChildren;
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    let { children } = this.props;
+    let { children: nextChildren } = nextProps;
 
-    if (Array.isArray(this.props.children)) {
-      children = this.props.children;
-    } else {
-      children = [this.props.children];
+    if (!Array.isArray(children)) {
+      children = [children];
     }
 
-    if (Array.isArray(nextProps.children)) {
-      nextChildren = nextProps.children;
-    } else {
-      nextChildren = [nextProps.children];
+    if (!Array.isArray(nextChildren)) {
+      nextChildren = [nextChildren];
     }
 
-    if (nextProps.children.length === children.length) {
+    if (nextChildren.length === children.length) {
       // Se a quantidade de abas for igual após atualização nas props do componente
 
-      if (children.slice(-1)[0].props.eventKey !== nextChildren.slice(-1)[0].props.eventKey) {
+      // eventKey da última aba no children atual
+      const lastChildrenEventKey = children[children.length - 1].props.eventKey;
+      // eventKey da última aba no próximo children
+      const lastNexChildrenEventKey = nextChildren[nextChildren.length - 1].props.eventKey;
+
+      if (lastChildrenEventKey !== lastNexChildrenEventKey) {
         // Se o eventKey da última aba for diferente da próxima última aba,
         // provavelmente é uma atualização na última aba,
         // então atualiza o activeKey para o novo eventKey da aba atualizada
-        this.setState({ activeKey: nextChildren.slice(-1)[0].props.eventKey });
+        this.setState({ activeKey: lastNexChildrenEventKey });
       } else {
         // Se o eventKey da última aba for igual da próxima última aba
         // Provavelmente é apenas uma mudança de aba, então troca de aba
@@ -50,30 +52,34 @@ class TabsComponent extends React.Component {
       }
     } else if (nextChildren.length > children.length) {
       // Se a quantidade de abas recebidas forem maior que a existente,
-      // provavelmente foram abertas mais abas
+      // provavelmente foram abertas novas abas
 
       // Pega o eventKey da ultima aba inserida
-      const newActiveKey = nextChildren.slice(-1)[0].props.eventKey;
+      const newActiveKey = nextChildren[nextChildren.length - 1].props.eventKey;
 
       // Troca a aba para a ultima inserida
       this.setState({ activeKey: newActiveKey });
     } else if (nextChildren.length < children.length) {
       // Se a quantidade de abas recebidas forem menor que a existente,
-      // Provavelmente houveram abas fechadas
+      // Provavelmente abas foram fechadas
+
+      const { activeKey: stateActiveKey } = this.state;
 
       // Verifica se a aba fechada estava selecionada
       const closedSelectedTab = nextChildren.every((value) => {
-        if (value.props.eventKey === this.state.activeKey) {
+        if (value.props.eventKey === stateActiveKey) {
+          // nextChildren contem o novo array de abas sem a aba fechada
+          // Se a aba ativa estiver em nextChildren é porque a aba fechada não estava ativa
           return false;
         }
         return true;
       });
 
-      // Se a aba fechada estava selecionada
+      // Se a aba fechada estava selecionada, selecione uma ao lado
       if (closedSelectedTab) {
         children.every((value, index) => {
           // Localiza no array a aba que foi fechada
-          if (value.props.eventKey === this.state.activeKey) {
+          if (value.props.eventKey === stateActiveKey) {
             let nextSelectedTab = '';
 
             if (children[index + 1]) {
@@ -133,10 +139,11 @@ class TabsComponent extends React.Component {
   render() {
     const {
       defaultActiveKey,
-      id,
       onSelect,
       children,
+      ...props
     } = this.props;
+    const { activeKey } = this.state;
 
     // Necessário atualizar os títulos se necessário com botões de fixar e fechar das abas
     // antes de passar o children para o Tabs do bootstrap
@@ -167,9 +174,10 @@ class TabsComponent extends React.Component {
     return (
       <Tabs
         defaultActiveKey={defaultActiveKey}
-        activeKey={this.state.activeKey}
         id={genHash()}
         onSelect={onSelect}
+        {...props}
+        activeKey={activeKey}
       >
         {newChildren}
       </Tabs>

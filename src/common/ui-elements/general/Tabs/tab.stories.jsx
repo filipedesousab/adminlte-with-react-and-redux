@@ -1,11 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import { withState } from '@dump247/storybook-state';
+import randomHash from 'random-hash';
 
 import 'common/dependencies';
 import 'common/scss/dependencies.scss';
 import 'common/scss/custom.scss';
-import { Tab, Tabs } from './';
+import { Tab, Tabs } from '.';
 
 storiesOf('ui-elements/general/Tabs [Tabs, UIE032] e [Tab, UIE031]', module)
   .add('children em Tabs; title e children em Tab', () => (
@@ -35,7 +36,7 @@ storiesOf('ui-elements/general/Tabs [Tabs, UIE032] e [Tab, UIE031]', module)
   })
 
   .add('activeKey em Tabs; eventKey em Tab', () => (
-    <Tabs activeKey="tab2">
+    <Tabs activeKey="tab2" onSelect={() => {}}>
       <Tab eventKey="tab1" title="Tab 1">
         <div>Corpo da Tab 1</div>
       </Tab>
@@ -44,7 +45,8 @@ storiesOf('ui-elements/general/Tabs [Tabs, UIE032] e [Tab, UIE031]', module)
       </Tab>
     </Tabs>
   ), {
-    notes: 'O "activeKey" recebe o "eventKey" da Tab a ser exibida em Tabs controladas.',
+    notes: `O "activeKey" recebe o "eventKey" da Tab a ser exibida em Tabs controladas.
+            É necessário o onSelect quando for utilizar Tabs controladas pelo activeKey.`,
   })
 
   .add('onSelect em Tabs', () => (
@@ -61,69 +63,121 @@ storiesOf('ui-elements/general/Tabs [Tabs, UIE032] e [Tab, UIE031]', module)
             Essa função retorna o "eventKey" da Tab selecionada(que recebeu o click).`,
   })
 
-  .add('onClose em Tab', () => (
+  .add('onClose em Tab', withState({ tabs: [{ id: '1' }, { id: '2' }] })(({ store }) => (
     <Tabs>
-      <Tab
-        eventKey="tab1"
-        title="Tab 1"
-        onClose={action('Fechar Tab 1')}
-      >
-        <div>Corpo da Tab 1</div>
-      </Tab>
-      <Tab
-        eventKey="tab2"
-        title="Tab 2"
-        onClose={action('Fechar Tab 2')}
-      >
-        <div>Corpo da Tab 2</div>
-      </Tab>
+      {store.state.tabs.map(({ id }) => (
+        <Tab
+          eventKey={`tab${id}`}
+          title={`Tab ${id}`}
+          onClose={() => store.set({
+            tabs: store.state.tabs.reduce((acc, cur) => {
+              if (cur.id !== id) {
+                acc.push(cur);
+              }
+
+              return acc;
+            }, []),
+          })}
+        >
+          <div>{`Corpo da Tab ${id}`}</div>
+        </Tab>
+      ))}
     </Tabs>
-  ), {
+  )), {
     notes: 'Função a ser executada quando houver ação de click no botão de fechar.',
   })
 
-  .add('onFix em Tab', () => (
+  .add('onFix e fixed em Tab', withState({ fixTab1: false, fixTab2: false })(({ store }) => (
     <Tabs>
       <Tab
         eventKey="tab1"
         title="Tab 1"
-        onFix={action('Fixar Tab 1')}
+        fixed={store.state.fixTab1}
+        onFix={() => store.set({ fixTab1: !store.state.fixTab1 })}
       >
         <div>Corpo da Tab 1</div>
       </Tab>
       <Tab
         eventKey="tab2"
         title="Tab 2"
-        onFix={action('Fixar Tab 2')}
+        fixed={store.state.fixTab2}
+        onFix={() => store.set({ fixTab2: !store.state.fixTab2 })}
       >
         <div>Corpo da Tab 2</div>
       </Tab>
     </Tabs>
-  ), {
-    notes: 'Função a ser executada quando houver ação de click no botão de fixar e desfixar.',
+  )), {
+    notes: `A função "onFix" é executada quando houver ação de click no botão de fixar e desfixar.
+            O "fixed" só funciona quando tem a função "onFix" para desfixar.
+            Quando "fixed = true" o ícone do botão de fixar fica com cadeado fechado laranja.
+            Quando "fixed = false" o ícone do botão de fixar fica com cadeado aberto verde.`,
   })
 
-  .add('fixed em Tab', () => (
-    <Tabs>
-      <Tab
-        eventKey="tab1"
-        title="Tab 1"
-        onFix={action('Desfixar Tab 1')}
-        fixed
+  .add('Funcionamento completo', withState({ tabs: [], activeKey: '' })(({ store }) => (
+    <>
+      <button
+        type="button"
+        onClick={() => {
+          const tabs = [...store.state.tabs];
+
+          if (tabs.length === 0 || tabs[tabs.length - 1].fixed) {
+            tabs.push({ id: randomHash(), fixed: false });
+          } else {
+            tabs[tabs.length - 1] = { id: randomHash(), fixed: false };
+          }
+
+          store.set({ tabs });
+        }}
       >
-        <div>Corpo da Tab 1</div>
-      </Tab>
-      <Tab
-        eventKey="tab2"
-        title="Tab 2"
-        onFix={action('Desfixar Tab 2')}
-        fixed
-      >
-        <div>Corpo da Tab 2</div>
-      </Tab>
-    </Tabs>
+        Adicionar uma aba
+      </button>
+      <Tabs activeKey={store.state.activeKey} onSelect={key => store.set({ activeKey: key })}>
+        {store.state.tabs.map(({ id, fixed }) => (
+          <Tab
+            key={id}
+            eventKey={`tab${id}`}
+            title={`Tab ${id}`}
+            fixed={fixed}
+            onFix={() => store.set({
+              tabs: store.state.tabs.reduce((acc, cur) => {
+                if (cur.id === id) {
+                  acc.push({ ...cur, fixed: !cur.fixed });
+                } else {
+                  acc.push(cur);
+                }
+
+                return acc;
+              }, []),
+            })}
+            onClose={() => store.set({
+              tabs: store.state.tabs.reduce((acc, cur) => {
+                if (cur.id !== id) {
+                  acc.push(cur);
+                }
+
+                return acc;
+              }, []),
+            })}
+          >
+            <div>{`Corpo da Tab ${id}`}</div>
+          </Tab>
+        ))}
+      </Tabs>
+    </>
+  )), {
+    notes: 'Demonstração do funcionamento do Tabs com todas propriedades necessárias.',
+  })
+
+  .add('outras props', () => (
+    <>
+      <p>Tabs com className text-right</p>
+      <p>Tab com className text-danger</p>
+      <Tabs className="text-right">
+        <Tab title="Tab" className="text-danger">
+          <div>Corpo da Tab</div>
+        </Tab>
+      </Tabs>
+    </>
   ), {
-    notes: `O "fixed" só funciona quando tem a função "onFix" para desfixar.
-            Quando "fixed" o ícone do botão de fixar fica com cadeado fechado laranja.
-            Quando não "fixed" o ícone do botão de fixar fica com cadeado aberto verde.`,
+    notes: 'É possível passar outras props como o "className".',
   });
