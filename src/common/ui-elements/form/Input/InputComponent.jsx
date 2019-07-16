@@ -48,6 +48,7 @@ class InputComponent extends React.PureComponent {
       defaultValue,
       placeholder,
       disabled,
+      readOnly,
       blockInput,
       onChange,
       helpBlock,
@@ -78,6 +79,7 @@ class InputComponent extends React.PureComponent {
             defaultValue={defaultValue}
             placeholder={placeholder}
             disabled={disabled}
+            readOnly={readOnly}
             onChange={onChange}
             inputRef={_ref}
           />
@@ -112,6 +114,7 @@ InputComponent.defaultProps = {
   defaultValue: undefined,
   placeholder: null,
   disabled: false,
+  readOnly: false,
   blockInput: false,
   onChange: null,
   helpBlock: null,
@@ -141,6 +144,7 @@ InputComponent.propTypes = {
   defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
   blockInput: PropTypes.bool,
   onChange: PropTypes.func,
   helpBlock: PropTypes.oneOfType([

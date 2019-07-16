@@ -373,7 +373,19 @@ storiesOf('ui-elements/form/Input [Input, UIE010]', module)
       disabled
     />
   ), {
-    notes: 'O "disabled" permite desabilitar o campo. Também é possível passar o parâmetro da forma disabled={true} ou disabled={false}.',
+    notes: `O "disabled" permite desabilitar o campo. Também é possível passar o parâmetro da forma disabled={true} ou disabled={false}.
+            O "disabled" desabilita o campo e não permite o submit do mesmo.`,
+  })
+
+  .add('readOnly', () => (
+    <Input
+      label={<Label>Campo readOnly</Label>}
+      placeholder="Placeholder"
+      readOnly
+    />
+  ), {
+    notes: `O "readOnly" permite desabilitar o campo. Também é possível passar o parâmetro da forma readOnly={true} ou readOnly={false}.
+            O "readOnly" desabilita a alteração do campo, mas permite o submit do mesmo.`,
   })
 
   .add('blockInput', () => (
