@@ -12,6 +12,7 @@ import {
 /**
  * [TextArea, UIE011] Área de texto
  * @param   {?string} props.id          Id do campo. Se não for passado, recebe uma hash aleatória.
+ * @param   {?string} props.name        Nome do campo, utilizado para submit ou libs como o Formik
  * @param   {?string} props.state       Estado(cor) [success, warning, error], nulo para degault.
  * @param   {?string} props.size        Tamanho(altura) [large, small], nulo para default.
  * @param   {?string} props.className   Class html opcional no componente
@@ -30,6 +31,7 @@ class TextAreaComponent extends React.PureComponent {
   render() {
     const {
       id,
+      name,
       state,
       size,
       className,
@@ -67,6 +69,7 @@ class TextAreaComponent extends React.PureComponent {
             disabled={disabled}
             onChange={onChange}
             componentClass="textarea"
+            name={name}
             inputRef={_ref}
           />
           {/* Feddback se Addon se sobrepõem. Feedback só apresenta quando não houver Addon */}
@@ -83,6 +86,7 @@ class TextAreaComponent extends React.PureComponent {
 /** @type {Object} Valores padrões das props, caso os itens não recebam um valor */
 TextAreaComponent.defaultProps = {
   id: null,
+  name: null,
   state: null,
   size: null,
   className: '',
@@ -102,6 +106,7 @@ TextAreaComponent.defaultProps = {
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 TextAreaComponent.propTypes = {
   id: PropTypes.string,
+  name: PropTypes.string,
   state: PropTypes.oneOf(['success', 'warning', 'error']),
   size: PropTypes.oneOf(['large', 'small']),
   className: PropTypes.string,
